@@ -1,0 +1,6 @@
+<p-menu appendTo="body" #menu [model]="items()" [popup]="true" />
+<p-button
+  [outlined]="true"
+  (click)="menu.toggle($event)"
+  icon="pi pi-ellipsis-v"
+/>

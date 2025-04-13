@@ -1,0 +1,120 @@
+<div class="layout-header">
+  <div class="flex gap-4 justify-content-between">
+    @if (isLgScreen()) {
+      <div class="flex flex-1 align-items-center gap-1">
+        <div class="flex-1">
+          <ng-container *ngTemplateOutlet="search"></ng-container>
+        </div>
+      </div>
+    }
+    @if (!isLgScreen() && !displaySearchOnMobile()) {
+      <div class="flex">
+        <button
+          pButton
+          (click)="visible.set(true)"
+          icon="pi pi-align-justify"
+          class="bg-primary-900 p-button-rounded shadow-none"
+        ></button>
+      </div>
+    }
+    <div>
+      <div class="flex align-items-center gap-3">
+        @if (isLgScreen()) {
+          <p-button
+            label="Create"
+            class="custom-button-menu"
+            (onClick)="menu.toggle($event)"
+            icon="pi pi-angle-down"
+          />
+          <p-menu
+            #menu
+            [popup]="true"
+            appendTo="body"
+            [model]="createItems()"
+          />
+        }
+
+        @if (!displaySearchOnMobile()) {
+          <!-- <app-notification />
+          <button
+            pButton
+            class="border-circle question-btn bg-gray-500 text-white border-none"
+            icon="fa-solid fa-question"
+            pTooltip="Help"
+            tooltipPosition="bottom"
+            (click)="faqDrawer()"
+          ></button> -->
+
+          <div class="bg-gray-200" style="height: 100%; width: 2px"></div>
+
+          @if (isLgScreen()) {
+            <div class="flex flex-column">
+              <span class="text-sm capitalize">
+                {{ "welcome" | translate }}</span
+              >
+              <h5 class="capitalize font-bold text-base">
+                {{ currentUser()?.full_name }}
+              </h5>
+            </div>
+          }
+          <p-splitbutton
+            styleClass="custom-split-style-button-avatar"
+            label="Save"
+            appendTo="body"
+            [model]="userItems()"
+          >
+            <ng-template #content>
+              <a class="flex align-items-center font-bold">
+                <img
+                  class="border-circle object-cover h-2.5rem w-2.5rem"
+                  alt="avatar"
+                  [src]="
+                    currentUser()?.avatar || 'assets/media/icon/avatar.jpg'
+                  "
+                />
+              </a>
+            </ng-template>
+          </p-splitbutton>
+
+          @if (!isLgScreen()) {
+            <p-button
+              styleClass="bg-primary-900"
+              (onClick)="menu.toggle($event)"
+              icon="pi pi-ellipsis-v"
+            />
+            <p-menu
+              appendTo="body"
+              #menu
+              [model]="createItems()"
+              [popup]="true"
+            />
+          }
+          @if (!isLgScreen()) {
+            <button
+              pButton
+              icon="pi pi-search"
+              pTooltip="Open Search"
+              tooltipPosition="bottom"
+              class="border-circle w-2rem h-2rem bg-gray-500 text-white border-none"
+              (click)="displaySearchOnMobile.set(true)"
+            ></button>
+          }
+        } @else {
+          <ng-container *ngTemplateOutlet="search"></ng-container>
+          <button
+            pButton
+            class="border-circle question-btn bg-gray-500 text-white border-none"
+            pTooltip="Close Search"
+            tooltipPosition="bottom"
+            icon="fa-solid fa-xmark"
+            (click)="displaySearchOnMobile.set(false)"
+          ></button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #search>
+  <app-global-search />
+</ng-template>

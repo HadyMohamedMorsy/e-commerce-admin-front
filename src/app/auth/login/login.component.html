@@ -1,0 +1,44 @@
+<div class="flex flex-column justify-content-between h-screen p-3">
+  <div class="lg:w-30rem sm:w-25rem w-full mx-auto flex-1">
+    <div class="flex flex-column justify-content-center h-full">
+      <div class="mb-6">
+        @if (!isLgScreen()) {
+          <img
+            class="w-12rem mb-3"
+            src="assets/media/logo/8x-mobile.png"
+            alt="8x-mobile"
+          />
+        }
+        <h2 class="text-4xl font-bold">
+          {{ "Welcome back !" | translate }}
+        </h2>
+        <p class="font-bold">
+          {{ "Please enter your credentials to sign in !" | translate }}
+        </p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div>
+          <formly-form [model]="model" [fields]="fields" [form]="loginForm" />
+          <div class="mb-1">
+            <a routerLink="/auth/forget-password" class="underline font-bold">
+              {{ "Forget Password" | translate }}
+            </a>
+          </div>
+        </div>
+
+        <button
+          pButton
+          pRipple
+          class="p-button-sm p-button-success"
+          type="submit"
+          class="text-base w-full border-none shadow-none bg-primary-900 py-3 border-round-lg mt-6 text-white"
+          [loading]="loading()"
+          [label]="'Sign In' | translate"
+        ></button>
+      </form>
+    </div>
+  </div>
+
+  <app-footer className="text-center" />
+</div>

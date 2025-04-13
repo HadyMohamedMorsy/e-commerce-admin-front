@@ -1,0 +1,126 @@
+<p-drawer
+  [(visible)]="visible"
+  [closable]="closable()"
+  [closeOnEscape]="false"
+  [modal]="model()"
+  [styleClass]="isLoggedIn() ? 'sidebar' : 'sidebar logged-out'"
+>
+  <ng-template #header>
+    @if (isLoggedIn()) {
+      <img
+        class="w-10rem slide-in-left"
+        src="assets/media/logo/8x-bussness.png"
+        alt=""
+      />
+    }
+  </ng-template>
+  <ng-template #content>
+    @if (!isLoggedIn()) {
+      <img
+        [style.visibility]="isLoggedIn() ? 'hidden' : 'visible'"
+        class="w-20rem slide-in-left-to-right"
+        src="assets/media/logo/8x-bussness.png"
+        alt=""
+      />
+    }
+
+    @if (isLoggedIn()) {
+      @if (!openSetting()) {
+        <ng-container
+          [ngTemplateOutlet]="list"
+          [ngTemplateOutletContext]="{
+            lists: lists()
+          }"
+        ></ng-container>
+      } @else {
+        <ng-container
+          [ngTemplateOutlet]="list"
+          [ngTemplateOutletContext]="{
+            lists: settingSections()
+          }"
+        ></ng-container>
+      }
+    }
+  </ng-template>
+
+  <ng-template #list let-lists="lists">
+    <p-accordion [value]="[0]" [multiple]="true">
+      @for (list of lists; track $index) {
+        <p-accordion-panel [value]="$index">
+            <p-accordion-header>
+              <span
+                class="slide-in-left-to-right"
+                [ngStyle]="{
+                  'animation-delay': $index > 0 ? $index * 0.2 + 's' : '0s',
+                  opacity: '0'
+                }"
+              >
+                {{ list.title }}
+              </span>
+            </p-accordion-header>
+            <p-accordion-content>
+              <ul class="flex flex-column gap-3 p-0">
+                @for (item of list.items; track $index) {
+                  @if(item.visible){
+                    <li
+                      class="slide-in-left-to-right"
+                      [ngStyle]="{
+                        'animation-delay': $index > 0 ? $index * 0.2 + 's' : '0s',
+                        opacity: '0'
+                      }"
+                    >
+                      @if (item.routerlink) {
+                        <a
+                          class="flex align-items-center gap-3 p-1"
+                          [routerLink]="'/' + item.routerlink"
+                          routerLinkActive="active-link-sidebar"
+                          [routerLinkActiveOptions]="{ exact: true }"
+                        >
+                          <div
+                            class="flex-shrink-0 w-2.5rem h-2.5rem border-round flex align-items-center justify-content-center text-white"
+                            [style.background-color]="'' | randomColor"
+                          >
+                            {{ item.name | initials }}
+                          </div>
+                          <div class="info flex flex-column">
+                            <h5
+                              class="capitalize text-base text-white font-medium"
+                            >
+                              {{ item.name }}
+                            </h5>
+                            <span class="capitalize text-sm text-400">
+                              {{ item.details }}
+                            </span>
+                          </div>
+                        </a>
+                      }
+                    </li>
+                  }
+                }
+              </ul>
+            </p-accordion-content>
+          
+        </p-accordion-panel>
+      }
+    </p-accordion>
+  </ng-template>
+
+  @if (isLoggedIn()) {
+    <ng-template #footer>
+      <div class="flex justify-content-end">
+        <button
+          pButton
+          [icon]="!openSetting() ? 'pi pi-cog' : 'pi pi-list'"
+          [rounded]="true"
+          [outlined]="true"
+          [text]="true"
+          (click)="openSetting.set(!openSetting())"
+          [pTooltip]="
+            !openSetting() ? ('Settings' | translate) : ('list' | translate)
+          "
+          class="bg-primary-900 text-white"
+        ></button>
+      </div>
+    </ng-template>
+  }
+</p-drawer>
