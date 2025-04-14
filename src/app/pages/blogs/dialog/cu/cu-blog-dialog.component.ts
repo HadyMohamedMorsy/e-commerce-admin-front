@@ -1,59 +1,56 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { AddressesFieldsService } from '@pages/users/services/addresses-fields.service';
-import { UserFieldsService } from '@pages/users/services/users-fields.service';
+import { BlogsFieldsService } from '@pages/blogs/services/blogs-fields.service';
 import { AuthService, BaseCreateUpdateComponent, User } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
-import { AddressModel } from '../../services/services-type';
+import { BlogModel } from '../../services/services-type';
 
 @Component({
-  selector: 'app-cu-address-dialog',
+  selector: 'app-cu-blog-dialog',
+  standalone: true,
   imports: [FormDialogComponent],
-  providers: [AddressesFieldsService],
+  providers: [BlogsFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CuAddressDialogComponent extends BaseCreateUpdateComponent<AddressModel> {
+export class CuBlogDialogComponent extends BaseCreateUpdateComponent<BlogModel> {
   #globalList = inject(GlobalListService);
   #auth = inject(AuthService);
-  fieldsService = inject(AddressesFieldsService);
-  #list$ = this.#globalList.getGlobalList('addresses');
+  fieldsService = inject(BlogsFieldsService);
+  #list$ = this.#globalList.getGlobalList('blogs');
 
-  ngOnInit() {
+   ngOnInit() {
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'auth/users/address',
-        update: 'auth/users/address/update',
+        store: 'content/blogs',
+        update: 'content/blogs/update',
       },
     };
 
     if (this.editData) {
       this.dialogMeta = {
         ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Address')),
-        submitButtonLabel: this.translate.instant(_('Update Address')),
+        dialogTitle: this.translate.instant(_('Update Blog')),
+        submitButtonLabel: this.translate.instant(_('Update Blog')),
       };
-      this.model = new AddressModel(this.editData);
+      this.model = new BlogModel(this.editData);
     } else {
       this.dialogMeta = {
         ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Address')),
-        submitButtonLabel: this.translate.instant(_('Create New Address')),
+        dialogTitle: this.translate.instant(_('Create New Blog')),
+        submitButtonLabel: this.translate.instant(_('Create New Blog')),
       };
-      this.model = new AddressModel();
+      this.model = new BlogModel();
     }
+
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 
-  override updateUi(model: AddressModel) {
-    const isCurrentUser = this.#auth.currentUser()?.id === model.id;
-    if (isCurrentUser) {
-      const updateModel = { ...this.#auth.currentUser(), ...model } as User;
-      this.#auth.setCurrentUser(updateModel);
-    }
+  override updateUi(model: BlogModel) {
+    // Optional: update UI state if needed
   }
 }

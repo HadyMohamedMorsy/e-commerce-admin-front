@@ -12,47 +12,49 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
-import { ViewAddressComponent } from '../dialog/view/view-address/view-address.component';
-import { FiltersAddressesComponent } from '../filters-users/filters-addresses.component';
-import { Address } from '../services/services-type';
+import { CuBlogDialogComponent } from '../dialog/cu/cu-blog-dialog.component';
+import { ViewBlogComponent } from '../dialog/view/view-blog/view-blog.component';
+import { FiltersBlogsComponent } from '../filters-users/filters-blogs.component';
+import { Blog } from '../services/services-type';
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-addresses',
+  selector: 'app-blogs',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersAddressesComponent,
+    FiltersBlogsComponent,
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewAddressComponent,
+    ViewBlogComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './address.component.html',
+  templateUrl: './blogs.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AddressesComponent extends BaseIndexComponent<Address> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
+export default class BlogsComponent extends BaseIndexComponent<Blog> {
+  title = viewChild.required<TemplateRef<any>>('title');
 
   ngOnInit() {
-    this.dialogComponent = CuAddressDialogComponent;
+    this.dialogComponent = CuBlogDialogComponent;
+
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'content/blogs',
+        delete: 'content/blogs/delete',
       },
-      navigateCreatePage: 'new-address',
+      navigateCreatePage: 'new-blog',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Addresses')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Address')),
-      indexTableKey: 'ADDRESSES_KEY',
+      indexTitle: this.#translate(_('Blogs')),
+      indexIcon: 'pi pi-book',
+      createBtnLabel: this.#translate(_('Create Blog')),
+      indexTableKey: 'BLOGS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -61,30 +63,30 @@ export default class AddressesComponent extends BaseIndexComponent<Address> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
+          title: this.#translate(_('Title')),
+          name: `title`,
           searchable: true,
-          orderable: false,
-          render: this.fullName(),
+          orderable: true,
+          render: this.title(),
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('Author')),
+          name: `author_name`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('created at')),
-          name: 'created_at',
+          title: this.#translate(_('Published At')),
+          name: 'published_at',
           searchable: false,
-          orderable: false,
+          orderable: true,
         },
       ],
     };
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'address',
+      type: 'blog',
     }));
 
     this.initRolesUser();

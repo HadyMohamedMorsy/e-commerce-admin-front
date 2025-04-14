@@ -5,53 +5,53 @@ import {
   input,
   model,
 } from '@angular/core';
-import { AddressList } from '@pages/users/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
+import { Blog } from '../../services/services-type'; // Adjust the import path as needed
 
 @Component({
-  selector: 'app-view-address',
+  selector: 'app-view-blog',
+  standalone: true,
   imports: [ViewDialogComponent],
-  templateUrl: './view-address.component.html',
+  templateUrl: './view-blog.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewAddressComponent {
+export class ViewBlogComponent {
   isShowDialog = model(false);
-  address = input.required<AddressList>();
+  blog = input.required<Blog>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.address()?.id,
+        value: this.blog()?.id,
       },
       {
-        label: 'Street',
-        value: this.address()?.street,
+        label: 'Title',
+        value: this.blog()?.title,
       },
       {
-        label: 'City',
-        value: this.address()?.city,
+        label: 'Slug',
+        value: this.blog()?.slug,
       },
       {
-        label: 'State/Province',
-        value: this.address()?.state,
-        hasToolTip: true,
+        label: 'Author',
+        value: this.blog()?.author,
       },
       {
-        label: 'Postal Code',
-        value: this.address()?.postal_code,
+        label: 'Summary',
+        value: this.blog()?.summary,
       },
       {
-        label: 'Country',
-        value: this.address()?.country,
+        label: 'Published At',
+        value: this.blog()?.published_at,
       },
       {
-        label: 'Phone Number',
-        value: this.address()?.phone,
+        label: 'Status',
+        value: this.blog()?.status,
       },
       {
         label: 'Created At',
-        value: this.address()?.created_at,
+        value: this.blog()?.created_at,
       },
     ];
   });

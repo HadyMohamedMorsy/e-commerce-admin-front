@@ -1,43 +1,45 @@
 import { Routes } from '@angular/router';
 
-export const addressRoutes: Routes = [
+export const blogRoutes: Routes = [
   {
-    path: 'address',
-    loadComponent: () => import('./address/address.component'),
-    title: 'address',
+    path: 'blog',
+    loadComponent: () => import('./blog/blog.component'),
+    title: 'Blog',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     store: ['8x-owner', '8x-sales-team-leader'],
-    //     show: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     update: ['8x-owner'],
+    //     index: ['8x-owner', '8x-marketing', '8x-editor'],
+    //     store: ['8x-owner', '8x-editor'],
+    //     show: ['8x-owner', '8x-marketing', '8x-editor'],
+    //     update: ['8x-owner', '8x-editor'],
     //     delete: ['8x-owner'],
     //     redirectTo: '403',
     //   },
     // },
   },
   {
-    path: 'new-address',
+    path: 'new-blog',
     loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
-    title: 'new address',
+      import('./create-update-blog/create-update-blog.component'),
+    title: 'Create New Blog',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader'],
+    //     store: ['8x-owner', '8x-editor'],
     //   },
     // },
   },
   {
-    path: 'update-address',
+    path: 'update-blog',
     loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
-    title: 'Update address',
+      import('./create-update-blog/create-update-blog.component').then(
+        (m) => m.default,
+      ),
+    title: 'Update Blog',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner'],
+    //     update: ['8x-owner', '8x-editor'],
     //   },
     // },
   },
