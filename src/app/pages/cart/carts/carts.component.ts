@@ -12,61 +12,47 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
-import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
-import { FiltersCustomersComponent } from '../filters-users/filters-customers.component';
-import { Customer } from '../services/services-type';
+import { CuCartDialogComponent } from '../dialog/cu/cu-cart-dialog.component';
+import { ViewCartComponent } from '../dialog/view/view-cart/view-cart.component';
+import { FiltersCartsComponent } from '../filters-users/filters-carts.component';
+import { Cart } from '../services/services-type';
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-customers',
+  selector: 'app-carts',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCustomersComponent,
+    FiltersCartsComponent,
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewCustomerComponent,
+    ViewCartComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './customers.component.html',
+  templateUrl: './carts.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CustomersComponent extends BaseIndexComponent<Customer> {
-  owner = viewChild.required<TemplateRef<any>>('owner');
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
-
-  hasAnyRoleListSubscriptionUser() {
-    return this.userRoles.hasAnyRole([
-      '8x-owner',
-      '8x-admin-assistant',
-      '8x-cs-manager',
-      '8x-cs-team-leader',
-      '8x-customer-success',
-      '8x-renewals-manager',
-      'customer-owner',
-      'customer-delegated-person',
-    ]);
-  }
+export default class CartsComponent extends BaseIndexComponent<Cart> {
+  productName = viewChild.required<TemplateRef<any>>('productName');
 
   ngOnInit() {
-    this.dialogComponent = CuCustomerDialogComponent;
+    this.dialogComponent = CuCartDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'commerce/carts',
+        delete: 'commerce/carts/delete',
       },
-      navigateCreatePage: 'new-customer',
+      navigateCreatePage: 'new-cart',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Customers')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Customers')),
-      indexTableKey: 'CUSTOMERS_KEY',
+      indexTitle: this.#translate(_('Shopping Carts')),
+      indexIcon: 'pi pi-shopping-cart',
+      createBtnLabel: this.#translate(_('Create Cart')),
+      indexTableKey: 'CARTS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -75,24 +61,23 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
+          title: this.#translate(_('Product Name')),
+          name: `product_name`,
           searchable: true,
           orderable: false,
-          render: this.fullName(),
+          render: this.productName(),
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('Quantity')),
+          name: `quantity`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Is Owner')),
-          name: `is_owner`,
+          title: this.#translate(_('Price')),
+          name: 'price',
           searchable: false,
           orderable: false,
-          render: this.owner(),
         },
         {
           title: this.#translate(_('created at')),
@@ -105,7 +90,7 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'customer',
+      type: 'cart',
     }));
 
     this.initRolesUser();

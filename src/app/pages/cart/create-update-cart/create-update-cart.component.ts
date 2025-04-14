@@ -3,35 +3,37 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { CategoriesFieldsService } from '../services/categories-fields.service';
-import { CategoryModel } from '../services/services-type';
+import { AddressesFieldsService } from '../services/addresses-fields.service';
+import { AddressModel } from '../services/services-type';
 
 @Component({
-  selector: 'app-create-update-category',
+  selector: 'app-create-update-address',
   imports: [AsyncPipe, FormComponent, SpinnerComponent],
   templateUrl: '../../../shared/components/form-page/form-page.component.html',
-  providers: [CategoriesFieldsService],
+  providers: [AddressesFieldsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CreateUpdateCategoryComponent extends FormPageComponent {
-  fieldsService = inject(CategoriesFieldsService);
+export default class CreateUpdateAddressComponent extends FormPageComponent {
+  fieldsService = inject(AddressesFieldsService);
 
   override ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
     this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
-    this.navigateAfterSubmit.set('categories');
+    this.navigateAfterSubmit.set('addresses'); // Still relevant
   }
 
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
-      ? new CategoryModel(this.filterDataForUpdate(new CategoryModel()))
-      : new CategoryModel();
+      ? new AddressModel(this.filterDataForUpdate(new AddressModel()))
+      : new AddressModel();
 
-    this.formTitle.set(isUpdate ? 'Update Category' : 'Create New Category');
+    this.formTitle.set(isUpdate ? 'Update Address' : 'Create New Address');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
+
+    // 🔄 Updated to match addresses instead of users
     this.endpoint.set(
-      isUpdate ? 'auth/categories/update' : 'auth/categories/create',
+      isUpdate ? 'auth/addresses/update' : 'auth/addresses/create',
     );
   }
 }

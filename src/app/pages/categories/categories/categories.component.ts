@@ -12,61 +12,49 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
-import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
-import { FiltersCustomersComponent } from '../filters-users/filters-customers.component';
-import { Customer } from '../services/services-type';
+
+import { CuCategoryDialogComponent } from '../dialog/cu/cu-category-dialog.component';
+import { ViewCategoryComponent } from '../dialog/view/view-category/view-category.component';
+import { FiltersCategoriesComponent } from '../filters-categories/filters-categories.component';
+import { Category } from '../services/services-type';
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-customers',
+  selector: 'app-categories',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCustomersComponent,
+    FiltersCategoriesComponent,
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewCustomerComponent,
+    ViewCategoryComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './customers.component.html',
+  templateUrl: './categories.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CustomersComponent extends BaseIndexComponent<Customer> {
-  owner = viewChild.required<TemplateRef<any>>('owner');
+export default class CategoriesComponent extends BaseIndexComponent<Category> {
   fullName = viewChild.required<TemplateRef<any>>('fullName');
 
-  hasAnyRoleListSubscriptionUser() {
-    return this.userRoles.hasAnyRole([
-      '8x-owner',
-      '8x-admin-assistant',
-      '8x-cs-manager',
-      '8x-cs-team-leader',
-      '8x-customer-success',
-      '8x-renewals-manager',
-      'customer-owner',
-      'customer-delegated-person',
-    ]);
-  }
 
-  ngOnInit() {
-    this.dialogComponent = CuCustomerDialogComponent;
+   ngOnInit() {
+    this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'auth/categories',
+        delete: 'auth/categories/delete',
       },
-      navigateCreatePage: 'new-customer',
+      navigateCreatePage: 'new-category',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Customers')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Customers')),
-      indexTableKey: 'CUSTOMERS_KEY',
+      indexTitle: this.#translate(_('Categories')),
+      indexIcon: 'pi pi-tags',
+      createBtnLabel: this.#translate(_('Create Category')),
+      indexTableKey: 'CATEGORIES_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -75,27 +63,26 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
+          title: this.#translate(_('Category Name')),
+          name: `name`,
           searchable: true,
           orderable: false,
           render: this.fullName(),
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('Description')),
+          name: `description`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Is Owner')),
-          name: `is_owner`,
+          title: this.#translate(_('Is Active')),
+          name: `is_active`,
           searchable: false,
           orderable: false,
-          render: this.owner(),
         },
         {
-          title: this.#translate(_('created at')),
+          title: this.#translate(_('Created At')),
           name: 'created_at',
           searchable: false,
           orderable: false,
@@ -105,7 +92,7 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'customer',
+      type: 'category',
     }));
 
     this.initRolesUser();

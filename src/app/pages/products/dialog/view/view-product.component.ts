@@ -5,58 +5,49 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
+import { ProductList } from '@pages/products/services/services-type'; // Change to ProductList
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-user',
+  selector: 'app-view-product',
   imports: [ViewDialogComponent],
-  templateUrl: './view-user.component.html',
+  templateUrl: './view-product.component.html', // Update to correct template path
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewUserComponent {
+export class ViewProductComponent {
   isShowDialog = model(false);
-  user = input.required<UserList>();
+  product = input.required<ProductList>(); // Change to ProductList
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.user()?.id,
+        value: this.product()?.id,
       },
       {
-        label: 'first Name',
-        value: this.user()?.first_name,
+        label: 'Product Name',
+        value: this.product()?.product_name, // Change to product_name
       },
       {
-        label: 'last Name',
-        value: this.user()?.last_name,
+        label: 'Category',
+        value: this.product()?.category, // Change to category
       },
       {
-        label: 'Full Name',
-        value: this.user()?.full_name,
+        label: 'Price',
+        value: this.product()?.price, // Change to price
+      },
+      {
+        label: 'Stock Quantity',
+        value: this.product()?.stock_quantity, // Change to stock_quantity
+      },
+      {
+        label: 'Description',
+        value: this.product()?.description, // Change to description
         hasToolTip: true,
       },
       {
-        label: 'Role',
-        value: this.user()?.role?.name_en,
-      },
-      {
-        label: 'email',
-        value: this.user()?.email,
-        hasToolTip: true,
-      },
-      {
-        label: 'phone',
-        value: this.user()?.phone,
-      },
-      {
-        label: 'timezone',
-        value: this.user()?.timezone,
-      },
-      {
-        label: 'created at',
-        value: this.user()?.created_at,
+        label: 'Created At',
+        value: this.product()?.created_at, // Change to created_at
       },
     ];
   });

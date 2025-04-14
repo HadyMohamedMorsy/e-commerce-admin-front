@@ -7,59 +7,55 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-users-filters',
+  selector: 'app-categories-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersUsersComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('users');
+export class FiltersCategoriesComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('categories');
 
-  ngOnInit() {
+  override ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'timezone',
+            key: 'type',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Timezone'),
+              label: _('Category Type'),
               options: this.pageList$.pipe(
-                map(({ timezones }) => [
-                  { label: 'All', value: '' },
-                  ...timezones,
-                ]),
+                map(({ types }) => [{ label: 'All', value: '' }, ...types]),
               ),
             },
           },
           {
-            key: 'role_id',
+            key: 'is_active',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Role'),
-              options: this.pageList$.pipe(
-                map(({ roles }) => [{ label: 'All', value: '' }, ...roles]),
-              ),
+              label: _('Status'),
+              options: [
+                { label: 'All', value: '' },
+                { label: 'Active', value: true },
+                { label: 'Inactive', value: false },
+              ],
             },
           },
           {
-            key: 'identifier_type',
+            key: 'parent_id',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('identifier type'),
+              label: _('Parent Category'),
               options: this.pageList$.pipe(
-                map(({ identifier_types }) => [
-                  { label: 'All', value: '' },
-                  ...identifier_types,
-                ]),
+                map(({ parents }) => [{ label: 'All', value: '' }, ...parents]),
               ),
             },
           },

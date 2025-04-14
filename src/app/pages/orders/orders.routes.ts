@@ -1,45 +1,45 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const customersRoutes: Routes = [
+export const OrdersRoutes: Routes = [
   {
-    path: 'customers',
-    loadComponent: () => import('./customers/customers.component'),
+    path: 'orders',
+    loadComponent: () => import('./orders/orders.component'),
     title: 'customers',
-    canActivate: [RoleGuard],
-    data: {
-      roles: {
-        index: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-        store: ['8x-owner', '8x-sales-team-leader'],
-        show: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-        update: ['8x-owner'],
-        delete: ['8x-owner'],
-        redirectTo: '403',
-      },
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   roles: {
+    //     index: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
+    //     store: ['8x-owner', '8x-sales-team-leader'],
+    //     show: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
+    //     update: ['8x-owner'],
+    //     delete: ['8x-owner'],
+    //     redirectTo: '403',
+    //   },
+    // },
   },
   {
-    path: 'new-customer',
+    path: 'new-order',
     loadComponent: () =>
-      import('./create-update-customer/create-update-customer.component'),
+      import('./create-update-orders/create-update-orders.component'),
     title: 'new customer',
-    canActivate: [RoleGuard],
-    data: {
-      roles: {
-        index: ['8x-owner', '8x-sales-team-leader'],
-      },
-    },
+    // canActivate: [RoleGuard],
+    // data: {
+    //   roles: {
+    //     index: ['8x-owner', '8x-sales-team-leader'],
+    //   },
+    // },
   },
   {
-    path: 'update-customer',
+    path: 'update-order',
     loadComponent: () =>
-      import('./create-update-customer/create-update-customer.component'),
-    title: 'Update customer',
-    canActivate: [RoleGuard],
-    data: {
-      roles: {
-        index: ['8x-owner'],
-      },
-    },
+      import('./create-update-orders/create-update-orders.component'),
+    title: 'Update order',
+    // canActivate: [RoleGuard],
+    // data: {
+    //   roles: {
+    //     index: ['8x-owner'],
+    //   },
+    // },
   },
 ];

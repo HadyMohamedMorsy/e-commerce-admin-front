@@ -5,58 +5,42 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
+import { Category } from '../../services/services-type'; // adjust path if needed
 
 @Component({
-  selector: 'app-view-user',
+  selector: 'app-view-category',
   imports: [ViewDialogComponent],
-  templateUrl: './view-user.component.html',
+  templateUrl: './view-category.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewUserComponent {
+export class ViewCategoryComponent {
   isShowDialog = model(false);
-  user = input.required<UserList>();
+  category = input.required<Category>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.user()?.id,
+        value: this.category()?.id,
       },
       {
-        label: 'first Name',
-        value: this.user()?.first_name,
-      },
-      {
-        label: 'last Name',
-        value: this.user()?.last_name,
-      },
-      {
-        label: 'Full Name',
-        value: this.user()?.full_name,
+        label: 'Name',
+        value: this.category()?.name,
         hasToolTip: true,
       },
       {
-        label: 'Role',
-        value: this.user()?.role?.name_en,
-      },
-      {
-        label: 'email',
-        value: this.user()?.email,
+        label: 'Description',
+        value: this.category()?.description,
         hasToolTip: true,
       },
       {
-        label: 'phone',
-        value: this.user()?.phone,
+        label: 'Is Active',
+        value: this.category()?.is_active ? 'Yes' : 'No',
       },
       {
-        label: 'timezone',
-        value: this.user()?.timezone,
-      },
-      {
-        label: 'created at',
-        value: this.user()?.created_at,
+        label: 'Created At',
+        value: this.category()?.created_at,
       },
     ];
   });

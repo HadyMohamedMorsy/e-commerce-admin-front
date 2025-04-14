@@ -7,60 +7,56 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-users-filters',
+  selector: 'app-orders-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersUsersComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('users');
+export class FiltersOrdersComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('orders'); // Replace 'users' with 'orders'
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'timezone',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
+            key: 'order_number',
+            type: 'input-field',
+            className: 'md:col-3 col-12',
             props: {
-              isNotPField: true,
-              label: _('Timezone'),
+              label: _('Order Number'),
+            },
+          },
+          {
+            key: 'customer_name',
+            type: 'input-field',
+            className: 'md:col-3 col-12',
+            props: {
+              label: _('Customer Name'),
+            },
+          },
+          {
+            key: 'status',
+            type: 'select-field',
+            className: 'md:col-3 col-12',
+            props: {
+              label: _('Order Status'),
               options: this.pageList$.pipe(
-                map(({ timezones }) => [
+                map(({ statuses }) => [
                   { label: 'All', value: '' },
-                  ...timezones,
+                  ...statuses, // Assuming statuses come from the API response
                 ]),
               ),
             },
           },
           {
-            key: 'role_id',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
+            key: 'order_date',
+            type: 'date-field',
+            className: 'md:col-3 col-12',
             props: {
-              isNotPField: true,
-              label: _('Role'),
-              options: this.pageList$.pipe(
-                map(({ roles }) => [{ label: 'All', value: '' }, ...roles]),
-              ),
-            },
-          },
-          {
-            key: 'identifier_type',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('identifier type'),
-              options: this.pageList$.pipe(
-                map(({ identifier_types }) => [
-                  { label: 'All', value: '' },
-                  ...identifier_types,
-                ]),
-              ),
+              label: _('Order Date'),
             },
           },
           {

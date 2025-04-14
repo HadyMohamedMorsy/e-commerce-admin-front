@@ -12,90 +12,70 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
-import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
-import { FiltersCustomersComponent } from '../filters-users/filters-customers.component';
-import { Customer } from '../services/services-type';
+import { CuProductDialogComponent } from '../dialog/cu/cu-product-dialog.component'; // Updated dialog component for products
+import { ViewProductComponent } from '../dialog/view/view-product/view-product.component'; // Updated view component for products
+import { FiltersProductsComponent } from '../filters-products/filters-products.component'; // Updated filter component for products
+import { Product } from '../services/services-type'; // Assuming you have a Product type in services-type
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-customers',
+  selector: 'app-products', // Updated selector for products
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCustomersComponent,
+    FiltersProductsComponent, // Updated filter component
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewCustomerComponent,
+    ViewProductComponent, // Updated view component for products
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './customers.component.html',
+  templateUrl: './product.component.html', // Updated template path if needed
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CustomersComponent extends BaseIndexComponent<Customer> {
-  owner = viewChild.required<TemplateRef<any>>('owner');
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
-
-  hasAnyRoleListSubscriptionUser() {
-    return this.userRoles.hasAnyRole([
-      '8x-owner',
-      '8x-admin-assistant',
-      '8x-cs-manager',
-      '8x-cs-team-leader',
-      '8x-customer-success',
-      '8x-renewals-manager',
-      'customer-owner',
-      'customer-delegated-person',
-    ]);
-  }
+export default class ProductsComponent extends BaseIndexComponent<Product> {
+  // Changed to Product type
+  fullName = viewChild.required<TemplateRef<any>>('fullName'); // If applicable for products, otherwise change to relevant field
 
   ngOnInit() {
-    this.dialogComponent = CuCustomerDialogComponent;
+    this.dialogComponent = CuProductDialogComponent; // Updated dialog component
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'auth/products', // Updated endpoint for products
+        delete: 'auth/products/delete', // Updated delete endpoint for products
       },
-      navigateCreatePage: 'new-customer',
+      navigateCreatePage: 'new-product', // Updated route for creating a product
       displayViewButton: true,
-      indexTitle: this.#translate(_('Customers')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Customers')),
-      indexTableKey: 'CUSTOMERS_KEY',
+      indexTitle: this.#translate(_('Products')), // Updated title
+      indexIcon: 'pi pi-box', // Icon for products (may need updating)
+      createBtnLabel: this.#translate(_('Create Product')), // Updated label for creating a product
+      indexTableKey: 'PRODUCTS_KEY', // Key for products
       columns: [
         {
-          title: this.#translate(_('#ID')),
+          title: this.#translate(_('#ID')), // Column for Product ID
           name: `id`,
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
+          title: this.#translate(_('Product Name')), // Column for Product Name
+          name: `name`, // Assuming you have a `name` field for products
           searchable: true,
           orderable: false,
-          render: this.fullName(),
+          render: this.fullName(), // Adjust if needed for product name
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('Price')), // Column for product price
+          name: `price`, // Assuming you have a `price` field for products
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Is Owner')),
-          name: `is_owner`,
-          searchable: false,
-          orderable: false,
-          render: this.owner(),
-        },
-        {
-          title: this.#translate(_('created at')),
+          title: this.#translate(_('Created At')), // Column for creation date
           name: 'created_at',
           searchable: false,
           orderable: false,
@@ -105,13 +85,13 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'customer',
+      type: 'product', // Updated filter type to 'product'
     }));
 
-    this.initRolesUser();
+    this.initProductCategories(); // Initialize any additional logic related to products
   }
 
   #translate(text: string) {
-    return this.translate.instant(text);
+    return this.translate.instant(text); // Translation method
   }
 }

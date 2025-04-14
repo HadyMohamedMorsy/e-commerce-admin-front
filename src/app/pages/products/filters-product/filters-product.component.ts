@@ -7,58 +7,61 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-users-filters',
+  selector: 'app-products-filters', // Updated selector for products
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
-    '../../../shared/components/filter-base/filter-base.component.html',
+    '../../../shared/components/filter-base/filter-base.component.html', // Reused template
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersUsersComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('users');
+export class FiltersProductsComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('products'); // Change to 'products'
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'timezone',
+            key: 'category', // Updated filter for product category
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Timezone'),
+              label: _('Category'), // Updated label
               options: this.pageList$.pipe(
-                map(({ timezones }) => [
+                map(({ categories }) => [
                   { label: 'All', value: '' },
-                  ...timezones,
+                  ...categories, // Assuming categories are provided
                 ]),
               ),
             },
           },
           {
-            key: 'role_id',
+            key: 'price_range', // Filter for price range
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Role'),
+              label: _('Price Range'),
               options: this.pageList$.pipe(
-                map(({ roles }) => [{ label: 'All', value: '' }, ...roles]),
+                map(({ price_ranges }) => [
+                  { label: 'All', value: '' },
+                  ...price_ranges, // Assuming price ranges are provided
+                ]),
               ),
             },
           },
           {
-            key: 'identifier_type',
+            key: 'availability', // Filter for availability status
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('identifier type'),
+              label: _('Availability'),
               options: this.pageList$.pipe(
-                map(({ identifier_types }) => [
+                map(({ availability_statuses }) => [
                   { label: 'All', value: '' },
-                  ...identifier_types,
+                  ...availability_statuses, // Assuming statuses are provided
                 ]),
               ),
             },

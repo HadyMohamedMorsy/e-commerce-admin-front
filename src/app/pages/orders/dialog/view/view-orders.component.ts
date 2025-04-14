@@ -5,58 +5,52 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
+import { OrderList } from '@pages/orders/services/services-type'; // Adjust the path and model
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-user',
+  selector: 'app-view-order',
   imports: [ViewDialogComponent],
-  templateUrl: './view-user.component.html',
+  templateUrl: './view-order.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewUserComponent {
-  isShowDialog = model(false);
-  user = input.required<UserList>();
+export class ViewOrderComponent {
+  isShowDialog = model(false); // Controls the visibility of the dialog
+  order = input.required<OrderList>(); // Input for order data, required type 'OrderList'
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
-        label: '#ID',
-        value: this.user()?.id,
+        label: '#Order Number',
+        value: this.order()?.order_number, // Order-specific field
       },
       {
-        label: 'first Name',
-        value: this.user()?.first_name,
+        label: 'Customer Name',
+        value: this.order()?.customer_name, // Replace with customer info
       },
       {
-        label: 'last Name',
-        value: this.user()?.last_name,
+        label: 'Order Date',
+        value: this.order()?.order_date, // Date when the order was placed
       },
       {
-        label: 'Full Name',
-        value: this.user()?.full_name,
-        hasToolTip: true,
+        label: 'Status',
+        value: this.order()?.status, // Order status (e.g., Pending, Shipped, etc.)
       },
       {
-        label: 'Role',
-        value: this.user()?.role?.name_en,
+        label: 'Total Amount',
+        value: this.order()?.total_amount, // Total order amount
       },
       {
-        label: 'email',
-        value: this.user()?.email,
-        hasToolTip: true,
+        label: 'Shipping Address',
+        value: this.order()?.shipping_address, // Shipping address details
       },
       {
-        label: 'phone',
-        value: this.user()?.phone,
+        label: 'Created At',
+        value: this.order()?.created_at, // When the order was created
       },
       {
-        label: 'timezone',
-        value: this.user()?.timezone,
-      },
-      {
-        label: 'created at',
-        value: this.user()?.created_at,
+        label: 'Updated At',
+        value: this.order()?.updated_at, // When the order was last updated
       },
     ];
   });

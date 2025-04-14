@@ -7,60 +7,66 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-users-filters',
+  selector: 'app-addresses-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersUsersComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('users');
+export class FiltersAddressesComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('addresses');
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'timezone',
+            key: 'country',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Timezone'),
+              label: _('Country'),
               options: this.pageList$.pipe(
-                map(({ timezones }) => [
+                map(({ countries }) => [
                   { label: 'All', value: '' },
-                  ...timezones,
+                  ...countries,
                 ]),
               ),
             },
           },
           {
-            key: 'role_id',
+            key: 'state',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Role'),
+              label: _('State/Province'),
               options: this.pageList$.pipe(
-                map(({ roles }) => [{ label: 'All', value: '' }, ...roles]),
+                map(({ states }) => [{ label: 'All', value: '' }, ...states]),
               ),
             },
           },
           {
-            key: 'identifier_type',
+            key: 'city',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('identifier type'),
+              label: _('City'),
               options: this.pageList$.pipe(
-                map(({ identifier_types }) => [
-                  { label: 'All', value: '' },
-                  ...identifier_types,
-                ]),
+                map(({ cities }) => [{ label: 'All', value: '' }, ...cities]),
               ),
+            },
+          },
+          {
+            key: 'postal_code',
+            type: 'input-field',
+            className: 'md:col-2 col-12',
+            props: {
+              isNotPField: true,
+              label: _('Postal Code'),
             },
           },
           {

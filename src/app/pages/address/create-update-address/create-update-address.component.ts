@@ -3,35 +3,35 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { CustomersFieldsService } from '../services/customers-fields.service';
-import { CustomerModel } from '../services/services-type';
+import { AddressesFieldsService } from '../services/addresses-fields.service';
+import { AddressModel } from '../services/services-type';
 
 @Component({
-  selector: 'app-create-update-customer',
+  selector: 'app-create-update-address',
   imports: [AsyncPipe, FormComponent, SpinnerComponent],
   templateUrl: '../../../shared/components/form-page/form-page.component.html',
-  providers: [CustomersFieldsService],
+  providers: [AddressesFieldsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CreateUpdateCustomerComponent extends FormPageComponent {
-  fieldsService = inject(CustomersFieldsService);
+export default class CreateUpdateAddressComponent extends FormPageComponent {
+  fieldsService = inject(AddressesFieldsService);
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
     this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
-    this.navigateAfterSubmit.set('customers');
+    this.navigateAfterSubmit.set('addresses');
   }
 
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
-      ? new CustomerModel(this.filterDataForUpdate(new CustomerModel()))
-      : new CustomerModel();
+      ? new AddressModel(this.filterDataForUpdate(new AddressModel()))
+      : new AddressModel();
 
-    this.formTitle.set(isUpdate ? 'Update Customer' : 'Create New Customer');
+    this.formTitle.set(isUpdate ? 'Update Address' : 'Create New Address');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
     this.endpoint.set(
-      isUpdate ? 'auth/users/user/update' : 'auth/users/new-customer',
+      isUpdate ? 'auth/users/user/update' : 'auth/users/new-address',
     );
   }
 }

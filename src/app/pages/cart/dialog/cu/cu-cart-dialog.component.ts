@@ -1,59 +1,50 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { CustomersFieldsService } from '@pages/users/services/customers-fields.service';
-import { UserFieldsService } from '@pages/users/services/users-fields.service';
-import { AuthService, BaseCreateUpdateComponent, User } from '@shared';
+import { CartFieldsService } from '@pages/commerce/services/cart-fields.service';
+import { AuthService, BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
-import { UserModel } from '../../services/services-type';
+import { CartModel } from '../../services/services-type';
 
 @Component({
-  selector: 'app-cu-customer-dialog',
+  selector: 'app-cu-cart-dialog',
   imports: [FormDialogComponent],
-  providers: [CustomersFieldsService],
+  providers: [CartFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CuUserDialogComponent extends BaseCreateUpdateComponent<UserModel> {
+export class CuCartDialogComponent extends BaseCreateUpdateComponent<CartModel> {
   #globalList = inject(GlobalListService);
   #auth = inject(AuthService);
-  fieldsService = inject(UserFieldsService);
-  #list$ = this.#globalList.getGlobalList('users');
+  fieldsService = inject(CartFieldsService);
+  #list$ = this.#globalList.getGlobalList('carts');
 
   ngOnInit() {
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'auth/users/user',
-        update: 'auth/users/user/update',
+        store: 'commerce/carts',
+        update: 'commerce/carts/update',
       },
     };
 
     if (this.editData) {
       this.dialogMeta = {
         ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update User')),
-        submitButtonLabel: this.translate.instant(_('Update User')),
+        dialogTitle: this.translate.instant(_('Update Cart')),
+        submitButtonLabel: this.translate.instant(_('Update Cart')),
       };
-      this.model = new UserModel(this.editData);
+      this.model = new CartModel(this.editData);
     } else {
       this.dialogMeta = {
         ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New User')),
-        submitButtonLabel: this.translate.instant(_('Create New User')),
+        dialogTitle: this.translate.instant(_('Create New Cart')),
+        submitButtonLabel: this.translate.instant(_('Create New Cart')),
       };
-      this.model = new UserModel();
+      this.model = new CartModel();
     }
     this.fields = this.fieldsService.configureFields(this.editData);
-  }
-
-  override updateUi(model: UserModel) {
-    const isCurrentUser = this.#auth.currentUser()?.id === model.id;
-    if (isCurrentUser) {
-      const updateModel = { ...this.#auth.currentUser(), ...model } as User;
-      this.#auth.setCurrentUser(updateModel);
-    }
   }
 }

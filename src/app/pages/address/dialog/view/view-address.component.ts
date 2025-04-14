@@ -5,58 +5,53 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
+import { AddressList } from '@pages/users/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-user',
+  selector: 'app-view-address',
   imports: [ViewDialogComponent],
-  templateUrl: './view-user.component.html',
+  templateUrl: './view-address.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewUserComponent {
+export class ViewAddressComponent {
   isShowDialog = model(false);
-  user = input.required<UserList>();
+  address = input.required<AddressList>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.user()?.id,
+        value: this.address()?.id,
       },
       {
-        label: 'first Name',
-        value: this.user()?.first_name,
+        label: 'Street',
+        value: this.address()?.street,
       },
       {
-        label: 'last Name',
-        value: this.user()?.last_name,
+        label: 'City',
+        value: this.address()?.city,
       },
       {
-        label: 'Full Name',
-        value: this.user()?.full_name,
+        label: 'State/Province',
+        value: this.address()?.state,
         hasToolTip: true,
       },
       {
-        label: 'Role',
-        value: this.user()?.role?.name_en,
+        label: 'Postal Code',
+        value: this.address()?.postal_code,
       },
       {
-        label: 'email',
-        value: this.user()?.email,
-        hasToolTip: true,
+        label: 'Country',
+        value: this.address()?.country,
       },
       {
-        label: 'phone',
-        value: this.user()?.phone,
+        label: 'Phone Number',
+        value: this.address()?.phone,
       },
       {
-        label: 'timezone',
-        value: this.user()?.timezone,
-      },
-      {
-        label: 'created at',
-        value: this.user()?.created_at,
+        label: 'Created At',
+        value: this.address()?.created_at,
       },
     ];
   });

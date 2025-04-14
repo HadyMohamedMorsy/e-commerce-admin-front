@@ -7,17 +7,18 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-users-filters',
+  selector: 'app-carts-filters', // Updated selector
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersUsersComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('users');
+export class FiltersCartsComponent extends FilterBaseComponent {
+  // Updated class name
+  pageList$ = this.globalList.getGlobalList('carts'); // Changed from 'users' to 'carts'
 
-  ngOnInit() {
+  override ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [

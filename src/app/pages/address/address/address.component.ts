@@ -12,61 +12,47 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
-import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
-import { FiltersCustomersComponent } from '../filters-users/filters-customers.component';
-import { Customer } from '../services/services-type';
+import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
+import { ViewAddressComponent } from '../dialog/view/view-address/view-address.component';
+import { FiltersAddressesComponent } from '../filters-users/filters-addresses.component';
+import { Address } from '../services/services-type';
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-customers',
+  selector: 'app-addresses',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCustomersComponent,
+    FiltersAddressesComponent,
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewCustomerComponent,
+    ViewAddressComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './customers.component.html',
+  templateUrl: './address.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CustomersComponent extends BaseIndexComponent<Customer> {
-  owner = viewChild.required<TemplateRef<any>>('owner');
+export default class AddressesComponent extends BaseIndexComponent<Address> {
   fullName = viewChild.required<TemplateRef<any>>('fullName');
 
-  hasAnyRoleListSubscriptionUser() {
-    return this.userRoles.hasAnyRole([
-      '8x-owner',
-      '8x-admin-assistant',
-      '8x-cs-manager',
-      '8x-cs-team-leader',
-      '8x-customer-success',
-      '8x-renewals-manager',
-      'customer-owner',
-      'customer-delegated-person',
-    ]);
-  }
-
   ngOnInit() {
-    this.dialogComponent = CuCustomerDialogComponent;
+    this.dialogComponent = CuAddressDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
         index: 'auth/users/user',
         delete: 'auth/users/user/delete',
       },
-      navigateCreatePage: 'new-customer',
+      navigateCreatePage: 'new-address',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Customers')),
+      indexTitle: this.#translate(_('Addresses')),
       indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Customers')),
-      indexTableKey: 'CUSTOMERS_KEY',
+      createBtnLabel: this.#translate(_('Create Address')),
+      indexTableKey: 'ADDRESSES_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -88,13 +74,6 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Is Owner')),
-          name: `is_owner`,
-          searchable: false,
-          orderable: false,
-          render: this.owner(),
-        },
-        {
           title: this.#translate(_('created at')),
           name: 'created_at',
           searchable: false,
@@ -105,7 +84,7 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'customer',
+      type: 'address',
     }));
 
     this.initRolesUser();

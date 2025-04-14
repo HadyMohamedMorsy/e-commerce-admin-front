@@ -12,31 +12,32 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
-import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
-import { FiltersCustomersComponent } from '../filters-wishlist/filters-customers.component';
-import { Customer } from '../services/services-type';
+import { CuWishlistDialogComponent } from '../dialog/cu/cu-wishlist-dialog.component'; // Adjusted for Wishlist Dialog
+import { ViewWishlistComponent } from '../dialog/view/view-wishlist/view-wishlist.component'; // Adjusted for Wishlist View
+import { FiltersWishlistComponent } from '../filters-wishlist/filters-wishlist.component'; // Adjusted for Wishlist Filters
+import { Wishlist } from '../services/services-type'; // Adjusted to Wishlist type
 import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
-  selector: 'app-customers',
+  selector: 'app-wishlists', // Adjusted component name
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCustomersComponent,
+    FiltersWishlistComponent, // Adjusted for Wishlist Filters
     TooltipModule,
     TranslateModule,
     EllipsisActionComponent,
-    ViewCustomerComponent,
+    ViewWishlistComponent, // Adjusted for Wishlist View
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './customers.component.html',
+  templateUrl: './wishlists.component.html', // Adjusted template name
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CustomersComponent extends BaseIndexComponent<Customer> {
+export default class WishlistsComponent extends BaseIndexComponent<Wishlist> {
+  // Adjusted to Wishlist type
   owner = viewChild.required<TemplateRef<any>>('owner');
   fullName = viewChild.required<TemplateRef<any>>('fullName');
 
@@ -48,25 +49,25 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
       '8x-cs-team-leader',
       '8x-customer-success',
       '8x-renewals-manager',
-      'customer-owner',
-      'customer-delegated-person',
+      'wishlist-owner', // Adjusted role for wishlist
+      'wishlist-delegated-person', // Adjusted role for wishlist
     ]);
   }
 
   ngOnInit() {
-    this.dialogComponent = CuCustomerDialogComponent;
+    this.dialogComponent = CuWishlistDialogComponent; // Adjusted for Wishlist Dialog
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'auth/wishlist/wishlist', // Adjusted API endpoint for wishlist
+        delete: 'auth/wishlist/wishlist/delete', // Adjusted API endpoint for wishlist delete
       },
-      navigateCreatePage: 'new-customer',
+      navigateCreatePage: 'new-wishlist', // Adjusted to wishlist creation
       displayViewButton: true,
-      indexTitle: this.#translate(_('Customers')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Customers')),
-      indexTableKey: 'CUSTOMERS_KEY',
+      indexTitle: this.#translate(_('Wishlists')), // Adjusted translation
+      indexIcon: 'pi pi-list', // Adjusted icon for wishlist
+      createBtnLabel: this.#translate(_('Create Wishlist')), // Adjusted translation
+      indexTableKey: 'WISHLISTS_KEY', // Adjusted key for wishlist
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -95,7 +96,7 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
           render: this.owner(),
         },
         {
-          title: this.#translate(_('created at')),
+          title: this.#translate(_('Created At')),
           name: 'created_at',
           searchable: false,
           orderable: false,
@@ -105,7 +106,7 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'customer',
+      type: 'wishlist', // Adjusted filter type to wishlist
     }));
 
     this.initRolesUser();

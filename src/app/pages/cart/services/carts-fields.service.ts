@@ -7,11 +7,11 @@ import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserFieldsService {
+export class CartFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('users', { type: 'user' });
+  pageList$ = this.#globalList.getGlobalList('carts', { type: 'cart' }); // Changed from 'users'
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
@@ -119,7 +119,7 @@ export class UserFieldsService {
           className: 'md:col-4 col-12',
           props: {
             type: 'number',
-            label: _('Phoe Number'),
+            label: _('Phone Number'),
           },
         },
         {
@@ -167,7 +167,7 @@ export class UserFieldsService {
     ];
   }
 
-  configureFieldsUsersPassword() {
+  configureFieldsCartsPassword() {
     return [
       {
         fieldGroup: [

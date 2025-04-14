@@ -5,58 +5,58 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
+import { UserList } from '@pages/users/services/services-type'; // Consider renaming this type if needed
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-user',
+  selector: 'app-view-cart', // updated selector
   imports: [ViewDialogComponent],
-  templateUrl: './view-user.component.html',
+  templateUrl: './view-cart.component.html', // updated template file (make sure you rename it)
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewUserComponent {
+export class ViewCartComponent {
   isShowDialog = model(false);
-  user = input.required<UserList>();
+  cart = input.required<UserList>(); // renamed input to 'cart'
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.user()?.id,
+        value: this.cart()?.id,
       },
       {
         label: 'first Name',
-        value: this.user()?.first_name,
+        value: this.cart()?.first_name,
       },
       {
         label: 'last Name',
-        value: this.user()?.last_name,
+        value: this.cart()?.last_name,
       },
       {
         label: 'Full Name',
-        value: this.user()?.full_name,
+        value: this.cart()?.full_name,
         hasToolTip: true,
       },
       {
         label: 'Role',
-        value: this.user()?.role?.name_en,
+        value: this.cart()?.role?.name_en,
       },
       {
         label: 'email',
-        value: this.user()?.email,
+        value: this.cart()?.email,
         hasToolTip: true,
       },
       {
         label: 'phone',
-        value: this.user()?.phone,
+        value: this.cart()?.phone,
       },
       {
         label: 'timezone',
-        value: this.user()?.timezone,
+        value: this.cart()?.timezone,
       },
       {
         label: 'created at',
-        value: this.user()?.created_at,
+        value: this.cart()?.created_at,
       },
     ];
   });

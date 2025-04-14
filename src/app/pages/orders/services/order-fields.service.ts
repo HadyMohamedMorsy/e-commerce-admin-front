@@ -7,158 +7,110 @@ import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserFieldsService {
+export class OrderFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('users', { type: 'user' });
+  pageList$ = this.#globalList.getGlobalList('orders', { type: 'order' }); // Change to orders
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'first_name',
+          key: 'order_number',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('First Name'),
+            label: _('Order Number'),
           },
         },
         {
-          key: 'last_name',
+          key: 'customer_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Last Name'),
+            label: _('Customer Name'),
           },
         },
         {
-          key: 'full_name',
+          key: 'status',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Full Name'),
-          },
-          hooks: {
-            onInit: (field) => {
-              const firstNameControl =
-                field?.parent?.get?.('first_name')?.formControl;
-              const lastNameControl =
-                field?.parent?.get?.('last_name')?.formControl;
-              const fullNameControl = field?.formControl;
-
-              if (!firstNameControl || !lastNameControl || !fullNameControl) {
-                return EMPTY;
-              }
-
-              const firstLastChanges$ = merge(
-                firstNameControl.valueChanges.pipe(
-                  startWith(firstNameControl.value),
-                ),
-                lastNameControl.valueChanges.pipe(
-                  startWith(lastNameControl.value),
-                ),
-              ).pipe(
-                tap(() => {
-                  const fullName = `${firstNameControl.value || ''} ${
-                    lastNameControl.value || ''
-                  }`.trim();
-                  fullNameControl.setValue(fullName, { emitEvent: false });
-                  field.model['full_name'] = fullName;
-                }),
-              );
-
-              const fullNameChanges$ = fullNameControl.valueChanges.pipe(
-                startWith(fullNameControl.value),
-                tap((fullName) => {
-                  const trimmedFull = fullName?.trim();
-                  let parts = trimmedFull?.split(/\s+/);
-                  if (parts && parts.length) {
-                    const [firstName, ...lastNames] = parts;
-                    const lastName = lastNames.join(' ');
-
-                    if (firstNameControl.value !== firstName) {
-                      firstNameControl.setValue(firstName, {
-                        emitEvent: false,
-                      });
-                      field.model['first_name'] = firstName;
-                    }
-                    if (lastNameControl.value !== lastName) {
-                      lastNameControl.setValue(lastName, { emitEvent: false });
-                      field.model['last_name'] = lastName;
-                    }
-                  }
-                }),
-              );
-
-              return merge(firstLastChanges$, fullNameChanges$);
-            },
-          },
-        },
-      ]),
-      this.fieldBuilder.fieldBuilder([
-        {
-          key: 'email',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            required: true,
-            label: _('Email Address'),
-          },
-          validators: {
-            validation: ['email'],
-          },
-        },
-        {
-          key: 'phone',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            type: 'number',
-            label: _('Phoe Number'),
-          },
-        },
-        {
-          key: 'start_validation_process',
-          type: 'checkbox-field',
-          hide: editData,
-          props: {
-            label: _('Start Validation Process'),
+            label: _('Order Status'),
           },
         },
       ]),
 
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'timezone',
+          key: 'order_date',
+          type: 'date-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('Order Date'),
+          },
+        },
+        {
+          key: 'shipping_address',
+          type: 'textarea-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('Shipping Address'),
+          },
+        },
+      ]),
+
+      this.fieldBuilder.fieldBuilder([
+        {
+          key: 'shipping_method',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Timezone'),
-            options: this.pageList$.pipe(map(({ timezones }) => timezones)),
+            label: _('Shipping Method'),
+            options: this.pageList$.pipe(
+              map(({ shipping_methods }) => shipping_methods),
+            ),
           },
         },
         {
-          key: 'role_id',
+          key: 'payment_method',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            required: true,
-            label: _('Role'),
-            options: this.pageList$.pipe(map(({ roles }) => roles)),
+            label: _('Payment Method'),
+            options: this.pageList$.pipe(
+              map(({ payment_methods }) => payment_methods),
+            ),
           },
         },
       ]),
+
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'avatar',
+          key: 'order_notes',
+          type: 'textarea-field',
+          className: 'md:col-4 col-12',
+          props: {
+            label: _('Order Notes'),
+            placeholder: _('Additional notes for the order'),
+          },
+        },
+      ]),
+
+      // Handle file upload if needed (e.g., for invoices or receipts)
+      this.fieldBuilder.fieldBuilder([
+        {
+          key: 'invoice',
           type: 'file-field',
           props: {
-            label: _('Avatar'),
+            label: _('Invoice'),
             mode: editData ? 'update' : 'store',
             isUploading: this.isSingleUploading,
           },
@@ -167,7 +119,7 @@ export class UserFieldsService {
     ];
   }
 
-  configureFieldsUsersPassword() {
+  configureFieldsOrderStatus() {
     return [
       {
         fieldGroup: [
@@ -177,30 +129,28 @@ export class UserFieldsService {
                 validation: [
                   {
                     name: 'fieldMatch',
-                    options: { errorPath: 'password_confirmation' },
+                    options: { errorPath: 'status_confirmation' },
                   },
                 ],
               },
               fieldGroup: [
                 this.fieldBuilder.fieldBuilder([
                   {
-                    key: 'password',
-                    type: 'password-field',
+                    key: 'status',
+                    type: 'input-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password'),
-                      placeholder: _('password'),
-                      toggleMask: true,
+                      label: _('Status'),
+                      placeholder: _('Order Status'),
                     },
                   },
                   {
-                    key: 'password_confirmation',
-                    type: 'password-field',
+                    key: 'status_confirmation',
+                    type: 'input-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password confirmation'),
-                      placeholder: _('password confirmation'),
-                      toggleMask: true,
+                      label: _('Status Confirmation'),
+                      placeholder: _('Confirm Order Status'),
                     },
                   },
                 ]),

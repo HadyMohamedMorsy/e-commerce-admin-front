@@ -3,35 +3,35 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { CustomersFieldsService } from '../services/customers-fields.service';
-import { CustomerModel } from '../services/services-type';
+import { OrdersFieldsService } from '../services/orders-fields.service';
+import { OrderModel } from '../services/services-type';
 
 @Component({
-  selector: 'app-create-update-customer',
+  selector: 'app-create-update-order',
   imports: [AsyncPipe, FormComponent, SpinnerComponent],
   templateUrl: '../../../shared/components/form-page/form-page.component.html',
-  providers: [CustomersFieldsService],
+  providers: [OrdersFieldsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CreateUpdateCustomerComponent extends FormPageComponent {
-  fieldsService = inject(CustomersFieldsService);
+export default class CreateUpdateOrderComponent extends FormPageComponent {
+  fieldsService = inject(OrdersFieldsService);
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
     this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
-    this.navigateAfterSubmit.set('customers');
+    this.navigateAfterSubmit.set('orders');
   }
 
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
-      ? new CustomerModel(this.filterDataForUpdate(new CustomerModel()))
-      : new CustomerModel();
+      ? new OrderModel(this.filterDataForUpdate(new OrderModel()))
+      : new OrderModel();
 
-    this.formTitle.set(isUpdate ? 'Update Customer' : 'Create New Customer');
+    this.formTitle.set(isUpdate ? 'Update Order' : 'Create New Order');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
     this.endpoint.set(
-      isUpdate ? 'auth/users/user/update' : 'auth/users/new-customer',
+      isUpdate ? 'auth/orders/order/update' : 'auth/orders/new-order',
     );
   }
 }
