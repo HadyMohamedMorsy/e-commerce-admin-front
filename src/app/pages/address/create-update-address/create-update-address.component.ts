@@ -3,18 +3,18 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { AddressesFieldsService } from '../services/addresses-fields.service';
+import { AddressFieldsService } from '../services/address-fields.service';
 import { AddressModel } from '../services/services-type';
 
 @Component({
   selector: 'app-create-update-address',
   imports: [AsyncPipe, FormComponent, SpinnerComponent],
   templateUrl: '../../../shared/components/form-page/form-page.component.html',
-  providers: [AddressesFieldsService],
+  providers: [AddressFieldsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CreateUpdateAddressComponent extends FormPageComponent {
-  fieldsService = inject(AddressesFieldsService);
+  fieldsService = inject(AddressFieldsService);
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
@@ -30,8 +30,6 @@ export default class CreateUpdateAddressComponent extends FormPageComponent {
 
     this.formTitle.set(isUpdate ? 'Update Address' : 'Create New Address');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(
-      isUpdate ? 'auth/users/user/update' : 'auth/users/new-address',
-    );
+    this.endpoint.set(isUpdate ? 'address/update' : 'address/store');
   }
 }

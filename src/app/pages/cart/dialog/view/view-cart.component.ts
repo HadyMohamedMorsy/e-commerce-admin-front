@@ -5,7 +5,7 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type'; // Consider renaming this type if needed
+import { Cart } from '@pages/cart/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-
 })
 export class ViewCartComponent {
   isShowDialog = model(false);
-  cart = input.required<UserList>(); // renamed input to 'cart'
+  cart = input.required<Cart>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -25,38 +25,8 @@ export class ViewCartComponent {
         value: this.cart()?.id,
       },
       {
-        label: 'first Name',
-        value: this.cart()?.first_name,
-      },
-      {
-        label: 'last Name',
-        value: this.cart()?.last_name,
-      },
-      {
-        label: 'Full Name',
-        value: this.cart()?.full_name,
-        hasToolTip: true,
-      },
-      {
-        label: 'Role',
-        value: this.cart()?.role?.name_en,
-      },
-      {
-        label: 'email',
-        value: this.cart()?.email,
-        hasToolTip: true,
-      },
-      {
-        label: 'phone',
-        value: this.cart()?.phone,
-      },
-      {
-        label: 'timezone',
-        value: this.cart()?.timezone,
-      },
-      {
-        label: 'created at',
-        value: this.cart()?.created_at,
+        label: 'total',
+        value: this.cart()?.total,
       },
     ];
   });

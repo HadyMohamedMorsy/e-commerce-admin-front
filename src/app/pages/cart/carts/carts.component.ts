@@ -12,11 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuCartDialogComponent } from '../dialog/cu/cu-cart-dialog.component';
-import { ViewCartComponent } from '../dialog/view/view-cart/view-cart.component';
-import { FiltersCartsComponent } from '../filters-users/filters-carts.component';
+import { ViewCartComponent } from '../dialog/view/view-cart.component';
 import { Cart } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
   selector: 'app-carts',
@@ -24,10 +21,8 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCartsComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
     ViewCartComponent,
     MenuModule,
     Dialog,
@@ -37,21 +32,18 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CartsComponent extends BaseIndexComponent<Cart> {
-  productName = viewChild.required<TemplateRef<any>>('productName');
-
   ngOnInit() {
-    this.dialogComponent = CuCartDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'commerce/carts',
-        delete: 'commerce/carts/delete',
+        index: 'cart/index',
+        delete: 'cart/delete',
       },
-      navigateCreatePage: 'new-cart',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Shopping Carts')),
+      displayCreateButton: false,
+      displayUpdateButton: false,
+      indexTitle: this.#translate(_('Carts')),
       indexIcon: 'pi pi-shopping-cart',
-      createBtnLabel: this.#translate(_('Create Cart')),
       indexTableKey: 'CARTS_KEY',
       columns: [
         {
@@ -61,22 +53,9 @@ export default class CartsComponent extends BaseIndexComponent<Cart> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Product Name')),
-          name: `product_name`,
-          searchable: true,
-          orderable: false,
-          render: this.productName(),
-        },
-        {
           title: this.#translate(_('Quantity')),
           name: `quantity`,
           searchable: true,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('Price')),
-          name: 'price',
-          searchable: false,
           orderable: false,
         },
         {
@@ -87,12 +66,6 @@ export default class CartsComponent extends BaseIndexComponent<Cart> {
         },
       ],
     };
-
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'cart',
-    }));
-
     this.initRolesUser();
   }
 

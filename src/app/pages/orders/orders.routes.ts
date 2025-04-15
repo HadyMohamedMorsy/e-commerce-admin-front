@@ -1,19 +1,18 @@
 import { Routes } from '@angular/router';
-import { RoleGuard } from '@shared';
 
 export const OrdersRoutes: Routes = [
   {
     path: 'orders',
     loadComponent: () => import('./orders/orders.component'),
-    title: 'customers',
+    title: 'orders',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     store: ['8x-owner', '8x-sales-team-leader'],
-    //     show: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     update: ['8x-owner'],
-    //     delete: ['8x-owner'],
+    //     index: [],
+    //     store: [],
+    //     show: [],
+    //     update: [],
+    //     delete: [],
     //     redirectTo: '403',
     //   },
     // },
@@ -22,11 +21,11 @@ export const OrdersRoutes: Routes = [
     path: 'new-order',
     loadComponent: () =>
       import('./create-update-orders/create-update-orders.component'),
-    title: 'new customer',
+    title: 'new order',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader'],
+    //     index: [],
     //   },
     // },
   },
@@ -38,7 +37,7 @@ export const OrdersRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner'],
+    //     index: [],
     //   },
     // },
   },

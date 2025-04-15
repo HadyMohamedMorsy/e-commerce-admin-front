@@ -11,7 +11,7 @@ import { Category } from '../../services/services-type'; // adjust path if neede
 @Component({
   selector: 'app-view-category',
   imports: [ViewDialogComponent],
-  templateUrl: './view-category.component.html',
+  templateUrl: './view-categories.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewCategoryComponent {
@@ -33,14 +33,6 @@ export class ViewCategoryComponent {
         label: 'Description',
         value: this.category()?.description,
         hasToolTip: true,
-      },
-      {
-        label: 'Is Active',
-        value: this.category()?.is_active ? 'Yes' : 'No',
-      },
-      {
-        label: 'Created At',
-        value: this.category()?.created_at,
       },
     ];
   });

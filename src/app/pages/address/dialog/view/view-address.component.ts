@@ -5,7 +5,7 @@ import {
   input,
   model,
 } from '@angular/core';
-import { AddressList } from '@pages/users/services/services-type';
+import { Address } from '@pages/address/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-
 })
 export class ViewAddressComponent {
   isShowDialog = model(false);
-  address = input.required<AddressList>();
+  address = input.required<Address>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -25,33 +25,49 @@ export class ViewAddressComponent {
         value: this.address()?.id,
       },
       {
-        label: 'Street',
-        value: this.address()?.street,
+        label: 'title',
+        value: this.address()?.title,
       },
       {
         label: 'City',
         value: this.address()?.city,
       },
       {
-        label: 'State/Province',
-        value: this.address()?.state,
+        label: 'addressLine1',
+        value: this.address()?.addressLine1,
         hasToolTip: true,
       },
       {
-        label: 'Postal Code',
-        value: this.address()?.postal_code,
+        label: 'addressLine2',
+        value: this.address()?.addressLine2,
       },
       {
         label: 'Country',
         value: this.address()?.country,
       },
       {
-        label: 'Phone Number',
-        value: this.address()?.phone,
+        label: 'city',
+        value: this.address()?.city,
       },
       {
-        label: 'Created At',
-        value: this.address()?.created_at,
+        label: 'postalCode',
+        value: this.address()?.postalCode,
+      },
+      {
+        label: 'landmark',
+        value: this.address()?.landmark,
+      },
+      {
+        label: 'phoneNumber',
+        value: this.address()?.phoneNumber,
+      },
+      {
+        label: 'createdAt',
+        value: this.address()?.createdAt,
+      },
+      {
+        label: 'updated_at',
+        value: this.address()?.updated_at,
       },
     ];
   });

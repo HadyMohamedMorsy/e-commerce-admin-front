@@ -31,35 +31,15 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <!-- Custom Filters for Products -->
-  <ng-template #customFiltersTemplate>
-    <app-products-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
-  </ng-template>
 
   <!-- Extra actions -->
   <ng-template #extendDefaultActionsTemplate let-product>
     <app-ellipsis-action [product]="product" />
   </ng-template>
 
-  <!-- Product name column -->
-  <ng-template #fullName let-product>
-    <a
-      pButton
-      routerLink="/products/details/{{ product.id }}"
-      class="text-blue-500"
-      [text]="true"
-      [pTooltip]="'Show Product Details' | translate"
-      tooltipPosition="top"
-    >
-      {{ product.name }}
-    </a>
-  </ng-template>
 </app-table-wrapper>
 
-<!-- Dialog for Viewing Product -->
+
 <p-dialog
   [(visible)]="showView"
   appendTo="body"

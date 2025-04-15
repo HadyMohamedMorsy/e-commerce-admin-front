@@ -9,11 +9,11 @@ export const ProductsRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-product-manager', '8x-sales-team-leader'],
-    //     store: ['8x-owner', '8x-product-manager'],
-    //     show: ['8x-owner', '8x-product-manager', '8x-sales-team-leader'],
-    //     update: ['8x-owner', '8x-product-manager'],
-    //     delete: ['8x-owner'],
+    //     index: [],
+    //     store: [],
+    //     show: [],
+    //     update: [],
+    //     delete: [],
     //     redirectTo: '403',
     //   },
     // },
@@ -26,7 +26,7 @@ export const ProductsRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-product-manager'],
+    //     index: [],
     //   },
     // },
   },
@@ -38,7 +38,7 @@ export const ProductsRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-product-manager'],
+    //     index: [],
     //   },
     // },
   },

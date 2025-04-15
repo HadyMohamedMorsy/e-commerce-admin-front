@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,11 +7,10 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuOrderDialogComponent } from '../dialog/cu/cu-order-dialog.component'; // Update to orders
-import { ViewOrderComponent } from '../dialog/view/view-order/view-order.component'; // Update to orders
-import { FiltersOrdersComponent } from '../filters-orders/filters-orders.component'; // Update to orders
-import { Order } from '../services/services-type'; // Update to Order model
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
+import { CuOrderDialogComponent } from '../dialog/cu/cu-order-dialog.component';
+import { ViewOrderComponent } from '../dialog/view/view-orders.component';
+import { FiltersOrdersComponent } from '../filters-orders/filters-order.component';
+import { Order } from '../services/services-type';
 
 @Component({
   selector: 'app-orders',
@@ -24,11 +18,10 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersOrdersComponent, // Use FiltersOrdersComponent instead of FiltersCustomersComponent
+    FiltersOrdersComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
-    ViewOrderComponent, // Update to orders
+    ViewOrderComponent,
     MenuModule,
     Dialog,
     TranslateModule,
@@ -37,49 +30,47 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class OrdersComponent extends BaseIndexComponent<Order> {
-  orderNumber = ViewChild.required<TemplateRef<any>>('orderNumber'); // Update to orderNumber
-
   ngOnInit() {
-    this.dialogComponent = CuOrderDialogComponent; // Use CuOrderDialogComponent instead of CuCustomerDialogComponent
+    this.dialogComponent = CuOrderDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/orders/order', // Update to orders endpoint
-        delete: 'auth/orders/order/delete', // Update to orders endpoint
+        index: 'order/index',
+        delete: 'order/delete',
       },
-      navigateCreatePage: 'new-order', // Adjust the route for creating new orders
+      navigateCreatePage: 'new-order',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Orders')), // Update the title
-      indexIcon: 'pi pi-shopping-cart', // Change the icon to something more order-related
-      createBtnLabel: this.#translate(_('Create Order')), // Update button label
+      indexTitle: this.#translate(_('Orders')),
+      indexIcon: 'pi pi-shopping-cart',
+      createBtnLabel: this.#translate(_('Create Order')),
       indexTableKey: 'ORDERS_KEY',
       columns: [
         {
-          title: this.#translate(_('#Order Number')), // Update column name
-          name: `order_number`, // Change to order_number
+          title: this.#translate(_('#Order Number')),
+          name: `order_number`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Customer Name')), // Update column name
-          name: `customer_name`, // Change to customer_name
+          title: this.#translate(_('Customer Name')),
+          name: `customer_name`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Order Status')), // Update column name
-          name: `status`, // Change to status
+          title: this.#translate(_('Order Status')),
+          name: `status`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Order Date')), // Update column name
-          name: 'order_date', // Change to order_date
+          title: this.#translate(_('Order Date')),
+          name: 'order_date',
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('Created At')), // Update column name
+          title: this.#translate(_('Created At')),
           name: 'created_at',
           searchable: false,
           orderable: false,
@@ -87,13 +78,7 @@ export default class OrdersComponent extends BaseIndexComponent<Order> {
       ],
     };
 
-    // Update filters to reflect order-related filters
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'order', // Change to 'order'
-    }));
-
-    this.initRolesUser(); // You may need to adjust or remove this if roles aren't relevant for orders
+    this.initRolesUser();
   }
 
   #translate(text: string) {

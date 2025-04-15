@@ -31,33 +31,6 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <ng-template #customFiltersTemplate>
-    <app-categories-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
-  </ng-template>
-
-  <ng-template #extendDefaultActionsTemplate let-category>
-    <app-ellipsis-action [category]="category" />
-  </ng-template>
-
-  <ng-template #fullName let-category>
-    @if (hasAnyRoleListSubscriptionUser()) {
-      <a
-        pButton
-        routerLink="/categories/subscriptions/{{ category.id }}"
-        class="text-blue-500"
-        [text]="true"
-        [pTooltip]="'Show Subscriptions' | translate"
-        tooltipPosition="top"
-      >
-        {{ category.full_name }}
-      </a>
-    } @else {
-      {{ category.full_name }}
-    }
-  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

@@ -37,18 +37,6 @@ export class FiltersAddressesComponent extends FilterBaseComponent {
             },
           },
           {
-            key: 'state',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('State/Province'),
-              options: this.pageList$.pipe(
-                map(({ states }) => [{ label: 'All', value: '' }, ...states]),
-              ),
-            },
-          },
-          {
             key: 'city',
             type: 'select-field',
             className: 'md:col-2 col-12',

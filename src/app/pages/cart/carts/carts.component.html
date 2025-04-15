@@ -31,33 +31,6 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <ng-template #customFiltersTemplate>
-    <app-carts-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
-  </ng-template>
-
-  <ng-template #extendDefaultActionsTemplate let-cart>
-    <app-ellipsis-action [cart]="cart" />
-  </ng-template>
-
-  <ng-template #fullName let-cart>
-    @if (hasAnyRoleListSubscriptionUser()) {
-      <a
-        pButton
-        routerLink="/carts/subscriptions/{{ cart.id }}"
-        class="text-blue-500"
-        [text]="true"
-        [pTooltip]="'Show Subscriptions' | translate"
-        tooltipPosition="top"
-      >
-        {{ cart.full_name }}
-      </a>
-    } @else {
-      {{ cart.full_name }}
-    }
-  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

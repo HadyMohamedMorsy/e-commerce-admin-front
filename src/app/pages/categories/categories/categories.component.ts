@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,11 +8,9 @@ import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { CuCategoryDialogComponent } from '../dialog/cu/cu-category-dialog.component';
-import { ViewCategoryComponent } from '../dialog/view/view-category/view-category.component';
-import { FiltersCategoriesComponent } from '../filters-categories/filters-categories.component';
+import { CuCategoryDialogComponent } from '../dialog/cu/cu-categories-dialog.component';
+import { ViewCategoryComponent } from '../dialog/view/view-categories.component';
 import { Category } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
   selector: 'app-categories',
@@ -25,10 +18,8 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersCategoriesComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
     ViewCategoryComponent,
     MenuModule,
     Dialog,
@@ -38,16 +29,13 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CategoriesComponent extends BaseIndexComponent<Category> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
-
-
-   ngOnInit() {
+  ngOnInit() {
     this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/categories',
-        delete: 'auth/categories/delete',
+        index: 'category/index',
+        delete: 'category/delete',
       },
       navigateCreatePage: 'new-category',
       displayViewButton: true,
@@ -61,13 +49,6 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
           name: `id`,
           searchable: false,
           orderable: false,
-        },
-        {
-          title: this.#translate(_('Category Name')),
-          name: `name`,
-          searchable: true,
-          orderable: false,
-          render: this.fullName(),
         },
         {
           title: this.#translate(_('Description')),
