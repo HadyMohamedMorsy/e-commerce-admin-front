@@ -4,7 +4,6 @@ import {
   TemplateRef,
   viewChild,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -13,10 +12,9 @@ import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuBlogDialogComponent } from '../dialog/cu/cu-blog-dialog.component';
-import { ViewBlogComponent } from '../dialog/view/view-blog/view-blog.component';
-import { FiltersBlogsComponent } from '../filters-users/filters-blogs.component';
+import { ViewBlogComponent } from '../dialog/view/view-blog.component';
+import { FiltersBlogsComponent } from '../filters-blog/filters-blog.component';
 import { Blog } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
 
 @Component({
   selector: 'app-blogs',
@@ -24,17 +22,15 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersBlogsComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
     ViewBlogComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './blogs.component.html',
+  templateUrl: './blog.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BlogsComponent extends BaseIndexComponent<Blog> {

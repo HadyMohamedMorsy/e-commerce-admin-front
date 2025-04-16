@@ -12,47 +12,45 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
-import { ViewAddressComponent } from '../dialog/view/view-address/view-address.component';
-import { FiltersAddressesComponent } from '../filters-users/filters-addresses.component';
-import { Address } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
+import { CuShipmentDialogComponent } from '../dialog/cu/cu-shipment-dialog.component';
+import { ViewShipmentComponent } from '../dialog/view/view-shipment.component';
+import { FiltersShipmentsComponent } from '../filters-shipment/filters-shipment.component';
+import { Shipment } from '../services/services-type';
 
 @Component({
-  selector: 'app-addresses',
+  selector: 'app-shipments',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersAddressesComponent,
+    FiltersShipmentsComponent,
+    ViewShipmentComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
-    ViewAddressComponent,
+
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './address.component.html',
+  templateUrl: './shipment.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AddressesComponent extends BaseIndexComponent<Address> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
+export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
 
   ngOnInit() {
-    this.dialogComponent = CuAddressDialogComponent;
+    this.dialogComponent = CuShipmentDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'shipment/index',
+        delete: 'shipment/delete',
       },
-      navigateCreatePage: 'new-address',
+      navigateCreatePage: 'new-shipment',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Addresses')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Address')),
-      indexTableKey: 'ADDRESSES_KEY',
+      indexTitle: this.#translate(_('Shipments')), 
+      indexIcon: 'pi pi-box', 
+      createBtnLabel: this.#translate(_('Create Shipment')), 
+      indexTableKey: 'SHIPMENTS_KEY', 
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -61,31 +59,19 @@ export default class AddressesComponent extends BaseIndexComponent<Address> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
-          searchable: true,
-          orderable: false,
-          render: this.fullName(),
-        },
-        {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('Shipment Email Address')),
+          name: `shipment_email`, 
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('created at')),
+          title: this.#translate(_('Created At')),
           name: 'created_at',
           searchable: false,
           orderable: false,
         },
       ],
     };
-
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'address',
-    }));
 
     this.initRolesUser();
   }

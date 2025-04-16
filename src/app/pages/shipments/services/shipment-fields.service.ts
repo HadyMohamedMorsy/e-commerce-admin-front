@@ -7,158 +7,169 @@ import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserFieldsService {
+export class ShipmentFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('users', { type: 'user' });
+  pageList$ = this.#globalList.getGlobalList('shipments', { type: 'shipment' });
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'first_name',
+          key: 'shipment_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('First Name'),
+            label: _('Shipment Name'),
           },
         },
         {
-          key: 'last_name',
+          key: 'shipment_code',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Last Name'),
+            label: _('Shipment Code'),
           },
         },
         {
-          key: 'full_name',
+          key: 'full_shipment_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Full Name'),
+            label: _('Full Shipment Name'),
           },
           hooks: {
             onInit: (field) => {
-              const firstNameControl =
-                field?.parent?.get?.('first_name')?.formControl;
-              const lastNameControl =
-                field?.parent?.get?.('last_name')?.formControl;
-              const fullNameControl = field?.formControl;
+              const shipmentNameControl =
+                field?.parent?.get?.('shipment_name')?.formControl;
+              const shipmentCodeControl =
+                field?.parent?.get?.('shipment_code')?.formControl;
+              const fullShipmentNameControl = field?.formControl;
 
-              if (!firstNameControl || !lastNameControl || !fullNameControl) {
+              if (
+                !shipmentNameControl ||
+                !shipmentCodeControl ||
+                !fullShipmentNameControl
+              ) {
                 return EMPTY;
               }
 
-              const firstLastChanges$ = merge(
-                firstNameControl.valueChanges.pipe(
-                  startWith(firstNameControl.value),
+              const nameCodeChanges$ = merge(
+                shipmentNameControl.valueChanges.pipe(
+                  startWith(shipmentNameControl.value),
                 ),
-                lastNameControl.valueChanges.pipe(
-                  startWith(lastNameControl.value),
+                shipmentCodeControl.valueChanges.pipe(
+                  startWith(shipmentCodeControl.value),
                 ),
               ).pipe(
                 tap(() => {
-                  const fullName = `${firstNameControl.value || ''} ${
-                    lastNameControl.value || ''
-                  }`.trim();
-                  fullNameControl.setValue(fullName, { emitEvent: false });
-                  field.model['full_name'] = fullName;
+                  const fullShipmentName = `${
+                    shipmentNameControl.value || ''
+                  } ${shipmentCodeControl.value || ''}`.trim();
+                  fullShipmentNameControl.setValue(fullShipmentName, {
+                    emitEvent: false,
+                  });
+                  field.model['full_shipment_name'] = fullShipmentName;
                 }),
               );
 
-              const fullNameChanges$ = fullNameControl.valueChanges.pipe(
-                startWith(fullNameControl.value),
-                tap((fullName) => {
-                  const trimmedFull = fullName?.trim();
-                  let parts = trimmedFull?.split(/\s+/);
-                  if (parts && parts.length) {
-                    const [firstName, ...lastNames] = parts;
-                    const lastName = lastNames.join(' ');
+              const fullShipmentNameChanges$ =
+                fullShipmentNameControl.valueChanges.pipe(
+                  startWith(fullShipmentNameControl.value),
+                  tap((fullShipmentName) => {
+                    const trimmedFullName = fullShipmentName?.trim();
+                    let parts = trimmedFullName?.split(/\s+/);
+                    if (parts && parts.length) {
+                      const [shipmentName, ...shipmentCodes] = parts;
+                      const shipmentCode = shipmentCodes.join(' ');
 
-                    if (firstNameControl.value !== firstName) {
-                      firstNameControl.setValue(firstName, {
-                        emitEvent: false,
-                      });
-                      field.model['first_name'] = firstName;
+                      if (shipmentNameControl.value !== shipmentName) {
+                        shipmentNameControl.setValue(shipmentName, {
+                          emitEvent: false,
+                        });
+                        field.model['shipment_name'] = shipmentName;
+                      }
+                      if (shipmentCodeControl.value !== shipmentCode) {
+                        shipmentCodeControl.setValue(shipmentCode, {
+                          emitEvent: false,
+                        });
+                        field.model['shipment_code'] = shipmentCode;
+                      }
                     }
-                    if (lastNameControl.value !== lastName) {
-                      lastNameControl.setValue(lastName, { emitEvent: false });
-                      field.model['last_name'] = lastName;
-                    }
-                  }
-                }),
-              );
+                  }),
+                );
 
-              return merge(firstLastChanges$, fullNameChanges$);
+              return merge(nameCodeChanges$, fullShipmentNameChanges$);
             },
           },
         },
       ]),
+
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'email',
+          key: 'shipment_email',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Email Address'),
+            label: _('Shipment Email Address'),
           },
           validators: {
             validation: ['email'],
           },
         },
         {
-          key: 'phone',
+          key: 'shipment_phone',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             type: 'number',
-            label: _('Phoe Number'),
+            label: _('Shipment Phone Number'),
           },
         },
         {
-          key: 'start_validation_process',
+          key: 'start_shipment_process',
           type: 'checkbox-field',
           hide: editData,
           props: {
-            label: _('Start Validation Process'),
+            label: _('Start Shipment Process'),
           },
         },
       ]),
 
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'timezone',
+          key: 'shipment_timezone',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Timezone'),
+            label: _('Shipment Timezone'),
             options: this.pageList$.pipe(map(({ timezones }) => timezones)),
           },
         },
         {
-          key: 'role_id',
+          key: 'shipment_role_id',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Role'),
+            label: _('Shipment Role'),
             options: this.pageList$.pipe(map(({ roles }) => roles)),
           },
         },
       ]),
+
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'avatar',
+          key: 'shipment_avatar',
           type: 'file-field',
           props: {
-            label: _('Avatar'),
+            label: _('Shipment Avatar'),
             mode: editData ? 'update' : 'store',
             isUploading: this.isSingleUploading,
           },
@@ -167,7 +178,7 @@ export class UserFieldsService {
     ];
   }
 
-  configureFieldsUsersPassword() {
+  configureFieldsShipmentPassword() {
     return [
       {
         fieldGroup: [
@@ -177,29 +188,29 @@ export class UserFieldsService {
                 validation: [
                   {
                     name: 'fieldMatch',
-                    options: { errorPath: 'password_confirmation' },
+                    options: { errorPath: 'shipment_password_confirmation' },
                   },
                 ],
               },
               fieldGroup: [
                 this.fieldBuilder.fieldBuilder([
                   {
-                    key: 'password',
+                    key: 'shipment_password',
                     type: 'password-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password'),
-                      placeholder: _('password'),
+                      label: _('Shipment Password'),
+                      placeholder: _('Shipment Password'),
                       toggleMask: true,
                     },
                   },
                   {
-                    key: 'password_confirmation',
+                    key: 'shipment_password_confirmation',
                     type: 'password-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password confirmation'),
-                      placeholder: _('password confirmation'),
+                      label: _('Shipment Password Confirmation'),
+                      placeholder: _('Shipment Password Confirmation'),
                       toggleMask: true,
                     },
                   },

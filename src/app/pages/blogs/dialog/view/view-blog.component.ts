@@ -34,22 +34,6 @@ export class ViewBlogComponent {
         value: this.blog()?.slug,
       },
       {
-        label: 'Author',
-        value: this.blog()?.author,
-      },
-      {
-        label: 'Summary',
-        value: this.blog()?.summary,
-      },
-      {
-        label: 'Published At',
-        value: this.blog()?.published_at,
-      },
-      {
-        label: 'Status',
-        value: this.blog()?.status,
-      },
-      {
         label: 'Created At',
         value: this.blog()?.created_at,
       },

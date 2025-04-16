@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,60 +7,50 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
-import { ViewAddressComponent } from '../dialog/view/view-address/view-address.component';
-import { FiltersAddressesComponent } from '../filters-users/filters-addresses.component';
-import { Address } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
-
+import { CuLocationDialogComponent } from '../dialog/cu/cu-location-dialog.component'; // Updated component name
+import { ViewLocationComponent } from '../dialog/view/view-location.component';
+import { FiltersLocationsComponent } from '../filters-location/filters-location.component';
+import { Locations } from '../services/services-type';
 @Component({
-  selector: 'app-addresses',
+  selector: 'app-locations',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersAddressesComponent,
+    FiltersLocationsComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
-    ViewAddressComponent,
+    ViewLocationComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './address.component.html',
+  templateUrl: './location.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AddressesComponent extends BaseIndexComponent<Address> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
+export default class LocationsComponent extends BaseIndexComponent<Locations> {
+  // Updated class name
 
   ngOnInit() {
-    this.dialogComponent = CuAddressDialogComponent;
+    this.dialogComponent = CuLocationDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
         index: 'auth/users/user',
         delete: 'auth/users/user/delete',
       },
-      navigateCreatePage: 'new-address',
+      navigateCreatePage: 'new-location',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Addresses')),
+      indexTitle: this.#translate(_('Locations')),
       indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Address')),
-      indexTableKey: 'ADDRESSES_KEY',
+      createBtnLabel: this.#translate(_('Create Location')),
+      indexTableKey: 'LOCATIONS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
           name: `id`,
           searchable: false,
           orderable: false,
-        },
-        {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
-          searchable: true,
-          orderable: false,
-          render: this.fullName(),
         },
         {
           title: this.#translate(_('Email Address')),
@@ -81,11 +66,6 @@ export default class AddressesComponent extends BaseIndexComponent<Address> {
         },
       ],
     };
-
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'address',
-    }));
 
     this.initRolesUser();
   }

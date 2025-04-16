@@ -5,53 +5,24 @@ import {
   input,
   model,
 } from '@angular/core';
-import { AddressList } from '@pages/users/services/services-type';
+import { Shipment } from '@pages/shipments/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-address',
+  selector: 'app-view-shipment',
   imports: [ViewDialogComponent],
-  templateUrl: './view-address.component.html',
+  templateUrl: './view-shipment.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewAddressComponent {
+export class ViewShipmentComponent {
   isShowDialog = model(false);
-  address = input.required<AddressList>();
+  shipment = input.required<Shipment>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.address()?.id,
-      },
-      {
-        label: 'Street',
-        value: this.address()?.street,
-      },
-      {
-        label: 'City',
-        value: this.address()?.city,
-      },
-      {
-        label: 'State/Province',
-        value: this.address()?.state,
-        hasToolTip: true,
-      },
-      {
-        label: 'Postal Code',
-        value: this.address()?.postal_code,
-      },
-      {
-        label: 'Country',
-        value: this.address()?.country,
-      },
-      {
-        label: 'Phone Number',
-        value: this.address()?.phone,
-      },
-      {
-        label: 'Created At',
-        value: this.address()?.created_at,
+        value: this.shipment()?.id,
       },
     ];
   });

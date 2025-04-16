@@ -32,31 +32,10 @@
   (onLoadData)="loadRecords($event)"
 >
   <ng-template #customFiltersTemplate>
-    <app-customers-filters
+    <app-shipments-filters
       [displayFilters]="displayFilters()"
       [(filtersData)]="filtersData"
     />
-  </ng-template>
-
-  <ng-template #extendDefaultActionsTemplate let-address>
-    <app-ellipsis-action [address]="address" />
-  </ng-template>
-
-  <ng-template #fullName let-address>
-    @if (hasAnyRoleListSubscriptionUser()) {
-      <a
-        pButton
-        routerLink="/customers/subscriptions/{{ address.id }}"
-        class="text-blue-500"
-        [text]="true"
-        [pTooltip]="'Show Subscriptions' | translate"
-        tooltipPosition="top"
-      >
-        {{ address.full_name }}
-      </a>
-    } @else {
-      {{ address.full_name }}
-    }
   </ng-template>
 </app-table-wrapper>
 
@@ -73,6 +52,6 @@
   styleClass="m-0 min-h-full border-none temporarily-hide-header"
 >
   @if (showView()) {
-    <app-view-address [(isShowDialog)]="showView" [address]="recordView()" />
+    <app-view-shipment [(isShowDialog)]="showView" [shipment]="recordView()" />
   }
 </p-dialog>

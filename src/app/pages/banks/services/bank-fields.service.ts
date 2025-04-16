@@ -7,7 +7,7 @@ import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class WishlistModelFieldsService {
+export class AddressFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);

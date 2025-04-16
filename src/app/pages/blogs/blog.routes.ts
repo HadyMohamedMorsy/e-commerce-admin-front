@@ -8,11 +8,11 @@ export const blogRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-marketing', '8x-editor'],
-    //     store: ['8x-owner', '8x-editor'],
-    //     show: ['8x-owner', '8x-marketing', '8x-editor'],
-    //     update: ['8x-owner', '8x-editor'],
-    //     delete: ['8x-owner'],
+    //     index: [],
+    //     store: [],
+    //     show: [],
+    //     update: [],
+    //     delete: [],
     //     redirectTo: '403',
     //   },
     // },
@@ -25,7 +25,7 @@ export const blogRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     store: ['8x-owner', '8x-editor'],
+    //     store: [],
     //   },
     // },
   },
@@ -39,7 +39,7 @@ export const blogRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     update: ['8x-owner', '8x-editor'],
+    //     update: [],
     //   },
     // },
   },

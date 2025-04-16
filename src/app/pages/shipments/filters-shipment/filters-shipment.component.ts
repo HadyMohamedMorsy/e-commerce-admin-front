@@ -7,15 +7,15 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-addresses-filters',
+  selector: 'app-shipments-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersAddressesComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('addresses');
+export class FiltersShipmentsComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('shipments');
 
   ngOnInit() {
     this.fields = [

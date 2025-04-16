@@ -33,29 +33,10 @@
 >
   <!-- Filters Component -->
   <ng-template #customFiltersTemplate>
-    <app-wishlists-filters
+    <app-wishlist-filters
       [displayFilters]="displayFilters()"
       [(filtersData)]="filtersData"
     />
-  </ng-template>
-
-  <!-- Actions -->
-  <ng-template #extendDefaultActionsTemplate let-wishlist>
-    <app-ellipsis-action [wishlist]="wishlist" />
-  </ng-template>
-
-  <!-- Name Column -->
-  <ng-template #fullName let-wishlist>
-    <a
-      pButton
-      routerLink="/wishlists/{{ wishlist.id }}"
-      class="text-blue-500"
-      [text]="true"
-      [pTooltip]="'Show Wishlist Details' | translate"
-      tooltipPosition="top"
-    >
-      {{ wishlist.name }}
-    </a>
   </ng-template>
 </app-table-wrapper>
 
