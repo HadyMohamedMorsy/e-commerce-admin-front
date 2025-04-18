@@ -9,7 +9,7 @@ import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
 import { ViewAddressComponent } from '../dialog/view/view-address.component';
-import { FiltersAddressesComponent } from '../filters-address/filters-address.component';
+import { FiltersAddressesComponent } from '../filters-bank/filters-address.component';
 import { Address } from '../services/services-type';
 
 @Component({

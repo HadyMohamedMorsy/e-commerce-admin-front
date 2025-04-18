@@ -20,7 +20,7 @@ export const addressRoutes: Routes = [
   {
     path: 'new-address',
     loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
+      import('./create-update-bank/create-update-address.component'),
     title: 'new address',
     // canActivate: [RoleGuard],
     // data: {
@@ -32,7 +32,7 @@ export const addressRoutes: Routes = [
   {
     path: 'update-address',
     loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
+      import('./create-update-bank/create-update-address.component'),
     title: 'Update address',
     // canActivate: [RoleGuard],
     // data: {

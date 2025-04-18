@@ -5,69 +5,69 @@ import {
   input,
   model,
 } from '@angular/core';
-import { Address } from '@pages/address/services/services-type';
+import { Bank } from '@pages/bank/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
-  selector: 'app-view-address',
+  selector: 'app-view-bank',
   imports: [ViewDialogComponent],
-  templateUrl: './view-address.component.html',
+  templateUrl: './view-bank.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewAddressComponent {
+export class ViewBankComponent {
   isShowDialog = model(false);
-  address = input.required<Address>();
+  bank = input.required<Bank>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
         label: '#ID',
-        value: this.address()?.id,
+        value: this.bank()?.id,
       },
       {
         label: 'title',
-        value: this.address()?.title,
+        value: this.bank()?.title,
       },
       {
-        label: 'City',
-        value: this.address()?.city,
+        label: 'Branch',
+        value: this.bank()?.branch,
       },
       {
-        label: 'addressLine1',
-        value: this.address()?.addressLine1,
+        label: 'Account Number',
+        value: this.bank()?.accountNumber,
         hasToolTip: true,
       },
       {
-        label: 'addressLine2',
-        value: this.address()?.addressLine2,
+        label: 'Account Holder',
+        value: this.bank()?.accountHolder,
+      },
+      {
+        label: 'Bank Name',
+        value: this.bank()?.bankName,
+      },
+      {
+        label: 'IFSC Code',
+        value: this.bank()?.ifscCode,
+      },
+      {
+        label: 'SWIFT Code',
+        value: this.bank()?.swiftCode,
       },
       {
         label: 'Country',
-        value: this.address()?.country,
+        value: this.bank()?.country,
       },
       {
-        label: 'city',
-        value: this.address()?.city,
+        label: 'Phone Number',
+        value: this.bank()?.phoneNumber,
       },
       {
-        label: 'postalCode',
-        value: this.address()?.postalCode,
+        label: 'Created At',
+        value: this.bank()?.createdAt,
       },
       {
-        label: 'landmark',
-        value: this.address()?.landmark,
-      },
-      {
-        label: 'phoneNumber',
-        value: this.address()?.phoneNumber,
-      },
-      {
-        label: 'createdAt',
-        value: this.address()?.createdAt,
-      },
-      {
-        label: 'updated_at',
-        value: this.address()?.updated_at,
+        label: 'Updated At',
+        value: this.bank()?.updated_at,
       },
     ];
   });

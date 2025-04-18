@@ -7,54 +7,57 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-addresses-filters',
+  selector: 'app-banks-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersAddressesComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('addresses');
+export class FiltersBanksComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('banks');
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'country',
+            key: 'bankName',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Country'),
+              label: _('Bank Name'),
               options: this.pageList$.pipe(
-                map(({ countries }) => [
+                map(({ bankNames }) => [
                   { label: 'All', value: '' },
-                  ...countries,
+                  ...bankNames,
                 ]),
               ),
             },
           },
           {
-            key: 'city',
+            key: 'branch',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('City'),
+              label: _('Branch'),
               options: this.pageList$.pipe(
-                map(({ cities }) => [{ label: 'All', value: '' }, ...cities]),
+                map(({ branches }) => [
+                  { label: 'All', value: '' },
+                  ...branches,
+                ]),
               ),
             },
           },
           {
-            key: 'postal_code',
+            key: 'ifscCode',
             type: 'input-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Postal Code'),
+              label: _('IFSC Code'),
             },
           },
           {

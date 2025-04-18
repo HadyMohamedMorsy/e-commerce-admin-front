@@ -7,158 +7,95 @@ import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AddressFieldsService {
+export class BankFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('users', { type: 'user' });
+  pageList$ = this.#globalList.getGlobalList('banks');
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'first_name',
+          key: 'bank_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('First Name'),
+            label: _('Bank Name'),
           },
         },
         {
-          key: 'last_name',
+          key: 'branch',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Last Name'),
+            label: _('Branch'),
           },
         },
         {
-          key: 'full_name',
+          key: 'account_holder',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
-            required: true,
-            label: _('Full Name'),
-          },
-          hooks: {
-            onInit: (field) => {
-              const firstNameControl =
-                field?.parent?.get?.('first_name')?.formControl;
-              const lastNameControl =
-                field?.parent?.get?.('last_name')?.formControl;
-              const fullNameControl = field?.formControl;
-
-              if (!firstNameControl || !lastNameControl || !fullNameControl) {
-                return EMPTY;
-              }
-
-              const firstLastChanges$ = merge(
-                firstNameControl.valueChanges.pipe(
-                  startWith(firstNameControl.value),
-                ),
-                lastNameControl.valueChanges.pipe(
-                  startWith(lastNameControl.value),
-                ),
-              ).pipe(
-                tap(() => {
-                  const fullName = `${firstNameControl.value || ''} ${
-                    lastNameControl.value || ''
-                  }`.trim();
-                  fullNameControl.setValue(fullName, { emitEvent: false });
-                  field.model['full_name'] = fullName;
-                }),
-              );
-
-              const fullNameChanges$ = fullNameControl.valueChanges.pipe(
-                startWith(fullNameControl.value),
-                tap((fullName) => {
-                  const trimmedFull = fullName?.trim();
-                  let parts = trimmedFull?.split(/\s+/);
-                  if (parts && parts.length) {
-                    const [firstName, ...lastNames] = parts;
-                    const lastName = lastNames.join(' ');
-
-                    if (firstNameControl.value !== firstName) {
-                      firstNameControl.setValue(firstName, {
-                        emitEvent: false,
-                      });
-                      field.model['first_name'] = firstName;
-                    }
-                    if (lastNameControl.value !== lastName) {
-                      lastNameControl.setValue(lastName, { emitEvent: false });
-                      field.model['last_name'] = lastName;
-                    }
-                  }
-                }),
-              );
-
-              return merge(firstLastChanges$, fullNameChanges$);
-            },
+            label: _('Account Holder'),
           },
         },
       ]),
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'email',
+          key: 'account_number',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Email Address'),
-          },
-          validators: {
-            validation: ['email'],
+            label: _('Account Number'),
           },
         },
         {
-          key: 'phone',
+          key: 'ifsc_code',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
-            type: 'number',
-            label: _('Phoe Number'),
+            label: _('IFSC Code'),
           },
         },
         {
-          key: 'start_validation_process',
-          type: 'checkbox-field',
-          hide: editData,
+          key: 'swift_code',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
           props: {
-            label: _('Start Validation Process'),
+            label: _('SWIFT Code'),
           },
         },
       ]),
-
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'timezone',
+          key: 'country',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Timezone'),
-            options: this.pageList$.pipe(map(({ timezones }) => timezones)),
+            label: _('Country'),
+            options: this.pageList$.pipe(map(({ countries }) => countries)),
           },
         },
         {
-          key: 'role_id',
-          type: 'select-field',
+          key: 'phone_number',
+          type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
-            required: true,
-            label: _('Role'),
-            options: this.pageList$.pipe(map(({ roles }) => roles)),
+            label: _('Phone Number'),
           },
         },
       ]),
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'avatar',
+          key: 'bank_logo',
           type: 'file-field',
           props: {
-            label: _('Avatar'),
+            label: _('Bank Logo'),
             mode: editData ? 'update' : 'store',
             isUploading: this.isSingleUploading,
           },
@@ -167,7 +104,7 @@ export class AddressFieldsService {
     ];
   }
 
-  configureFieldsUsersPassword() {
+  configureFieldsBankPassword() {
     return [
       {
         fieldGroup: [
@@ -188,8 +125,8 @@ export class AddressFieldsService {
                     type: 'password-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password'),
-                      placeholder: _('password'),
+                      label: _('Password'),
+                      placeholder: _('Password'),
                       toggleMask: true,
                     },
                   },
@@ -198,8 +135,8 @@ export class AddressFieldsService {
                     type: 'password-field',
                     className: 'md:col-4 col-12',
                     props: {
-                      label: _('password confirmation'),
-                      placeholder: _('password confirmation'),
+                      label: _('Password Confirmation'),
+                      placeholder: _('Password Confirmation'),
                       toggleMask: true,
                     },
                   },
