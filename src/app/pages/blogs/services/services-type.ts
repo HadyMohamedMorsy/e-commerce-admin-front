@@ -21,8 +21,6 @@ export interface Blog {
   media_type: string;
   created_at: string;
   updated_at: string;
-  created_since: string;
-  updated_since: string;
 }
 
 export class BlogModel {

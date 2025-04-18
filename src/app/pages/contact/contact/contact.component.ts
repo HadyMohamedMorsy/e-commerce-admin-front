@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,60 +7,48 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
-import { ViewAddressComponent } from '../dialog/view/view-address/view-address.component';
-import { FiltersAddressesComponent } from '../filters-users/filters-addresses.component';
-import { Address } from '../services/services-type';
-import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.component';
+import { ViewContactComponent } from '../dialog/view/view-contact.component';
+import { FiltersContactsComponent } from '../filters-contact/filters-contact.component';
+import { Contact } from '../services/services-type';
 
 @Component({
-  selector: 'app-addresses',
+  selector: 'app-contacts',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersAddressesComponent,
+    FiltersContactsComponent,
     TooltipModule,
     TranslateModule,
-    EllipsisActionComponent,
-    ViewAddressComponent,
+    ViewContactComponent,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './address.component.html',
+  templateUrl: './contact.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AddressesComponent extends BaseIndexComponent<Address> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
-
+export default class ContactsComponent extends BaseIndexComponent<Contact> {
   ngOnInit() {
-    this.dialogComponent = CuAddressDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
         index: 'auth/users/user',
         delete: 'auth/users/user/delete',
       },
-      navigateCreatePage: 'new-address',
+      navigateCreatePage: 'new-contact',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Addresses')),
+      indexTitle: this.#translate(_('Contacts')),
       indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Address')),
-      indexTableKey: 'ADDRESSES_KEY',
+      createBtnLabel: this.#translate(_('Create Contact')),
+      indexTableKey: 'CONTACTS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
           name: `id`,
           searchable: false,
           orderable: false,
-        },
-        {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
-          searchable: true,
-          orderable: false,
-          render: this.fullName(),
         },
         {
           title: this.#translate(_('Email Address')),
@@ -81,11 +64,6 @@ export default class AddressesComponent extends BaseIndexComponent<Address> {
         },
       ],
     };
-
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'address',
-    }));
 
     this.initRolesUser();
   }

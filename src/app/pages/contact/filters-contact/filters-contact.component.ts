@@ -7,66 +7,78 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-addresses-filters',
+  selector: 'app-contacts-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersAddressesComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('addresses');
+export class FiltersContactsComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('contacts');
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'country',
+            key: 'name',
+            type: 'input-field',
+            className: 'md:col-2 col-12',
+            props: {
+              isNotPField: true,
+              label: _('Name'),
+              placeholder: _('Search by name'),
+            },
+          },
+          {
+            key: 'email',
+            type: 'input-field',
+            className: 'md:col-2 col-12',
+            props: {
+              isNotPField: true,
+              label: _('Email'),
+              placeholder: _('Search by email'),
+            },
+          },
+          {
+            key: 'phone',
+            type: 'input-field',
+            className: 'md:col-2 col-12',
+            props: {
+              isNotPField: true,
+              label: _('Phone'),
+              placeholder: _('Search by phone'),
+            },
+          },
+          {
+            key: 'subject',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('Country'),
+              label: _('Subject'),
               options: this.pageList$.pipe(
-                map(({ countries }) => [
+                map(({ subjects }) => [
                   { label: 'All', value: '' },
-                  ...countries,
+                  ...subjects,
                 ]),
               ),
             },
           },
           {
-            key: 'state',
+            key: 'status',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
               isNotPField: true,
-              label: _('State/Province'),
+              label: _('Status'),
               options: this.pageList$.pipe(
-                map(({ states }) => [{ label: 'All', value: '' }, ...states]),
+                map(({ statuses }) => [
+                  { label: 'All', value: '' },
+                  ...statuses,
+                ]),
               ),
-            },
-          },
-          {
-            key: 'city',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('City'),
-              options: this.pageList$.pipe(
-                map(({ cities }) => [{ label: 'All', value: '' }, ...cities]),
-              ),
-            },
-          },
-          {
-            key: 'postal_code',
-            type: 'input-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Postal Code'),
             },
           },
           {

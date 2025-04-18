@@ -10,7 +10,6 @@ export interface Review {
   creator_name: string;
   creator_image: string;
   media: string[];
-  created_since: string;
 }
 
 export class ReviewModel {

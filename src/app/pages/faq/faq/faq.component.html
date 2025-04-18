@@ -32,7 +32,7 @@
   (onLoadData)="loadRecords($event)"
 >
   <ng-template #customFiltersTemplate>
-    <app-addresses-filters
+    <app-faqs-filters
       [displayFilters]="displayFilters()"
       [(filtersData)]="filtersData"
     />
@@ -51,7 +51,7 @@
     styleClass="m-0 min-h-full border-none temporarily-hide-header"
   >
     @if (showView()) {
-      <app-view-address [(isShowDialog)]="showView" [address]="recordView()" />
+      <app-view-faq [(isShowDialog)]="showView" [faq]="recordView()" />
     }
   </p-dialog>
 </app-table-wrapper>

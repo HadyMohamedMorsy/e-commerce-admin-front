@@ -9,7 +9,7 @@ import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuFaqDialogComponent } from '../dialog/cu/cu-faq-dialog.component';
 import { ViewFaqComponent } from '../dialog/view/view-faq.component';
-import { FiltersFaqComponent } from '../filters-faq/filters-faq.component';
+import { FiltersFaqsComponent } from '../filters-faq/filters-faq.component';
 import { Faq } from '../services/services-type';
 
 @Component({
@@ -18,7 +18,7 @@ import { Faq } from '../services/services-type';
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersFaqComponent,
+    FiltersFaqsComponent,
     TooltipModule,
     TranslateModule,
     ViewFaqComponent,
