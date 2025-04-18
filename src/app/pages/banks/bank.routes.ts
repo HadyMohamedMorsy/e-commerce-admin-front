@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const addressRoutes: Routes = [
+export const bankRoutes: Routes = [
   {
-    path: 'address',
-    loadComponent: () => import('./address/address.component'),
-    title: 'address',
+    path: 'bank',
+    loadComponent: () => import('./banks/bank.component'),
+    title: 'bank',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
@@ -18,10 +18,10 @@ export const addressRoutes: Routes = [
     // },
   },
   {
-    path: 'new-address',
+    path: 'new-bank',
     loadComponent: () =>
-      import('./create-update-bank/create-update-address.component'),
-    title: 'new address',
+      import('./create-update-bank/create-update-bank.component'),
+    title: 'new bank',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
@@ -30,10 +30,10 @@ export const addressRoutes: Routes = [
     // },
   },
   {
-    path: 'update-address',
+    path: 'update-bank',
     loadComponent: () =>
-      import('./create-update-bank/create-update-address.component'),
-    title: 'Update address',
+      import('./create-update-bank/create-update-bank.component'),
+    title: 'Update bank',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {

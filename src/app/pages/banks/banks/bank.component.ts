@@ -7,53 +7,52 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
-import { ViewAddressComponent } from '../dialog/view/view-address.component';
-import { FiltersAddressesComponent } from '../filters-bank/filters-address.component';
-import { Address } from '../services/services-type';
+import { CuBankDialogComponent } from '../dialog/cu/cu-bank-dialog.component';
+import { ViewBankComponent } from '../dialog/view/view-bank.component';
+import { FiltersBanksComponent } from '../filters-bank/filters-bank.component';
+import { Bank } from '../services/services-type';
 
 @Component({
-  selector: 'app-addresses',
+  selector: 'app-banks',
   imports: [
     TableWrapperComponent,
     ButtonModule,
     RouterLink,
-    FiltersAddressesComponent,
+    FiltersBanksComponent,
     TooltipModule,
     TranslateModule,
-    ViewAddressComponent,
+    ViewBankComponent,
     MenuModule,
     Dialog,
-    TranslateModule,
   ],
-  templateUrl: './address.component.html',
+  templateUrl: './bank.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AddressesComponent extends BaseIndexComponent<Address> {
+export default class BanksComponent extends BaseIndexComponent<Bank> {
   ngOnInit() {
-    this.dialogComponent = CuAddressDialogComponent;
+    this.dialogComponent = CuBankDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'address/index',
-        delete: 'address/delete',
+        index: 'bank/index',
+        delete: 'bank/delete',
       },
-      navigateCreatePage: 'new-address',
+      navigateCreatePage: 'new-bank',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Addresses')),
-      indexIcon: 'pi pi-users',
-      createBtnLabel: this.#translate(_('Create Address')),
-      indexTableKey: 'ADDRESSES_KEY',
+      indexTitle: this.#translate(_('Banks')),
+      indexIcon: 'pi pi-building',
+      createBtnLabel: this.#translate(_('Create Bank')),
+      indexTableKey: 'BANKS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
-          name: `id`,
+          name: 'id',
           searchable: false,
           orderable: false,
         },
         {
           title: this.#translate(_('title')),
-          name: `title`,
+          name: 'title',
           searchable: true,
           orderable: false,
         },

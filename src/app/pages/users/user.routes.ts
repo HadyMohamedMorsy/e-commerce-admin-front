@@ -9,11 +9,11 @@ export const userRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-admin-assistant', 'customer-owner'],
-    //     store: ['8x-owner', '8x-admin-assistant', 'customer-owner'],
-    //     show: ['8x-owner', '8x-admin-assistant', 'customer-owner'],
-    //     update: ['8x-owner', 'customer-owner'],
-    //     delete: ['8x-owner', '8x-admin-assistant'],
+    //     index: [],
+    //     store: [],
+    //     show: [],
+    //     update: [],
+    //     delete: [],
     //     redirectTo: '403',
     //   },
     // },
@@ -26,7 +26,7 @@ export const userRoutes: Routes = [
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-admin-assistant', 'customer-owner'],
+    //     index: [],
     //     redirectTo: '403',
     //   },
     // },

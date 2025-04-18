@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { ReviewFieldsService } from '../services/review-fields.service';
+import { ReviewFieldsService } from '../services/reviews-fields.service';
 import { ReviewModel } from '../services/services-type';
 
 @Component({
