@@ -1,214 +1,104 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { GlobalListService } from '@gService/global-list.service';
+import { inject, Injectable } from '@angular/core';
 import { _, TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { EMPTY, map, merge, startWith, tap } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddressFieldsService {
   translate = inject(TranslateService);
-  #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('users', { type: 'user' });
-  isSingleUploading = signal(false);
+  pageList$ = of(1);
 
   configureFields(editData: any) {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'first_name',
+          key: 'title',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('First Name'),
+            label: _('title'),
           },
         },
         {
-          key: 'last_name',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
+          key: 'addressLine1',
+          type: 'textarea-field',
+          className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('Last Name'),
+            label: _('addressLine 1'),
+            rows: 3,
+            autoResize: true,
           },
         },
         {
-          key: 'full_name',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
+          key: 'addressLine2',
+          type: 'textarea-field',
+          className: 'md:col-6 col-12',
           props: {
-            required: true,
-            label: _('Full Name'),
-          },
-          hooks: {
-            onInit: (field) => {
-              const firstNameControl =
-                field?.parent?.get?.('first_name')?.formControl;
-              const lastNameControl =
-                field?.parent?.get?.('last_name')?.formControl;
-              const fullNameControl = field?.formControl;
-
-              if (!firstNameControl || !lastNameControl || !fullNameControl) {
-                return EMPTY;
-              }
-
-              const firstLastChanges$ = merge(
-                firstNameControl.valueChanges.pipe(
-                  startWith(firstNameControl.value),
-                ),
-                lastNameControl.valueChanges.pipe(
-                  startWith(lastNameControl.value),
-                ),
-              ).pipe(
-                tap(() => {
-                  const fullName = `${firstNameControl.value || ''} ${
-                    lastNameControl.value || ''
-                  }`.trim();
-                  fullNameControl.setValue(fullName, { emitEvent: false });
-                  field.model['full_name'] = fullName;
-                }),
-              );
-
-              const fullNameChanges$ = fullNameControl.valueChanges.pipe(
-                startWith(fullNameControl.value),
-                tap((fullName) => {
-                  const trimmedFull = fullName?.trim();
-                  let parts = trimmedFull?.split(/\s+/);
-                  if (parts && parts.length) {
-                    const [firstName, ...lastNames] = parts;
-                    const lastName = lastNames.join(' ');
-
-                    if (firstNameControl.value !== firstName) {
-                      firstNameControl.setValue(firstName, {
-                        emitEvent: false,
-                      });
-                      field.model['first_name'] = firstName;
-                    }
-                    if (lastNameControl.value !== lastName) {
-                      lastNameControl.setValue(lastName, { emitEvent: false });
-                      field.model['last_name'] = lastName;
-                    }
-                  }
-                }),
-              );
-
-              return merge(firstLastChanges$, fullNameChanges$);
-            },
-          },
-        },
-      ]),
-      this.fieldBuilder.fieldBuilder([
-        {
-          key: 'email',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            required: true,
-            label: _('Email Address'),
-          },
-          validators: {
-            validation: ['email'],
+            label: _('addressLine 2'),
+            rows: 3,
+            autoResize: true,
           },
         },
         {
-          key: 'phone',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            type: 'number',
-            label: _('Phoe Number'),
-          },
-        },
-        {
-          key: 'start_validation_process',
-          type: 'checkbox-field',
-          hide: editData,
-          props: {
-            label: _('Start Validation Process'),
-          },
-        },
-      ]),
-
-      this.fieldBuilder.fieldBuilder([
-        {
-          key: 'timezone',
+          key: 'country_id',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Timezone'),
-            options: this.pageList$.pipe(map(({ timezones }) => timezones)),
+            label: _('country'),
+            options: [],
           },
         },
         {
-          key: 'role_id',
+          key: 'city_id',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            required: true,
-            label: _('Role'),
-            options: this.pageList$.pipe(map(({ roles }) => roles)),
+            label: _('city'),
+            options: [],
           },
         },
-      ]),
-      this.fieldBuilder.fieldBuilder([
         {
-          key: 'avatar',
-          type: 'file-field',
+          key: 'area_id',
+          type: 'select-field',
+          className: 'md:col-4 col-12',
           props: {
-            label: _('Avatar'),
-            mode: editData ? 'update' : 'store',
-            isUploading: this.isSingleUploading,
+            label: _('area'),
+            options: [],
+          },
+        },
+        {
+          key: 'postalCode',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('postalCode'),
+          },
+        },
+        {
+          key: 'landmark',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('landmark'),
+          },
+        },
+        {
+          key: 'phoneNumber',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('phone Number'),
           },
         },
       ]),
-    ];
-  }
-
-  configureFieldsUsersPassword() {
-    return [
-      {
-        fieldGroup: [
-          this.fieldBuilder.fieldBuilder([
-            {
-              validators: {
-                validation: [
-                  {
-                    name: 'fieldMatch',
-                    options: { errorPath: 'password_confirmation' },
-                  },
-                ],
-              },
-              fieldGroup: [
-                this.fieldBuilder.fieldBuilder([
-                  {
-                    key: 'password',
-                    type: 'password-field',
-                    className: 'md:col-4 col-12',
-                    props: {
-                      label: _('password'),
-                      placeholder: _('password'),
-                      toggleMask: true,
-                    },
-                  },
-                  {
-                    key: 'password_confirmation',
-                    type: 'password-field',
-                    className: 'md:col-4 col-12',
-                    props: {
-                      label: _('password confirmation'),
-                      placeholder: _('password confirmation'),
-                      toggleMask: true,
-                    },
-                  },
-                ]),
-              ],
-            },
-          ]),
-        ],
-      },
     ];
   }
 }

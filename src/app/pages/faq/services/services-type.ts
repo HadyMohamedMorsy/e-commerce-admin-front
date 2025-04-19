@@ -10,7 +10,6 @@ export class faqModel {
     this.answer = data?.answer || null;
   }
 }
-
 export interface Faq {
   id: number;
   question: string;

@@ -31,6 +31,6 @@ export default class CreateUpdateUserComponent extends FormPageComponent {
 
     this.formTitle.set(isUpdate ? 'Update User' : 'Create New User');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(isUpdate ? 'auth/users/user/update' : 'auth/users/user');
+    this.endpoint.set(isUpdate ? 'user/update' : 'user/store');
   }
 }

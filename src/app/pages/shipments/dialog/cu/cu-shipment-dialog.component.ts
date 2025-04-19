@@ -20,6 +20,12 @@ export class CuShipmentDialogComponent extends BaseCreateUpdateComponent<Shipmen
   #list$ = this.#globalList.getGlobalList('shipments');
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode
+      ? _('Create New Shipment')
+      : _('Update Shipment');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -27,23 +33,11 @@ export class CuShipmentDialogComponent extends BaseCreateUpdateComponent<Shipmen
         store: 'shipment/store',
         update: 'shipment/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Shipment')),
-        submitButtonLabel: this.translate.instant(_('Update Shipment')),
-      };
-      this.model = new ShipmentModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Shipment')),
-        submitButtonLabel: this.translate.instant(_('Create New Shipment')),
-      };
-      this.model = new ShipmentModel();
-    }
+    this.model = new ShipmentModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

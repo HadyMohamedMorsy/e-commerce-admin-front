@@ -30,8 +30,6 @@ export default class CreateUpdateLocationComponent extends FormPageComponent {
 
     this.formTitle.set(isUpdate ? 'Update Location' : 'Create New Location');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(
-      isUpdate ? 'auth/users/user/update' : 'auth/users/new-location',
-    );
+    this.endpoint.set(isUpdate ? 'location/update' : 'location/store');
   }
 }

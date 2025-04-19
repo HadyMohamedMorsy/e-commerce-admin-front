@@ -22,36 +22,12 @@ export class FiltersFaqsComponent extends FilterBaseComponent {
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'category',
+            key: 'select_questionable_type',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
-              label: _('Category'),
-              options: this.pageList$.pipe(
-                map(({ categories }) => [
-                  { label: 'All', value: '' },
-                  ...categories,
-                ]),
-              ),
-            },
-          },
-          {
-            key: 'question',
-            type: 'input-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Question'),
-            },
-          },
-          {
-            key: 'created_at',
-            type: 'input-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Created At'),
+              label: _('select questionable type'),
+              options: [],
             },
           },
           {

@@ -1,17 +1,15 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GlobalListService } from '@gService/global-list.service';
 import { _, TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { map } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CouponFieldsService {
   translate = inject(TranslateService);
-  #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('coupons');
+  pageList$ = of(1);
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
@@ -27,68 +25,77 @@ export class CouponFieldsService {
           },
         },
         {
-          key: 'description',
-          type: 'textarea-field',
-          className: 'md:col-8 col-12',
-          props: {
-            label: _('Description'),
-            rows: 3,
-          },
-        },
-      ]),
-
-      this.fieldBuilder.fieldBuilder([
-        {
           key: 'discount_type',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
             label: _('Discount Type'),
-            options: this.pageList$.pipe(
-              map(({ discountTypes }) => discountTypes),
-            ),
+            options: [],
           },
         },
         {
-          key: 'discount_value',
+          key: 'discount',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
             type: 'number',
-            label: _('Discount Value'),
+            label: _('Discount'),
           },
         },
         {
-          key: 'is_active',
-          type: 'checkbox-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('Is Active'),
-          },
-        },
-      ]),
-
-      this.fieldBuilder.fieldBuilder([
-        {
-          key: 'start_date',
-          type: 'calendar-field',
+          key: 'min_order_total_price',
+          type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Start Date'),
-            showTime: true,
+            type: 'number',
+            label: _('min order total price'),
           },
         },
         {
-          key: 'end_date',
-          type: 'calendar-field',
+          key: 'min_order_item_count',
+          type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('End Date'),
-            showTime: true,
+            type: 'number',
+            label: _('min order item count'),
+          },
+        },
+        {
+          key: 'number_of_users',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            type: 'number',
+            label: _('number_of_users'),
+          },
+        },
+        {
+          key: 'coupon_type',
+          type: 'select-field',
+          className: 'col-12 md:col-4',
+          props: {
+            isFloatedLabel: true,
+            label: _('select coupon type'),
+            placeholder: _('select coupon type'),
+            options: [
+              {
+                label: this.translate.instant(_('per order')),
+                value: 'per_order',
+              },
+              {
+                label: this.translate.instant(_('per customer')),
+                value: 'per_customer',
+              },
+              {
+                label: this.translate.instant(_('first order')),
+                value: 'first_order',
+              },
+            ],
           },
         },
       ]),

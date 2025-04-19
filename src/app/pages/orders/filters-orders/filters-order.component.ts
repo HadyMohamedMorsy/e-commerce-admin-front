@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { FormlyModule } from '@ngx-formly/core';
-import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
@@ -22,41 +21,12 @@ export class FiltersOrdersComponent extends FilterBaseComponent {
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'order_number',
-            type: 'input-field',
-            className: 'md:col-3 col-12',
-            props: {
-              label: _('Order Number'),
-            },
-          },
-          {
-            key: 'customer_name',
-            type: 'input-field',
-            className: 'md:col-3 col-12',
-            props: {
-              label: _('Customer Name'),
-            },
-          },
-          {
             key: 'status',
             type: 'select-field',
             className: 'md:col-3 col-12',
             props: {
               label: _('Order Status'),
-              options: this.pageList$.pipe(
-                map(({ statuses }) => [
-                  { label: 'All', value: '' },
-                  ...statuses, // Assuming statuses come from the API response
-                ]),
-              ),
-            },
-          },
-          {
-            key: 'order_date',
-            type: 'date-field',
-            className: 'md:col-3 col-12',
-            props: {
-              label: _('Order Date'),
+              options: [],
             },
           },
           {

@@ -21,6 +21,12 @@ export class CuCouponDialogComponent extends BaseCreateUpdateComponent<CouponMod
   #list$ = this.#globalList.getGlobalList('coupons');
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode
+      ? _('Create New Coupon')
+      : _('Update Coupon');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -28,24 +34,11 @@ export class CuCouponDialogComponent extends BaseCreateUpdateComponent<CouponMod
         store: 'coupon/store',
         update: 'coupon/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Coupon')),
-        submitButtonLabel: this.translate.instant(_('Update Coupon')),
-      };
-      this.model = new CouponModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Coupon')),
-        submitButtonLabel: this.translate.instant(_('Create New Coupon')),
-      };
-      this.model = new CouponModel();
-    }
-
+    this.model = new CouponModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

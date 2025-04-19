@@ -31,13 +31,6 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <!-- Filters Component -->
-  <ng-template #customFiltersTemplate>
-    <app-wishlist-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
-  </ng-template>
 </app-table-wrapper>
 
 <!-- View Dialog -->

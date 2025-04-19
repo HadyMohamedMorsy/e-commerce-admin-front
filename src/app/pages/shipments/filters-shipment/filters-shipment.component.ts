@@ -22,51 +22,30 @@ export class FiltersShipmentsComponent extends FilterBaseComponent {
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'country',
+            key: 'country_id',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
               label: _('Country'),
-              options: this.pageList$.pipe(
-                map(({ countries }) => [
-                  { label: 'All', value: '' },
-                  ...countries,
-                ]),
-              ),
+              options: [],
             },
           },
           {
-            key: 'state',
+            key: 'city_id',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
-              label: _('State/Province'),
-              options: this.pageList$.pipe(
-                map(({ states }) => [{ label: 'All', value: '' }, ...states]),
-              ),
-            },
-          },
-          {
-            key: 'city',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
               label: _('City'),
-              options: this.pageList$.pipe(
-                map(({ cities }) => [{ label: 'All', value: '' }, ...cities]),
-              ),
+              options: [],
             },
           },
           {
-            key: 'postal_code',
-            type: 'input-field',
+            key: 'area_id',
+            type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
-              label: _('Postal Code'),
+              label: _('area'),
+              options: [],
             },
           },
           {

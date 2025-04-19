@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const addressRoutes: Routes = [
+export const faqRoutes: Routes = [
   {
-    path: 'address',
-    loadComponent: () => import('./address/address.component'),
-    title: 'address',
+    path: 'faq',
+    loadComponent: () => import('./faq/faq.component'),
+    title: 'faq',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
@@ -18,10 +18,10 @@ export const addressRoutes: Routes = [
     // },
   },
   {
-    path: 'new-address',
+    path: 'new-faq',
     loadComponent: () =>
-      import('./create-update-faq/create-update-address.component'),
-    title: 'new address',
+      import('./create-update-faq/create-update-faq.component'),
+    title: 'new faq',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
@@ -30,10 +30,10 @@ export const addressRoutes: Routes = [
     // },
   },
   {
-    path: 'update-address',
+    path: 'update-faq',
     loadComponent: () =>
-      import('./create-update-faq/create-update-address.component'),
-    title: 'Update address',
+      import('./create-update-faq/create-update-faq.component'),
+    title: 'Update faq',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {

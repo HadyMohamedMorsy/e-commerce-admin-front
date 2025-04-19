@@ -1,5 +1,6 @@
 export interface Order {
   id: number;
+  payment: 'pending' | 'completed' | 'failed' | 'refunded';
   total: number;
   createdAt: string;
   updatedAt: string;

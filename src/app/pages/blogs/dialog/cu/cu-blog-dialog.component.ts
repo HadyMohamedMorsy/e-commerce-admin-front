@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
 import { BlogFieldsService } from '@pages/blogs/services/blog-fields.service';
-import { AuthService, BaseCreateUpdateComponent } from '@shared';
+import { BaseCreateUpdateComponent } from '@shared';
+import { of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { BlogModel } from '../../services/services-type';
 
@@ -16,12 +16,14 @@ import { BlogModel } from '../../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CuBlogDialogComponent extends BaseCreateUpdateComponent<BlogModel> {
-  #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(BlogFieldsService);
-  #list$ = this.#globalList.getGlobalList('blogs');
+  #list$ = of(1);
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode ? _('Create New Blog') : _('Update Blog');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -29,28 +31,11 @@ export class CuBlogDialogComponent extends BaseCreateUpdateComponent<BlogModel> 
         store: 'blog/store',
         update: 'blog/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Blog')),
-        submitButtonLabel: this.translate.instant(_('Update Blog')),
-      };
-      this.model = new BlogModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Blog')),
-        submitButtonLabel: this.translate.instant(_('Create New Blog')),
-      };
-      this.model = new BlogModel();
-    }
-
+    this.model = new BlogModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
-  }
-
-  override updateUi(model: BlogModel) {
-    // Optional: update UI state if needed
   }
 }

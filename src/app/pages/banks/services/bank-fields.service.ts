@@ -1,17 +1,15 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GlobalListService } from '@gService/global-list.service';
 import { _, TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { EMPTY, map, merge, startWith, tap } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BankFieldsService {
   translate = inject(TranslateService);
-  #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('banks');
+  pageList$ = of(1);
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
@@ -23,43 +21,44 @@ export class BankFieldsService {
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Bank Name'),
+            label: _('bank name'),
           },
         },
         {
-          key: 'branch',
+          key: 'account_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Branch'),
+            label: _('account name'),
           },
         },
-        {
-          key: 'account_holder',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('Account Holder'),
-          },
-        },
-      ]),
-      this.fieldBuilder.fieldBuilder([
         {
           key: 'account_number',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
+            type: 'number',
             required: true,
-            label: _('Account Number'),
+            label: _('account name'),
           },
         },
         {
-          key: 'ifsc_code',
+          key: 'branch_name',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('IFSC Code'),
+            required: true,
+            label: _('branch name'),
+          },
+        },
+        {
+          key: 'iban',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('iban'),
           },
         },
         {
@@ -67,85 +66,50 @@ export class BankFieldsService {
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('SWIFT Code'),
+            required: true,
+            label: _('swift_code'),
           },
         },
-      ]),
-      this.fieldBuilder.fieldBuilder([
         {
-          key: 'country',
+          key: 'country_id',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Country'),
-            options: this.pageList$.pipe(map(({ countries }) => countries)),
+            label: _('country'),
+            options: [],
           },
         },
         {
-          key: 'phone_number',
-          type: 'input-field',
+          key: 'city_id',
+          type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
-            label: _('Phone Number'),
+            label: _('city'),
+            options: [],
+          },
+        },
+        {
+          key: 'area_id',
+          type: 'select-field',
+          className: 'md:col-4 col-12',
+          props: {
+            label: _('area'),
+            options: [],
           },
         },
       ]),
+
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'bank_logo',
+          key: 'featured_image',
           type: 'file-field',
           props: {
-            label: _('Bank Logo'),
+            label: _('Featured Image'),
             mode: editData ? 'update' : 'store',
             isUploading: this.isSingleUploading,
           },
         },
       ]),
-    ];
-  }
-
-  configureFieldsBankPassword() {
-    return [
-      {
-        fieldGroup: [
-          this.fieldBuilder.fieldBuilder([
-            {
-              validators: {
-                validation: [
-                  {
-                    name: 'fieldMatch',
-                    options: { errorPath: 'password_confirmation' },
-                  },
-                ],
-              },
-              fieldGroup: [
-                this.fieldBuilder.fieldBuilder([
-                  {
-                    key: 'password',
-                    type: 'password-field',
-                    className: 'md:col-4 col-12',
-                    props: {
-                      label: _('Password'),
-                      placeholder: _('Password'),
-                      toggleMask: true,
-                    },
-                  },
-                  {
-                    key: 'password_confirmation',
-                    type: 'password-field',
-                    className: 'md:col-4 col-12',
-                    props: {
-                      label: _('Password Confirmation'),
-                      placeholder: _('Password Confirmation'),
-                      toggleMask: true,
-                    },
-                  },
-                ]),
-              ],
-            },
-          ]),
-        ],
-      },
     ];
   }
 }

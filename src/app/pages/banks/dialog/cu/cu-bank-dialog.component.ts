@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { BankFieldsService } from '@pages/bank/services/bank-fields.service';
-import { AuthService, BaseCreateUpdateComponent, User } from '@shared';
+import { BankFieldsService } from '@pages/banks/services/bank-fields.service';
+import { BaseCreateUpdateComponent } from '@shared';
+import { of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { BankModel } from '../../services/services-type';
 
@@ -15,12 +15,14 @@ import { BankModel } from '../../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CuBankDialogComponent extends BaseCreateUpdateComponent<BankModel> {
-  #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(BankFieldsService);
-  #list$ = this.#globalList.getGlobalList('banks');
+  #list$ = of(1);
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode ? _('Create New Bank') : _('Update Bank');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -28,23 +30,11 @@ export class CuBankDialogComponent extends BaseCreateUpdateComponent<BankModel> 
         store: 'bank/update',
         update: 'bank/store',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Bank')),
-        submitButtonLabel: this.translate.instant(_('Update Bank')),
-      };
-      this.model = new BankModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Bank')),
-        submitButtonLabel: this.translate.instant(_('Create New Bank')),
-      };
-      this.model = new BankModel();
-    }
+    this.model = new BankModel();
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

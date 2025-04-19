@@ -17,28 +17,4 @@ export const OrdersRoutes: Routes = [
     //   },
     // },
   },
-  {
-    path: 'new-order',
-    loadComponent: () =>
-      import('./create-update-orders/create-update-orders.component'),
-    title: 'new order',
-    // canActivate: [RoleGuard],
-    // data: {
-    //   roles: {
-    //     index: [],
-    //   },
-    // },
-  },
-  {
-    path: 'update-order',
-    loadComponent: () =>
-      import('./create-update-orders/create-update-orders.component'),
-    title: 'Update order',
-    // canActivate: [RoleGuard],
-    // data: {
-    //   roles: {
-    //     index: [],
-    //   },
-    // },
-  },
 ];

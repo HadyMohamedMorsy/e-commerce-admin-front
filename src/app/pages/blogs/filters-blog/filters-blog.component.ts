@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { FormlyModule } from '@ngx-formly/core';
-import { map } from 'rxjs';
+import { of } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
@@ -15,30 +15,12 @@ import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filte
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersBlogsComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('blogs');
+  pageList$ = of(1);
 
-   ngOnInit() {
+  ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
-          {
-            key: 'title',
-            type: 'input-field',
-            className: 'md:col-3 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Title'),
-            },
-          },
-          {
-            key: 'author',
-            type: 'input-field',
-            className: 'md:col-3 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Author'),
-            },
-          },
           {
             key: 'category',
             type: 'select-field',
@@ -46,25 +28,49 @@ export class FiltersBlogsComponent extends FilterBaseComponent {
             props: {
               isNotPField: true,
               label: _('Category'),
-              options: this.pageList$.pipe(
-                map(({ categories }) => [
-                  { label: 'All', value: '' },
-                  ...categories,
-                ]),
-              ),
+              options: [],
             },
           },
           {
-            key: 'status',
+            key: 'post_type',
             type: 'select-field',
-            className: 'md:col-3 col-12',
+            className: 'col-12 md:col-6',
             props: {
-              isNotPField: true,
-              label: _('Status'),
+              isFloatedLabel: true,
+              label: _('select post type'),
+              placeholder: _('select post type'),
               options: [
-                { label: 'All', value: '' },
-                { label: 'Draft', value: 'draft' },
-                { label: 'Published', value: 'published' },
+                {
+                  label: this.translate.instant(_('article')),
+                  value: 'article',
+                },
+                {
+                  label: this.translate.instant(_('video')),
+                  value: 'video',
+                },
+                {
+                  label: this.translate.instant(_('gallery')),
+                  value: 'gallery',
+                },
+              ],
+            },
+          },
+          {
+            key: 'media_type',
+            type: 'select-field',
+            props: {
+              required: true,
+              label: _('select article type'),
+              placeholder: _('select article type'),
+              options: [
+                {
+                  label: _('url'),
+                  value: 'url',
+                },
+                {
+                  label: _('iframe'),
+                  value: 'iframe',
+                },
               ],
             },
           },

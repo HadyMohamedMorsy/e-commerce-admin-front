@@ -4,7 +4,7 @@ import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
 import { FaqFieldsService } from '../services/faq-fields.service';
-import { FaqModel } from '../services/services-type';
+import { faqModel } from '../services/services-type';
 
 @Component({
   selector: 'app-create-update-faq',
@@ -25,8 +25,8 @@ export default class CreateUpdateFaqComponent extends FormPageComponent {
 
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
-      ? new FaqModel(this.filterDataForUpdate(new FaqModel()))
-      : new FaqModel();
+      ? new faqModel(this.filterDataForUpdate(new faqModel()))
+      : new faqModel();
 
     this.formTitle.set(isUpdate ? 'Update FAQ' : 'Create New FAQ');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');

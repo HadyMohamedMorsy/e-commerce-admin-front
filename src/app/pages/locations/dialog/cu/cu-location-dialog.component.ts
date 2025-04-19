@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
 import { LocationFieldsService } from '@pages/locations/services/location-fields.service';
-import { AuthService, BaseCreateUpdateComponent } from '@shared';
+import { BaseCreateUpdateComponent } from '@shared';
+import { of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { LocationModel } from '../../services/services-type';
 
@@ -16,11 +17,15 @@ import { LocationModel } from '../../services/services-type';
 })
 export class CuLocationDialogComponent extends BaseCreateUpdateComponent<LocationModel> {
   #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(LocationFieldsService);
-  #list$ = this.#globalList.getGlobalList('locations');
+  #list$ = of(1);
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode
+      ? _('Create New Location')
+      : _('Update Location');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -28,23 +33,11 @@ export class CuLocationDialogComponent extends BaseCreateUpdateComponent<Locatio
         store: 'location/store',
         update: 'location/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Location')),
-        submitButtonLabel: this.translate.instant(_('Update Location')),
-      };
-      this.model = new LocationModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Location')),
-        submitButtonLabel: this.translate.instant(_('Create New Location')),
-      };
-      this.model = new LocationModel();
-    }
+    this.model = new LocationModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

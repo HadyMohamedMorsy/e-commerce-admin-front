@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { FormlyModule } from '@ngx-formly/core';
-import { map } from 'rxjs';
+import { of } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filte
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersCouponsComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('coupons');
+  pageList$ = of(1);
 
   ngOnInit() {
     this.fields = [
@@ -31,32 +31,12 @@ export class FiltersCouponsComponent extends FilterBaseComponent {
             },
           },
           {
-            key: 'discountType',
+            key: 'discount_type',
             type: 'select-field',
             className: 'md:col-3 col-12',
             props: {
-              isNotPField: true,
               label: _('Discount Type'),
-              options: this.pageList$.pipe(
-                map(({ discountTypes }) => [
-                  { label: 'All', value: '' },
-                  ...discountTypes,
-                ]),
-              ),
-            },
-          },
-          {
-            key: 'isActive',
-            type: 'select-field',
-            className: 'md:col-2 col-12',
-            props: {
-              isNotPField: true,
-              label: _('Status'),
-              options: [
-                { label: 'All', value: '' },
-                { label: 'Active', value: true },
-                { label: 'Inactive', value: false },
-              ],
+              options: [],
             },
           },
           {

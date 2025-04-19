@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { FormlyModule } from '@ngx-formly/core';
-import { map } from 'rxjs';
+import { of } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
@@ -15,46 +15,37 @@ import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filte
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersAddressesComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('addresses');
+  pageList$ = of(1);
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'country',
+            key: 'country_id',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
               label: _('Country'),
-              options: this.pageList$.pipe(
-                map(({ countries }) => [
-                  { label: 'All', value: '' },
-                  ...countries,
-                ]),
-              ),
+              options: [],
             },
           },
           {
-            key: 'city',
+            key: 'city_id',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
               label: _('City'),
-              options: this.pageList$.pipe(
-                map(({ cities }) => [{ label: 'All', value: '' }, ...cities]),
-              ),
+              options: [],
             },
           },
           {
-            key: 'postal_code',
-            type: 'input-field',
+            key: 'area_id',
+            type: 'select-field',
             className: 'md:col-2 col-12',
             props: {
-              isNotPField: true,
-              label: _('Postal Code'),
+              label: _('area'),
+              options: [],
             },
           },
           {

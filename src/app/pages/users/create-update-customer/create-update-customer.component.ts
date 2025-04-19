@@ -30,8 +30,6 @@ export default class CreateUpdateCustomerComponent extends FormPageComponent {
 
     this.formTitle.set(isUpdate ? 'Update Customer' : 'Create New Customer');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(
-      isUpdate ? 'auth/users/user/update' : 'auth/users/new-customer',
-    );
+    this.endpoint.set(isUpdate ? 'user/update' : 'user/store');
   }
 }

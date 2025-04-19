@@ -15,6 +15,7 @@ import {
   FormlyFormOptions,
   FormlyModule,
 } from '@ngx-formly/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '../../services';
 
 @Component({
@@ -24,6 +25,7 @@ import { FieldBuilderService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterBaseComponent {
+  translate = inject(TranslateService);
   displayFilters = input.required<boolean>();
   fieldBuilder = inject(FieldBuilderService);
   currentLang = inject(LangService).currentLanguage;
