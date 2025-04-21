@@ -73,7 +73,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: var(--8x-surface-0);
+      background-color: var(--azalove-surface-0);
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

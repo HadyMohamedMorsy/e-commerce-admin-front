@@ -1,6 +1,6 @@
 %scrollable-content {
-  --scrollbar-thumb-border: var(--8x-surface-0);
-  --scrollbar-thumb-bg: var(--8x-surface-100);
+  --scrollbar-thumb-border: var(--azalove-surface-0);
+  --scrollbar-thumb-bg: var(--azalove-surface-100);
 
   &::-webkit-scrollbar {
     width: 14px;
@@ -12,13 +12,13 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--8x-scrollbar-thumb-bg);
+    background-color: var(--azalove-scrollbar-thumb-bg);
     border-radius: 7px;
-    border: solid 3px var(--8x-scrollbar-thumb-border);
+    border: solid 3px var(--azalove-scrollbar-thumb-border);
   }
 
   &:hover::-webkit-scrollbar-thumb {
-    background-color: var(--8x-surface-300);
+    background-color: var(--azalove-surface-300);
   }
 }
 
@@ -89,7 +89,7 @@
   text-align: start;
   text-transform: capitalize;
   background-color: transparent;
-  color: var(--8x-primary-900);
+  color: var(--azalove-primary-900);
   padding: 0;
   border: 0;
   font-size: 1rem;
@@ -98,7 +98,7 @@
   outline: none;
 
   &:hover {
-    color: var(--8x-primary-900);
+    color: var(--azalove-primary-900);
   }
 }
 
@@ -106,7 +106,7 @@
   display: block;
   margin-bottom: 0.25rem;
   line-height: 1;
-  color: var(--8x-surface-500);
+  color: var(--azalove-surface-500);
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -142,7 +142,7 @@
 .p-floatlabel label {
   font-size: 14px;
   text-transform: capitalize;
-  --8x-floatlabel-font-weight: 400;
+  --azalove-floatlabel-font-weight: 400;
 }
 
 .p-dialog.temporarily-hide-header {
@@ -212,4 +212,3 @@
 .object-cover {
   object-fit: cover;
 }
-

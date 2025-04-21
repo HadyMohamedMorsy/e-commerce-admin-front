@@ -70,7 +70,7 @@ import { ButtonModule } from 'primeng/button';
       }
       position: sticky;
       bottom: 0;
-      background-color: var(--8x-surface-0);
+      background-color: var(--azalove-surface-0);
       padding-block: 1rem;
     }
   `,

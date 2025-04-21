@@ -30,14 +30,14 @@
         position: relative;
         width: var(--size);
         height: var(--size);
-        background-color: var(--8x-surface-50);
-        border: 1px solid var(--8x-surface-300);
+        background-color: var(--azalove-surface-50);
+        border: 1px solid var(--azalove-surface-300);
         border-radius: var(--radius);
         overflow: hidden;
 
         &:not(.is-selected) {
           &:hover {
-            background-color: var(--8x-surface-100);
+            background-color: var(--azalove-surface-100);
           }
         }
 
@@ -154,13 +154,13 @@
         height: 22px;
         padding: 0;
         color: inherit;
-        background-color: var(--8x-surface-50);
+        background-color: var(--azalove-surface-50);
         box-shadow: 0 3px 15px rgba(#000, 0.1);
         border: 0;
         border-radius: 50%;
 
         &:hover {
-          color: var(--8x-primary-color);
+          color: var(--azalove-primary-color);
         }
       }
     }

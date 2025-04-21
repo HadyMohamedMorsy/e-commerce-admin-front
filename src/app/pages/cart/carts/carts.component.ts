@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -20,7 +14,6 @@ import { Cart } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     TooltipModule,
     TranslateModule,
     ViewCartComponent,

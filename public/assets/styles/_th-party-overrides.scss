@@ -64,7 +64,6 @@ p-radiobutton {
   }
 }
 
-
 .p-inputgroupaddon:first-child {
   height: var(--field-height);
 }
@@ -104,12 +103,12 @@ formly-field {
   label {
     display: inline-block;
     font-size: 15px;
-    color: var(--8x-gray-400);
+    color: var(--azalove-gray-400);
     margin-bottom: 0.5rem;
     text-transform: capitalize;
 
     span[aria-hidden="true"] {
-      color: var(--8x-red-500);
+      color: var(--azalove-red-500);
     }
   }
 
@@ -119,7 +118,7 @@ formly-field {
   }
 
   .p-select-label.p-placeholder {
-    color: var(--8x-gray-400);
+    color: var(--azalove-gray-400);
     font-weight: 400;
   }
 

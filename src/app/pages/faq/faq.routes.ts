@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const faqRoutes: Routes = [
+export const FaqRoutes: Routes = [
   {
-    path: 'faq',
+    path: 'faqs',
     loadComponent: () => import('./faq/faq.component'),
-    title: 'faq',
+    title: 'faqs',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {

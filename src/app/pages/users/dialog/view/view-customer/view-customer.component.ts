@@ -25,20 +25,16 @@ export class ViewCustomerComponent {
       },
       {
         label: 'first Name',
-        value: this.customer()?.first_name,
+        value: this.customer()?.fullName,
       },
       {
         label: 'last Name',
-        value: this.customer()?.last_name,
+        value: this.customer()?.lastName,
       },
       {
         label: 'Full Name',
-        value: this.customer()?.full_name,
+        value: this.customer()?.fullName,
         hasToolTip: true,
-      },
-      {
-        label: 'Role',
-        value: this.customer()?.role?.name_en,
       },
       {
         label: 'email',
@@ -46,20 +42,13 @@ export class ViewCustomerComponent {
         hasToolTip: true,
       },
       {
+        label: 'username',
+        value: this.customer()?.username,
+        hasToolTip: true,
+      },
+      {
         label: 'phone',
         value: this.customer()?.phone,
-      },
-      {
-        label: 'Passport Number',
-        value: this.customer()?.passport_number,
-      },
-      {
-        label: 'national number',
-        value: this.customer()?.national_number,
-      },
-      {
-        label: 'timezone',
-        value: this.customer()?.timezone,
       },
       {
         label: 'created at',

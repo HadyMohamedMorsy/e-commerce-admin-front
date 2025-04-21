@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Address } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersAddressesComponent,
     TooltipModule,
     TranslateModule,

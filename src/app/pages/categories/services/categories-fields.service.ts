@@ -27,7 +27,7 @@ export class CategoryFieldsService {
         {
           key: 'description',
           type: 'textarea-field',
-          className: 'md:col-8 col-12',
+          className: 'col-12',
           props: {
             label: _('Description'),
             rows: 3,

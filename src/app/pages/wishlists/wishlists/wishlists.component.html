@@ -23,8 +23,6 @@
   [globalFilterValue]="globalFilterValue()"
   [reorderableColumns]="indexMeta.reorderableColumns ?? false"
   [reorderableRows]="indexMeta.reorderableRows ?? false"
-  (createBtnClicked)="navigateCreatePage()"
-  (updateBtnClicked)="openUpdateRecordDialog($event)"
   (deleteBtnClicked)="confirmDelete($event)"
   (viewClicked)="openView($event)"
   [withCustomFilters]="true"

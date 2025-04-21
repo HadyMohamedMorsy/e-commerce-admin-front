@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { CustomersFieldsService } from '@pages/users/services/customers-fields.service';
 import { UserFieldsService } from '@pages/users/services/users-fields.service';
-import { AuthService, BaseCreateUpdateComponent, User } from '@shared';
+import { AuthService, BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
-import { UserModel } from '../../services/services-type';
+import { User, UserModel } from '../../services/services-type';
 
 @Component({
   selector: 'app-cu-customer-dialog',
   imports: [FormDialogComponent],
-  providers: [CustomersFieldsService],
+  providers: [UserFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,33 +18,25 @@ export class CuUserDialogComponent extends BaseCreateUpdateComponent<UserModel> 
   #globalList = inject(GlobalListService);
   #auth = inject(AuthService);
   fieldsService = inject(UserFieldsService);
-  #list$ = this.#globalList.getGlobalList('users');
+  #list$ = this.#globalList.getGlobalList('user');
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode ? _('Create New User') : _('Update User');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'auth/users/user',
-        update: 'auth/users/user/update',
+        store: 'user/store',
+        update: 'user/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update User')),
-        submitButtonLabel: this.translate.instant(_('Update User')),
-      };
-      this.model = new UserModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New User')),
-        submitButtonLabel: this.translate.instant(_('Create New User')),
-      };
-      this.model = new UserModel();
-    }
+    this.model = new UserModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 

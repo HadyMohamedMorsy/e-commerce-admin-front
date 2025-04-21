@@ -4,11 +4,10 @@
 :root {
   --high-index: 9999;
   --sidebar-width: "32rem";
-  --sidebar-faq-width: 0rem;
   --scrollbar-width: 3px;
   --field-height: 40px;
   --font-family: "Poppins", sans-serif;
-  --8x-border-radius: 6px;
+  --azalove-border-radius: 6px;
   --red-color: #f14726;
   &[dir="rtl"] {
     --font-family: "Cairo", sans-serif;
@@ -33,8 +32,8 @@
 body {
   text-align: start;
   font-family: var(--font-family);
-  background-color: var(--8x-surface-0);
-  color: var(--8x-text-color);
+  background-color: var(--azalove-surface-0);
+  color: var(--azalove-text-color);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;

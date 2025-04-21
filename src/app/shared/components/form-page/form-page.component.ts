@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '@gService/api.service';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { finalize, Observable, of } from 'rxjs';
-import { CacheService, FieldBuilderService } from '../../services';
+import { FieldBuilderService } from '../../services';
 import { FormComponent } from '../form.component';
 import { SpinnerComponent } from '../spinner.component';
 
@@ -64,13 +64,8 @@ export class FormPageComponent {
     }
     this.isLoadingBtnSubmit.set(true);
 
-    const payload =
-      this.filterDataForUpdate(this.model) &&
-      this.filterDataForUpdate(this.model).method !== 'create'
-        ? { ...this.model, _method: 'PUT' }
-        : { ...this.model, _method: 'POST' };
     this.api
-      .request('post', this.endpoint(), this.updateModel(payload))
+      .request('post', this.endpoint(), this.updateModel(this.model))
       .pipe(
         finalize(() => this.isLoadingBtnSubmit.set(false)),
         takeUntilDestroyed(this.destroyRef),

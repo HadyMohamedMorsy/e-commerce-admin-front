@@ -15,7 +15,7 @@ import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filte
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersFaqsComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('faqs');
+  pageList$ = this.globalList.getGlobalList('faq');
 
   ngOnInit() {
     this.fields = [
@@ -27,7 +27,7 @@ export class FiltersFaqsComponent extends FilterBaseComponent {
             className: 'md:col-2 col-12',
             props: {
               label: _('select questionable type'),
-              options: [],
+              options: this.pageList$.pipe(map(({ faq }) => faq)),
             },
           },
           {

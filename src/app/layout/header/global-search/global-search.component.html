@@ -42,17 +42,5 @@
         [(isShowDialog)]="showView"
       />
     }
-    @case ("invoice") {
-      <app-show-invoice
-        [invoiceId]="selectedId()"
-        [(isShowDialog)]="showView"
-      />
-    }
-    @case ("subscription") {
-      <app-show-subscription
-        [subscriptionId]="selectedId()"
-        [(isShowDialog)]="showView"
-      />
-    }
   }
 </p-dialog>

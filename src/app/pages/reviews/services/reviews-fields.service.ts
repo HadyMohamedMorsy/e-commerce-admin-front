@@ -11,7 +11,7 @@ export class ReviewFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('reviews', { type: 'review' });
+  pageList$ = this.#globalList.getGlobalList('reviews');
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {

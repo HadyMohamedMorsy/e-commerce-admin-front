@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Contact } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersContactsComponent,
     TooltipModule,
     TranslateModule,
@@ -34,11 +32,12 @@ export default class ContactsComponent extends BaseIndexComponent<Contact> {
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'contact/index',
+        delete: 'contact/delete',
       },
-      navigateCreatePage: 'new-contact',
       displayViewButton: true,
+      displayCreateButton: false,
+      displayUpdateButton: false,
       indexTitle: this.#translate(_('Contacts')),
       indexIcon: 'pi pi-users',
       createBtnLabel: this.#translate(_('Create Contact')),
@@ -51,14 +50,32 @@ export default class ContactsComponent extends BaseIndexComponent<Contact> {
           orderable: false,
         },
         {
+          title: this.#translate(_('name')),
+          name: `name`,
+          searchable: true,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('Email Address')),
           name: `email`,
           searchable: true,
           orderable: false,
         },
         {
+          title: this.#translate(_('phone')),
+          name: `phone`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('subject')),
+          name: `subject`,
+          searchable: false,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('created at')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

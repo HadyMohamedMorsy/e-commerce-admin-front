@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +21,6 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { TabsModule } from 'primeng/tabs';
 import { TooltipModule } from 'primeng/tooltip';
 import { distinctUntilChanged, filter, tap } from 'rxjs';
-import { DateFormatterPipe } from 'src/app/shared/pipes';
 import { RoundMinuteDirective } from './round-minute.directive';
 
 @Component({
@@ -44,8 +43,6 @@ import { RoundMinuteDirective } from './round-minute.directive';
 })
 export class DatePickerComponent extends FieldType<FieldTypeConfig> {
   #destroyRef = inject(DestroyRef);
-  #dateFormatter = inject(DateFormatterPipe);
-  #datePipe = inject(DatePipe);
   #translate = inject(TranslateService);
 
   datePicker = viewChild<DatePicker>('datePicker');

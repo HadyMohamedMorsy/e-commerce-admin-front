@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -7,7 +6,6 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuOrderDialogComponent } from '../dialog/cu/cu-order-dialog.component';
 import { ViewOrderComponent } from '../dialog/view/view-orders.component';
 import { FiltersOrdersComponent } from '../filters-orders/filters-order.component';
 import { Order } from '../services/services-type';
@@ -17,7 +15,6 @@ import { Order } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersOrdersComponent,
     TooltipModule,
     TranslateModule,
@@ -31,7 +28,6 @@ import { Order } from '../services/services-type';
 })
 export default class OrdersComponent extends BaseIndexComponent<Order> {
   ngOnInit() {
-    this.dialogComponent = CuOrderDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {

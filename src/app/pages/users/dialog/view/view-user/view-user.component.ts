@@ -5,7 +5,7 @@ import {
   input,
   model,
 } from '@angular/core';
-import { UserList } from '@pages/users/services/services-type';
+import { User } from '@pages/users/services/services-type';
 import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-
 })
 export class ViewUserComponent {
   isShowDialog = model(false);
-  user = input.required<UserList>();
+  user = input.required<User>();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -26,20 +26,20 @@ export class ViewUserComponent {
       },
       {
         label: 'first Name',
-        value: this.user()?.first_name,
+        value: this.user()?.firstName,
       },
       {
         label: 'last Name',
-        value: this.user()?.last_name,
+        value: this.user()?.lastName,
       },
       {
         label: 'Full Name',
-        value: this.user()?.full_name,
+        value: this.user()?.fullName,
         hasToolTip: true,
       },
       {
         label: 'Role',
-        value: this.user()?.role?.name_en,
+        value: this.user()?.role,
       },
       {
         label: 'email',
@@ -48,11 +48,15 @@ export class ViewUserComponent {
       },
       {
         label: 'phone',
-        value: this.user()?.phone,
+        value: this.user()?.phoneNumber,
       },
       {
-        label: 'timezone',
-        value: this.user()?.timezone,
+        label: 'username',
+        value: this.user()?.username,
+      },
+      {
+        label: 'role',
+        value: this.user()?.role,
       },
       {
         label: 'created at',

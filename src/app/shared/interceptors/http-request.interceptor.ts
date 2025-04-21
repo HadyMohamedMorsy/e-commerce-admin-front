@@ -21,6 +21,7 @@ export const HttpRequestInterceptor: HttpInterceptorFn = (
 ) => {
   const currentLang = inject(LangService).currentLanguage;
   const token = inject(AuthService).accessToken;
+  const userId = inject(AuthService).currentUser()?.id;
 
   const startTime = Date.now();
 
@@ -30,7 +31,8 @@ export const HttpRequestInterceptor: HttpInterceptorFn = (
 
   const headers: { [key: string]: string | string[] } = {
     Accept: 'application/json',
-    'X-localization': currentLang(),
+    localization: currentLang(),
+    'user-id': userId?.toString() as string,
     Authorization: `Bearer ${token()}`,
   };
 

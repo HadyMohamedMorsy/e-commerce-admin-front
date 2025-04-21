@@ -1,6 +1,6 @@
 export const constants = {
   DEFAULT_LANGUAGE: 'en',
-  PAGE_TITLE_PREFIX: 'Business App',
+  PAGE_TITLE_PREFIX: 'Azalove',
   LOGIN_SUCCESS_REDIRECT_URL: '/dashbored',
   MIN_LENGTH_TEXT_INPUT: 8,
   MAX_LENGTH_TEXT_INPUT: 191,

@@ -1,35 +1,8 @@
+import { User } from '@pages/users/services/services-type';
+
 // Auth service types (Models/entities)
 export interface LoginData {
-  accessToken: string;
+  access_token: string;
   token_type: string;
   user: User;
-}
-
-export interface AppData {
-  permissions: string[];
-}
-
-export interface User {
-  id: number;
-  full_name: string;
-  image: string;
-  username: string;
-  email: string;
-  last_name: string;
-  passport_number: number;
-  national_number: number;
-  subscriptions: any[];
-  phone: number;
-  avatar: string;
-  first_name: string;
-  mobile_number: string;
-  gender: string;
-  created_at: string;
-  role: {
-    name_en: string;
-    slug: string;
-  };
-  updated_at: string;
-  created_since: string;
-  updated_since: string;
 }

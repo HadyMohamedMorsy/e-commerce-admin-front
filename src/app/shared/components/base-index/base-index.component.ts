@@ -106,13 +106,6 @@ export abstract class BaseIndexComponent<
         )
         .pipe(
           map(({ data }) => data),
-          map((data) => {
-            return {
-              data: data.data.map((record: any) => record.record),
-              totalRecords: data.recordsTotal,
-              recordsFiltered: data.recordsFiltered,
-            };
-          }),
           tap((data) => {
             this.records.set(data.data);
             this.totalRecords.set(data.totalRecords);
@@ -159,7 +152,6 @@ export abstract class BaseIndexComponent<
             dir: sortOrder === 1 ? 'asc' : 'desc',
           },
         ],
-        _method: 'GET',
       };
     });
   }
@@ -222,14 +214,14 @@ export abstract class BaseIndexComponent<
   }
 
   initRolesUser() {
-    const routeData = this.#route.snapshot.data;
-    this.roles.set({
-      index: this.userRoles.hasAnyRole(routeData.roles.index),
-      create: this.userRoles.hasAnyRole(routeData.roles.store),
-      show: this.userRoles.hasAnyRole(routeData.roles.show),
-      update: this.userRoles.hasAnyRole(routeData.roles.update),
-      delete: this.userRoles.hasAnyRole(routeData.roles.delete),
-    });
+    // const routeData = this.#route.snapshot.data;
+    // this.roles.set({
+    //   index: this.userRoles.hasAnyRole(routeData.roles.index),
+    //   create: this.userRoles.hasAnyRole(routeData.roles.store),
+    //   show: this.userRoles.hasAnyRole(routeData.roles.show),
+    //   update: this.userRoles.hasAnyRole(routeData.roles.update),
+    //   delete: this.userRoles.hasAnyRole(routeData.roles.delete),
+    // });
   }
 
   protected deleteRecord(record: T) {

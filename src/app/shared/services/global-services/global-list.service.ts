@@ -7,16 +7,8 @@ import { CacheService } from './cache.service';
 export class GlobalListService {
   #cacheList = inject(CacheService);
 
-  getGlobalList(slug: string, data?: { [key: string]: any }) {
-    const cacheKey = `global-list-${slug}-${JSON.stringify(data)}`;
-    return this.#cacheList.getData(
-      `helpers/global-list`,
-      'post',
-      {
-        name: slug,
-        ...data,
-      },
-      cacheKey,
-    );
+  getGlobalList(slug: string) {
+    const cacheKey = `list/${slug}`;
+    return this.#cacheList.getData(`lists/slug/${slug}`, 'get', {}, cacheKey);
   }
 }

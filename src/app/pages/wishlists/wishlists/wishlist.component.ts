@@ -7,7 +7,6 @@ import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { ViewWishlistComponent } from '../dialog/view/view-wishlist.component';
-import { FiltersWishlistComponent } from '../filters-wishlist/filters-wishlist.component';
 import { Wishlist } from '../services/services-type';
 
 @Component({
@@ -15,7 +14,6 @@ import { Wishlist } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    FiltersWishlistComponent,
     TooltipModule,
     TranslateModule,
     ViewWishlistComponent,
@@ -31,11 +29,13 @@ export default class WishlistsComponent extends BaseIndexComponent<Wishlist> {
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'wishlist/index',
-        delete: 'wishlist/delete',
+        index: 'wishlists/index',
+        delete: 'wishlists/delete',
       },
       navigateCreatePage: 'new-wishlist',
       displayViewButton: true,
+      displayCreateButton: false,
+      displayUpdateButton: false,
       indexTitle: this.#translate(_('Wishlists')),
       indexIcon: 'pi pi-list',
       createBtnLabel: this.#translate(_('Create Wishlist')),
@@ -48,14 +48,8 @@ export default class WishlistsComponent extends BaseIndexComponent<Wishlist> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
-          searchable: true,
-          orderable: false,
-        },
-        {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

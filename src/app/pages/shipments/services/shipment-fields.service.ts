@@ -10,7 +10,7 @@ export class ShipmentFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('shipments', { type: 'shipment' });
+  pageList$ = this.#globalList.getGlobalList('shipments');
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {

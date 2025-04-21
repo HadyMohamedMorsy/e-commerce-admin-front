@@ -15,7 +15,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService, BreakpointService, constants } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
-import { finalize, map } from 'rxjs';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -71,21 +71,18 @@ export default class LoginComponent {
     },
   ];
 
-  login(): void {
-    if (this.loginForm.invalid) return; // return early
+  login() {
+    if (this.loginForm.invalid) return;
     this.loading.set(true);
     this.#authService
       .login(this.model)
       .pipe(
         finalize(() => this.loading.set(false)),
-        map(({ data }) => data),
         takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe({
-        next: (data) => {
-          this.#router.navigate(['/auth/otp'], {
-            state: { otp: data.otp },
-          });
+        next: () => {
+          this.#router.navigate([constants.LOGIN_SUCCESS_REDIRECT_URL]);
         },
       });
   }

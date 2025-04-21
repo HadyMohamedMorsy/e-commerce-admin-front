@@ -78,7 +78,7 @@ import {
         box-shadow: none;
       }
       &:not(.ng-select-disabled) > .ng-select-container{
-        background-color: var(--8x-form-field-background) !important;
+        background-color: var(--azalove-form-field-background) !important;
       }
       .ng-select-single .ng-select-container {
         height: var(--field-height);
@@ -91,20 +91,20 @@ import {
       }
       .ng-select-container {
         z-index: auto !important;
-        box-shadow: var(--8x-form-field-shadow) !important;
-        border-radius: var(--8x-form-field-border-radius);
-        color: var(--8x-form-field-color);
-        border-color: var(--8x-form-field-border-color) !important;
+        box-shadow: var(--azalove-form-field-shadow) !important;
+        border-radius: var(--azalove-form-field-border-radius);
+        color: var(--azalove-form-field-color);
+        border-color: var(--azalove-form-field-border-color) !important;
         .ng-input {
           input {
             font-family: inherit;
           }
         }
         .ng-spinner-loader {
-          border-top-color: var(--8x-surface-200);
-          border-right-color: var(--8x-surface-200);
-          border-bottom-color: var(--8x-surface-200);
-          border-left-color: var(--8x-surface-500);
+          border-top-color: var(--azalove-surface-200);
+          border-right-color: var(--azalove-surface-200);
+          border-bottom-color: var(--azalove-surface-200);
+          border-left-color: var(--azalove-surface-500);
         }
         .ng-arrow-wrapper {
           display: none;
@@ -114,11 +114,11 @@ import {
         }
       }
       .ng-dropdown-panel {
-        border-color: var(--8x-surface-200);
+        border-color: var(--azalove-surface-200);
       }
       .ng-dropdown-panel-items .ng-option {
-        background-color: var(--8x-surface-0);
-        color: var(--8x-surface-600);
+        background-color: var(--azalove-surface-0);
+        color: var(--azalove-surface-600);
       }
     }
   `,

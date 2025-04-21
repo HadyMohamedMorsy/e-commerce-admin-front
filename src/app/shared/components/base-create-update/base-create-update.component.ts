@@ -81,15 +81,10 @@ export abstract class BaseCreateUpdateComponent<
     const endpoint = isUpdateAction ? endpoints.update : endpoints.store;
     const apiVersion = isUpdateAction ? updateApiVersion : createApiVersion;
 
-    const payload =
-      this.editData && this.editData.method !== 'create'
-        ? { ...model, _method: 'PUT' }
-        : { ...model, _method: 'POST' };
-
     const action = this.api.request(
       'post',
       endpoint,
-      this.updateModel(payload),
+      this.updateModel(model),
       headers,
       params,
       apiVersion,
@@ -97,8 +92,6 @@ export abstract class BaseCreateUpdateComponent<
 
     this.#manageRecord(action);
   }
-
-  protected deleteCache() {}
 
   #manageRecord(action: Observable<GlobalApiResponse>) {
     if (this.createUpdateForm.invalid) {
@@ -115,7 +108,6 @@ export abstract class BaseCreateUpdateComponent<
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((data) => {
-        this.deleteCache();
         this.closeDialog(data);
       });
   }

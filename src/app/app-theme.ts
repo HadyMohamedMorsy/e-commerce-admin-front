@@ -14,6 +14,9 @@ export const Preset = definePreset(Aura, {
       lg: '8px',
       xl: '12px',
     },
+  },
+
+  semantic: {
     gray: {
       50: '#f9fafb',
       100: '#f3f4f6',
@@ -28,20 +31,17 @@ export const Preset = definePreset(Aura, {
       950: '#030712',
     },
     primary: {
-      50: '#f6f8fe',
-      100: '#d6dff9',
-      200: '#b5c5f4',
-      300: '#95acef',
-      400: '#7492ea',
-      500: '#5479e5',
-      600: '#4767c3',
-      700: '#3b55a0',
-      800: '#2e437e',
-      900: '#22305c',
-      950: '#151e39',
+      50: '#f5f0f7',
+      100: '#e9e0ec',
+      200: '#d5c5dd',
+      300: '#b99dc6',
+      400: '#9d72ad',
+      500: '#7e4b8c',
+      600: '#6a3d77',
+      700: '#5a3364',
+      800: '#4a2a51',
+      900: '#3d2545',
     },
-  },
-  semantic: {
     transitionDuration: '0s',
     focusRing: {
       width: '1px',
@@ -53,9 +53,6 @@ export const Preset = definePreset(Aura, {
     disabledOpacity: '0.6',
     iconSize: '14px',
     anchorGutter: '2px',
-    primary: {
-      900: '#00bc3b',
-    },
     formField: {
       paddingX: '0.75rem',
       paddingY: '0.5rem',
@@ -142,12 +139,9 @@ export const Preset = definePreset(Aura, {
       },
     },
   },
-  extend: {
-    darkBgColor: '#282828',
-  },
   components: {
     drawer: {
-      background: '{darkBgColor}',
+      background: '{primary.900}',
       shadow: 'none',
       header: { padding: '25px 15px' },
     },

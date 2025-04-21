@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -12,11 +6,10 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { ChangePasswordDialogComponent } from '../dialog/cu/change-password-dialog.component';
 import { CuUserDialogComponent } from '../dialog/cu/cu-user-dialog.component';
 import { ViewUserComponent } from '../dialog/view/view-user/view-user.component';
 import { FiltersUsersComponent } from '../filters-users/filters-users.component';
-import { UserList } from '../services/services-type';
+import { User } from '../services/services-type';
 
 @Component({
   selector: 'app-users',
@@ -34,16 +27,14 @@ import { UserList } from '../services/services-type';
   templateUrl: './users.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class UsersComponent extends BaseIndexComponent<UserList> {
-  fullName = viewChild.required<TemplateRef<any>>('fullName');
-
+export default class UsersComponent extends BaseIndexComponent<User> {
   ngOnInit() {
     this.dialogComponent = CuUserDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'user/index',
+        delete: 'user/delete',
       },
       navigateCreatePage: 'new-user',
       displayViewButton: true,
@@ -59,20 +50,50 @@ export default class UsersComponent extends BaseIndexComponent<UserList> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Full Name')),
-          name: `full_name`,
+          title: this.#translate(_('first name')),
+          name: `firstName`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Email Address')),
+          title: this.#translate(_('last name')),
+          name: `lastName`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('email')),
           name: `email`,
           searchable: true,
           orderable: false,
         },
         {
+          title: this.#translate(_('username')),
+          name: `username`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('birth of date')),
+          name: `birthOfDate`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('phone number')),
+          name: `phoneNumber`,
+          searchable: true,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('created at')),
-          name: 'created_at',
+          name: 'createdAt',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('updated at')),
+          name: 'updatedAt',
           searchable: false,
           orderable: false,
         },
@@ -83,22 +104,10 @@ export default class UsersComponent extends BaseIndexComponent<UserList> {
 
     this.filtersData.update((filters) => ({
       ...filters,
-      type: 'user',
+      customFilters: {
+        type: 'user',
+      },
     }));
-  }
-
-  openChangePassword(userId: number) {
-    const data = { id: userId, method: 'create' };
-    const dialogConfig = { ...this.dialogConfig, data, width: '800px' };
-    this.dialogRef = this.dialogService.open(
-      ChangePasswordDialogComponent,
-      dialogConfig,
-    );
-    this.dialogRef?.onClose
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((record) => {
-        this.updateRecord(record);
-      });
   }
 
   #translate(text: string) {

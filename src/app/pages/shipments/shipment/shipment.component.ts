@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -22,7 +16,6 @@ import { Shipment } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersShipmentsComponent,
     ViewShipmentComponent,
     TooltipModule,
@@ -36,7 +29,6 @@ import { Shipment } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
-
   ngOnInit() {
     this.dialogComponent = CuShipmentDialogComponent;
     this.indexMeta = {
@@ -47,10 +39,10 @@ export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
       },
       navigateCreatePage: 'new-shipment',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Shipments')), 
-      indexIcon: 'pi pi-box', 
-      createBtnLabel: this.#translate(_('Create Shipment')), 
-      indexTableKey: 'SHIPMENTS_KEY', 
+      indexTitle: this.#translate(_('Shipments')),
+      indexIcon: 'pi pi-box',
+      createBtnLabel: this.#translate(_('Create Shipment')),
+      indexTableKey: 'SHIPMENTS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -60,7 +52,7 @@ export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
         },
         {
           title: this.#translate(_('Shipment Email Address')),
-          name: `shipment_email`, 
+          name: `shipment_email`,
           searchable: true,
           orderable: false,
         },

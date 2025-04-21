@@ -48,11 +48,11 @@ import { AutocompleteFieldComponent } from './autocomplete-field/autocomplete-fi
       .p-floatlabel-on:has(.ng-select-container.ng-has-value) label {
         top: 0;
         transform: translateY(-50%);
-        border-radius: var(--8x-floatlabel-on-border-radius);
-        background: var(--8x-floatlabel-on-active-background);
-        padding: var(--8x-floatlabel-on-active-padding);
-        font-size: var(--8x-floatlabel-active-font-size);
-        font-weight: var(--8x-floatlabel-label-active-font-weight);
+        border-radius: var(--azalove-floatlabel-on-border-radius);
+        background: var(--azalove-floatlabel-on-active-background);
+        padding: var(--azalove-floatlabel-on-active-padding);
+        font-size: var(--azalove-floatlabel-active-font-size);
+        font-weight: var(--azalove-floatlabel-label-active-font-weight);
       }
     }
   `,

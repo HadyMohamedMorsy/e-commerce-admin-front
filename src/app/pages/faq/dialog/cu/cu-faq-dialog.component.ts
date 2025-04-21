@@ -3,7 +3,7 @@ import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
 import { FaqFieldsService } from '@pages/faq/services/faq-fields.service';
 import { faqModel } from '@pages/faq/services/services-type';
-import { AuthService, BaseCreateUpdateComponent } from '@shared';
+import { BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 
 @Component({
@@ -16,7 +16,6 @@ import { FormDialogComponent } from 'src/app/shared/components/base-create-updat
 })
 export class CuFaqDialogComponent extends BaseCreateUpdateComponent<faqModel> {
   #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(FaqFieldsService);
   #list$ = this.#globalList.getGlobalList('faqs');
 

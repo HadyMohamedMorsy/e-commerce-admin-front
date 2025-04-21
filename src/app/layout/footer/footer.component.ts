@@ -7,13 +7,13 @@ import { TranslateModule } from '@ngx-translate/core';
       <p class="text-sm capitalize">
         {{ getDate }}
         &copy;
-        {{ 'Business platform powered by' | translate }}
+        {{ 'this platform powered by' | translate }}
         <a
-          href="https://www.8worx.com/"
+          href="#"
           target="_blank"
-          title="8WORX,8XEgypt,8XUAE"
+          title="azalove"
           class="text-blue-500 font-semibold"
-          >8WORX</a
+          >Azalove</a
         >
       </p>
     </div>

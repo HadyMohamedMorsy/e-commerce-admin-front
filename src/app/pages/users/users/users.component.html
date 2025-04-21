@@ -37,18 +37,6 @@
       [(filtersData)]="filtersData"
     />
   </ng-template>
-
-  <ng-template #extendDefaultActionsTemplate let-user>
-    <button
-      pButton
-      [text]="true"
-      type="button"
-      icon="pi pi-key text-xs"
-      (click)="openChangePassword(user.id)"
-      [pTooltip]="'change password' | translate"
-      tooltipPosition="top"
-    ></button>
-  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

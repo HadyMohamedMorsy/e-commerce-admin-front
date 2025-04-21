@@ -5,7 +5,7 @@
     inset-inline-start: 0;
     top: 0;
     width: 100%;
-    background-color: var(--8x-surface-0);
+    background-color: var(--azalove-surface-0);
     padding-inline-end: 1rem;
     box-shadow: 0px 4px 6px -5px rgba(0, 0, 0, 0.35);
     transition: padding-inline-start 0.3s linear;
@@ -17,7 +17,7 @@
   .custom-button-menu {
     button {
       flex-direction: row-reverse;
-      background-color: var(--8x-primary-900);
+      background-color: var(--azalove-primary-900);
       border-radius: 30px;
       padding-inline: 30px;
     }
@@ -36,7 +36,7 @@
       padding: 0px;
       background-color: transparent;
       border: none;
-      color: var(--8x-surface-900);
+      color: var(--azalove-surface-900);
     }
   }
 

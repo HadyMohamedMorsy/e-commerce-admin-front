@@ -81,7 +81,7 @@ export const appConfig: ApplicationConfig = {
         preset: Preset,
         options: {
           darkModeSelector: 'none',
-          prefix: '8x',
+          prefix: 'azalove',
           cssLayer: true,
         },
       },

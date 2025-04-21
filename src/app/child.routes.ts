@@ -1,20 +1,28 @@
 import { Route } from '@angular/router';
 import { addressRoutes } from '@pages/address/address.routes';
 import { CartsRoutes } from '@pages/cart/cart.routes';
-import { categoriesRoutes } from '@pages/categories/categories.routes';
+import { CategoriesRoutes } from '@pages/categories/categories.routes';
+import { contactRoutes } from '@pages/contact/contact.routes';
 import { dashboredRoutes } from '@pages/dashbored/dashbored.routes';
+import { FaqRoutes } from '@pages/faq/faq.routes';
 import { OrdersRoutes } from '@pages/orders/orders.routes';
 import { reviewRoutes } from '@pages/reviews/review.routes';
 import { shipmentRoutes } from '@pages/shipments/shipment.routes';
 
-import { customersRoutes } from '@pages/users/customer.routes';
+import { CustomersRoutes } from '@pages/users/customer.routes';
+import { userRoutes } from '@pages/users/user.routes';
+import { WishlistRoutes } from '@pages/wishlists/wishlist.routes';
 
 export default [
   ...dashboredRoutes,
-  ...customersRoutes,
+  ...CustomersRoutes,
+  ...contactRoutes,
+  ...WishlistRoutes,
+  ...FaqRoutes,
+  ...userRoutes,
   ...addressRoutes,
   ...CartsRoutes,
-  ...categoriesRoutes,
+  ...CategoriesRoutes,
   ...OrdersRoutes,
   ...shipmentRoutes,
   ...reviewRoutes,

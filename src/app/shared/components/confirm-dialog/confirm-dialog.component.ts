@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from "@angular/core";
-import { TranslateModule } from "@ngx-translate/core";
-import { ButtonModule } from "primeng/button";
-import { ConfirmDialog } from "primeng/confirmdialog";
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
-  selector: "app-confirm-dialog",
+  selector: 'app-confirm-dialog',
   imports: [ButtonModule, ConfirmDialog, TranslateModule],
   template: `
     <p-confirmdialog
@@ -21,7 +21,9 @@ import { ConfirmDialog } from "primeng/confirmdialog";
           <i class="pi pi-exclamation-circle text-xl text-yellow-500"></i>
           <span class="font-bold text-xl">{{ message.header }}</span>
         </span>
-        <span class="font-medium block text-center"> {{ message.message }}</span>
+        <span class="font-medium block text-center">
+          {{ message.message }}</span
+        >
         <div class="w-full flex align-items-center gap-2 mt-4">
           <button
             pButton
@@ -58,7 +60,7 @@ import { ConfirmDialog } from "primeng/confirmdialog";
           width: 70px;
           height: 70px;
           border-radius: 50%;
-          background-color: var(--8x-primary-color);
+          background-color: var(--azalove-primary-color);
         }
       }
     }
@@ -66,7 +68,7 @@ import { ConfirmDialog } from "primeng/confirmdialog";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmDialogComponent {
-  key = input("globalConfirmDialogKey");
-  appendTo = input<any>("body");
-  styleClass = input<any>("");
+  key = input('globalConfirmDialogKey');
+  appendTo = input<any>('body');
+  styleClass = input<any>('');
 }

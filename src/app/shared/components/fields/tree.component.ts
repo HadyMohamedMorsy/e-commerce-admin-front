@@ -114,8 +114,8 @@ import { Tree } from 'primeng/tree';
       inset-inline-start: 0;
       width: var(--width);
       padding-block: 10px;
-      background-color: var(--8x-surface-0);
-      border: 1px solid var(--8x-surface-300);
+      background-color: var(--azalove-surface-0);
+      border: 1px solid var(--azalove-surface-300);
       border-radius: 0.25rem;
     }
   `,

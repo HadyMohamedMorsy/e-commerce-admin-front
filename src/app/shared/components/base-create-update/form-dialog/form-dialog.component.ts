@@ -74,7 +74,7 @@ import { SpinnerComponent } from '../../spinner.component';
                     type="button"
                     class="p-button-secondary p-button-outlined py-2 text-sm"
                     (click)="options().resetModel?.()"
-                    [label]="'clear_all' | translate"
+                    [label]="'clear' | translate"
                   ></button>
                 }
 

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Faq } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersFaqsComponent,
     TooltipModule,
     TranslateModule,
@@ -58,14 +56,14 @@ export default class FaqsComponent extends BaseIndexComponent<Faq> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Category')),
-          name: 'category',
-          searchable: false,
+          title: this.#translate(_('answer')),
+          name: 'answer',
+          searchable: true,
           orderable: false,
         },
         {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

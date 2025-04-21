@@ -50,20 +50,6 @@ export default class SidebarComponent {
   defaultVisibleItems = signal(4);
   openSetting = signal(false);
 
-  shouldDisplayMoreBtn = computed(() => {
-    const subscriptions = this.currentUser()?.subscriptions;
-    return this.currentUser()?.subscriptions
-      ? subscriptions && subscriptions.length > this.defaultVisibleItems()
-      : false;
-  });
-
-  visibleSuscriptions = computed(() => {
-    const subscriptions = this.currentUser()?.subscriptions;
-    return this.showAll()
-      ? subscriptions
-      : subscriptions?.slice(0, this.defaultVisibleItems());
-  });
-
   lists = computed(() => [
     {
       title: 'Manage',

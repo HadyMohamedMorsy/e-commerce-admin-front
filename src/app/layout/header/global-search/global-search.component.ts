@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule } from '@ngx-translate/core';
 import { AutocompleteService } from '@shared';
@@ -24,8 +23,6 @@ import {
   tap,
 } from 'rxjs';
 import { ShowCustomerComponent } from './show-customer/show-customer.component';
-import { ShowInvoiceComponent } from './show-invoice/show-invoice.component';
-import { ShowSubscriptionComponent } from './show-subscription/show-subscription.component';
 
 interface SearchItem {
   id: number;
@@ -42,8 +39,6 @@ interface SearchItem {
     TranslateModule,
     TooltipModule,
     FormsModule,
-    ShowSubscriptionComponent,
-    ShowInvoiceComponent,
     ShowCustomerComponent,
   ],
   templateUrl: './global-search.component.html',
@@ -56,7 +51,7 @@ export class GlobalSearchComponent {
   isLoading = signal(false);
 
   showView = signal(false);
-  type = signal<'user' | 'invoice' | 'subscription'>('user');
+  type = signal<'user'>('user');
   selectedId = signal<number>(0);
 
   #loadItems(query: string | null = null) {
@@ -86,7 +81,6 @@ export class GlobalSearchComponent {
 
   openDialog(item: SearchItem) {
     this.showView.set(true);
-    this.type.set(item.type);
     this.selectedId.set(item.id);
   }
 }

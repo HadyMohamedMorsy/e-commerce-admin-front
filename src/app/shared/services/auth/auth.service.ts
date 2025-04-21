@@ -1,8 +1,9 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { User } from '@pages/users/services/services-type';
 import { tap } from 'rxjs';
 import { localStorageSignal } from '../../helpers';
 import { ApiService } from '../global-services/api.service';
-import { LoginData, User } from './service-types';
+import { LoginData } from './service-types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -65,7 +66,7 @@ export class AuthService {
   login(credentials: any) {
     return this.#api
       .request('post', 'auth/login', credentials)
-      .pipe(tap(({ data }) => this.#userIdToVerifyOtpLogin.set(data.id)));
+      .pipe(tap(({ data }) => this.doLogin(data)));
   }
 
   forgetPassword(credentials: any) {
@@ -90,8 +91,8 @@ export class AuthService {
 
   doLogin(data: LoginData) {
     this.setCurrentUser(data.user);
-    this.updateAccessToken(data.accessToken);
-    this.updateUserRole(data.user.role.slug);
+    this.updateAccessToken(data.access_token);
+    this.updateUserRole(data.user.role);
   }
 
   doLogout() {

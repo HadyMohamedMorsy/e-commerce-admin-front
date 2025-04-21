@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Category } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     TooltipModule,
     TranslateModule,
     ViewCategoryComponent,
@@ -51,30 +49,19 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Description')),
-          name: `description`,
+          title: this.#translate(_('name')),
+          name: `name`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Is Active')),
-          name: `is_active`,
-          searchable: false,
-          orderable: false,
-        },
-        {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },
       ],
     };
-
-    this.filtersData.update((filters) => ({
-      ...filters,
-      type: 'category',
-    }));
 
     this.initRolesUser();
   }

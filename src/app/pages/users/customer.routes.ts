@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { RoleGuard } from '@shared';
 
-export const customersRoutes: Routes = [
+export const CustomersRoutes: Routes = [
   {
     path: 'customers',
     loadComponent: () => import('./customers/customers.component'),
