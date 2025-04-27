@@ -8,7 +8,6 @@ import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuShipmentDialogComponent } from '../dialog/cu/cu-shipment-dialog.component';
 import { ViewShipmentComponent } from '../dialog/view/view-shipment.component';
-import { FiltersShipmentsComponent } from '../filters-shipment/filters-shipment.component';
 import { Shipment } from '../services/services-type';
 
 @Component({
@@ -16,7 +15,6 @@ import { Shipment } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    FiltersShipmentsComponent,
     ViewShipmentComponent,
     TooltipModule,
     TranslateModule,
@@ -51,14 +49,32 @@ export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Shipment Email Address')),
-          name: `shipment_email`,
-          searchable: true,
+          title: this.#translate(_('type')),
+          name: `type`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('kg Price')),
+          name: `kgPrice`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('shipment Price')),
+          name: `shipmentPrice`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('location')),
+          name: `location.name`,
+          searchable: false,
           orderable: false,
         },
         {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

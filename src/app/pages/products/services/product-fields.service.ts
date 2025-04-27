@@ -1,8 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { GlobalListService } from '@gService/global-list.service';
-import { _, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { EMPTY, map, merge, startWith, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ProductFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('products', { type: 'product' });
+  pageList$ = this.#globalList.getGlobalList('products');
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {

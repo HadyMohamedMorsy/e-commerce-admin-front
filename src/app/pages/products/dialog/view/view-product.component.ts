@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Product } from '@pages/products/services/services-type'; // Change to ProductList
-import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
+import { ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-product',

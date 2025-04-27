@@ -33,6 +33,7 @@ import {
   HttpRequestInterceptor,
   HttpResponseInterceptor,
   LangService,
+  RefreshTokenInterceptor,
 } from '@shared';
 import { DROPZONE_CONFIG, DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { provideLottieOptions } from 'ngx-lottie';
@@ -87,7 +88,11 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideHttpClient(
-      withInterceptors([HttpResponseInterceptor, HttpRequestInterceptor]),
+      withInterceptors([
+        RefreshTokenInterceptor,
+        HttpResponseInterceptor,
+        HttpRequestInterceptor,
+      ]),
     ),
     provideLottieOptions({
       player: () => import(/* webpackChunkName: 'lottie-web' */ 'lottie-web'),

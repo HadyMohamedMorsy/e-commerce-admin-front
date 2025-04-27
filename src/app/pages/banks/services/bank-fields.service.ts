@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { _, TranslateService } from '@ngx-translate/core';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { LocationsInputsService } from '@gService/locations-inputs.service';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
 import { of } from 'rxjs';
 
@@ -9,6 +11,7 @@ import { of } from 'rxjs';
 export class BankFieldsService {
   translate = inject(TranslateService);
   fieldBuilder = inject(FieldBuilderService);
+  #locationsInputs = inject(LocationsInputsService);
   pageList$ = of(1);
   isSingleUploading = signal(false);
 
@@ -16,7 +19,7 @@ export class BankFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'bank_name',
+          key: 'bankName',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -25,7 +28,7 @@ export class BankFieldsService {
           },
         },
         {
-          key: 'account_name',
+          key: 'accountName',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -34,7 +37,7 @@ export class BankFieldsService {
           },
         },
         {
-          key: 'account_number',
+          key: 'accountNumber',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -44,7 +47,7 @@ export class BankFieldsService {
           },
         },
         {
-          key: 'branch_name',
+          key: 'branchName',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -62,46 +65,20 @@ export class BankFieldsService {
           },
         },
         {
-          key: 'swift_code',
+          key: 'swiftCode',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('swift_code'),
+            label: _('swift code'),
           },
         },
-        {
-          key: 'country_id',
-          type: 'select-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('country'),
-            options: [],
-          },
-        },
-        {
-          key: 'city_id',
-          type: 'select-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('city'),
-            options: [],
-          },
-        },
-        {
-          key: 'area_id',
-          type: 'select-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('area'),
-            options: [],
-          },
-        },
+        ...this.#locationsInputs.getLocationFields(),
       ]),
 
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'featured_image',
+          key: 'featuredImage',
           type: 'file-field',
           props: {
             label: _('Featured Image'),

@@ -37,21 +37,21 @@
       [(filtersData)]="filtersData"
     />
   </ng-template>
-
-  <p-dialog
-    [(visible)]="showView"
-    appendTo="body"
-    position="topright"
-    [showHeader]="false"
-    [draggable]="false"
-    [modal]="true"
-    [resizable]="false"
-    [focusOnShow]="true"
-    [closeOnEscape]="false"
-    styleClass="m-0 min-h-full border-none temporarily-hide-header"
-  >
-    @if (showView()) {
-      <app-view-address [(isShowDialog)]="showView" [address]="recordView()" />
-    }
-  </p-dialog>
 </app-table-wrapper>
+
+<p-dialog
+  [(visible)]="showView"
+  appendTo="body"
+  position="topright"
+  [showHeader]="false"
+  [draggable]="false"
+  [modal]="true"
+  [resizable]="false"
+  [focusOnShow]="true"
+  [closeOnEscape]="false"
+  styleClass="m-0 min-h-full border-none temporarily-hide-header"
+>
+  @if (showView()) {
+    <app-view-address [(isShowDialog)]="showView" [address]="recordView()" />
+  }
+</p-dialog>

@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Cart } from '@pages/cart/services/services-type';
-import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
+import { ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-cart', // updated selector

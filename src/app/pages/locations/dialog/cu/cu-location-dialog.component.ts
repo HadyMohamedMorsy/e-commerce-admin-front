@@ -36,7 +36,7 @@ export class CuLocationDialogComponent extends BaseCreateUpdateComponent<Locatio
       dialogTitle,
       submitButtonLabel,
     };
-
+    console.log(this.editData);
     this.model = new LocationModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }

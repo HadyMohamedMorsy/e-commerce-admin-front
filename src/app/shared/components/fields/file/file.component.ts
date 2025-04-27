@@ -17,7 +17,6 @@ import {
 } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { constants } from 'src/app/shared/config';
-import { AnimationElementDirective } from 'src/app/shared/directives/animation-element.directive';
 
 @Component({
   selector: 'formly-field-file',
@@ -38,10 +37,10 @@ export class FileFieldComponent extends FieldType<FieldTypeConfig> {
   fileUploader = viewChild.required<FileUpload>('fileUploader');
 
   selectedFile = signal<any>(null);
-  url = `${environment.API_URL}/v1/global/media/upload`;
+  url = `${environment.API_URL}/v1/global-media/upload`;
 
   mediaFile = signal<string | null>(null);
-
+  isFailed = signal(false);
   constants = constants;
 
   ngOnInit() {
@@ -68,9 +67,15 @@ export class FileFieldComponent extends FieldType<FieldTypeConfig> {
 
   onUpload(event: FileUploadEvent) {
     const body = (event.originalEvent as any)?.body;
-    if (!body.status) return;
+    if (body.statusCode !== 201) return;
     this.props?.isUploading?.set(false);
+    this.isFailed.set(false);
     const fileName = body.data[0].name;
-    this.formControl?.setValue([fileName]);
+    this.formControl?.setValue(fileName);
+  }
+
+  onError() {
+    this.props?.isUploading?.set(false);
+    this.isFailed.set(true);
   }
 }

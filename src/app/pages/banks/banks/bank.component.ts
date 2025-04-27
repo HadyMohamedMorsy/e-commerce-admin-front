@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Bank } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersBanksComponent,
     TooltipModule,
     TranslateModule,
@@ -51,38 +49,68 @@ export default class BanksComponent extends BaseIndexComponent<Bank> {
           orderable: false,
         },
         {
-          title: this.#translate(_('title')),
-          name: 'title',
+          title: this.#translate(_('account name')),
+          name: 'accountName',
           searchable: true,
           orderable: false,
         },
         {
+          title: this.#translate(_('account Number')),
+          name: 'accountNumber',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('branch Name')),
+          name: 'branchName',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('bank name')),
+          name: 'bankName',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('iban')),
+          name: 'iban',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('swift Code')),
+          name: 'swiftCode',
+          searchable: false,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('country')),
-          name: 'country',
+          name: 'country.name',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('region')),
+          name: 'region.name',
           searchable: false,
           orderable: false,
         },
         {
           title: this.#translate(_('city')),
-          name: 'city',
+          name: 'city.name',
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('postalCode')),
-          name: 'postalCode',
+          title: this.#translate(_('area')),
+          name: 'area.name',
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('phoneNumber')),
-          name: 'phoneNumber',
-          searchable: false,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('created_at')),
-          name: 'created_at',
+          title: this.#translate(_('created at')),
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

@@ -4,5 +4,6 @@ import { User } from '@pages/users/services/services-type';
 export interface LoginData {
   access_token: string;
   token_type: string;
+  refreshToken: string;
   user: User;
 }

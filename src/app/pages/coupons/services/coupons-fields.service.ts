@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { _, TranslateService } from '@ngx-translate/core';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
 import { of } from 'rxjs';
 

@@ -17,7 +17,7 @@ import { ShipmentModel } from '../../services/services-type';
 export class CuShipmentDialogComponent extends BaseCreateUpdateComponent<ShipmentModel> {
   #globalList = inject(GlobalListService);
   fieldsService = inject(ShipmentFieldsService);
-  #list$ = this.#globalList.getGlobalList('shipments');
+  #list$ = this.#globalList.getGlobalList('shipment');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';

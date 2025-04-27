@@ -31,12 +31,6 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <ng-template #customFiltersTemplate>
-    <app-shipments-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
-  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

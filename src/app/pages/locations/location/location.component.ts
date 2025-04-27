@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  numberAttribute,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,18 +15,17 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
+import { filter, tap } from 'rxjs';
 import { CuLocationDialogComponent } from '../dialog/cu/cu-location-dialog.component'; // Updated component name
 import { ViewLocationComponent } from '../dialog/view/view-location.component';
-import { FiltersLocationsComponent } from '../filters-location/filters-location.component';
 import { Locations } from '../services/services-type';
 @Component({
   selector: 'app-locations',
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
-    FiltersLocationsComponent,
     TooltipModule,
+    RouterLink,
     TranslateModule,
     ViewLocationComponent,
     MenuModule,
@@ -29,15 +36,16 @@ import { Locations } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LocationsComponent extends BaseIndexComponent<Locations> {
-  // Updated class name
+  name = viewChild.required<TemplateRef<any>>('name');
+  locationId = input.required({ transform: numberAttribute });
 
   ngOnInit() {
     this.dialogComponent = CuLocationDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'auth/users/user',
-        delete: 'auth/users/user/delete',
+        index: 'location/index',
+        delete: 'location/delete',
       },
       navigateCreatePage: 'new-location',
       displayViewButton: true,
@@ -53,14 +61,15 @@ export default class LocationsComponent extends BaseIndexComponent<Locations> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Email Address')),
-          name: `email`,
+          title: this.#translate(_('name')),
+          name: `name`,
           searchable: true,
           orderable: false,
+          render: this.name(),
         },
         {
           title: this.#translate(_('created at')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },
@@ -68,6 +77,27 @@ export default class LocationsComponent extends BaseIndexComponent<Locations> {
     };
 
     this.initRolesUser();
+  }
+
+  parentLocationId$ = toObservable(this.locationId).pipe(
+    filter((locationId) => !!locationId),
+    tap((locationId) => {
+      this.globalFilterValue.set(null);
+      this.filtersData.update((oldData) => ({
+        ...oldData,
+        search: { value: null, regex: false },
+        parentId: locationId,
+      }));
+      const data = { parentId: locationId, method: 'create' };
+      this.dialogConfig = { ...this.dialogConfig, data };
+    }),
+  );
+
+  parentLocationIdReadonly = toSignal(this.parentLocationId$);
+
+  override openUpdateRecordDialog(oldModel: any) {
+    const model = { ...oldModel, parentId: this.locationId() };
+    super.openUpdateRecordDialog(model);
   }
 
   #translate(text: string) {

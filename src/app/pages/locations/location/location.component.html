@@ -23,7 +23,12 @@
   [globalFilterValue]="globalFilterValue()"
   [reorderableColumns]="indexMeta.reorderableColumns ?? false"
   [reorderableRows]="indexMeta.reorderableRows ?? false"
-  (createBtnClicked)="navigateCreatePage()"
+  (createBtnClicked)="
+    navigateCreatePage(indexMeta.navigateCreatePage, {
+      parentId: locationId(),
+      method: 'create'
+    })
+  "
   (updateBtnClicked)="openUpdateRecordDialog($event)"
   (deleteBtnClicked)="confirmDelete($event)"
   (viewClicked)="openView($event)"
@@ -31,11 +36,26 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <ng-template #customFiltersTemplate>
-    <app-locations-filters
-      [displayFilters]="displayFilters()"
-      [(filtersData)]="filtersData"
-    />
+  <ng-template #name let-location>
+    <a class="text-blue-400" [routerLink]="'/locations/' + location.id">
+      {{ location.name }}</a
+    >
+  </ng-template>
+
+  <ng-template #extendDefaultActionsTemplate let-location>
+    <button
+      pButton
+      icon="fas fa-money-bill text-sm"
+      class="p-button-rounded p-button-text p-button-sm"
+      [pTooltip]="'shipment' | translate"
+      tooltipPosition="top"
+      (click)="
+        navigateCreatePage('new-shipment', {
+          method: 'create',
+          locationId: location.id
+        })
+      "
+    ></button>
   </ng-template>
 </app-table-wrapper>
 

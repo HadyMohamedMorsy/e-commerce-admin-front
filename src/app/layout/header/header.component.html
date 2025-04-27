@@ -53,7 +53,7 @@
                 {{ "welcome" | translate }}</span
               >
               <h5 class="capitalize font-bold text-base">
-                {{ currentUser()?.full_name }}
+                <!-- {{ currentUser()?.full_name }} -->
               </h5>
             </div>
           }
@@ -68,9 +68,7 @@
                 <img
                   class="border-circle object-cover h-2.5rem w-2.5rem"
                   alt="avatar"
-                  [src]="
-                    currentUser()?.avatar || 'assets/media/icon/avatar.jpg'
-                  "
+                  src=" assets/media/icon/avatar.jpg"
                 />
               </a>
             </ng-template>

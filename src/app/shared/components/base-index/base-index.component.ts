@@ -196,9 +196,11 @@ export abstract class BaseIndexComponent<
     );
   }
 
-  navigateCreatePage(route: string | undefined = undefined) {
+  navigateCreatePage(route: string | undefined = undefined, model?: any) {
     const navigateRoute = route ? route : this.indexMeta.navigateCreatePage;
-    this.router.navigate([`/${navigateRoute}`]);
+    this.router.navigate([`/${navigateRoute}`], {
+      queryParams: { filtersQuery: JSON.stringify(model) },
+    });
   }
 
   navigateUpdatePage(model: any) {

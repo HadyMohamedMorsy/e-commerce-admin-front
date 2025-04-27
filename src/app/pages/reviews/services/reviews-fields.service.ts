@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { GlobalListService } from '@gService/global-list.service';
-import { _, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
 import { EMPTY, map, merge, startWith, tap } from 'rxjs';
 

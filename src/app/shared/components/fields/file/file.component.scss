@@ -120,8 +120,18 @@
           pointer-events: none;
           animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
 
-          path {
-            fill: #02e8e8;
+          &:not(.is-failed) {
+            animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
+            path {
+              fill: #02e8e8;
+            }
+          }
+
+          &.is-failed {
+            opacity: 1;
+            path {
+              fill: #ef4444;
+            }
           }
 
           @keyframes passing-through {

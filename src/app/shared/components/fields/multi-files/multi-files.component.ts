@@ -64,14 +64,17 @@ export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
 
   ngOnInit() {
     this.config = {
-      url: environment.API_URL + "/" + (this.props.url ?? `v1/global/media/upload`),
-      acceptedFiles: this.props.acceptedFiles ?? "image/*",
+      url:
+        environment.API_URL +
+        '/' +
+        (this.props.url ?? `v1/global-media/upload`),
+      acceptedFiles: this.props.acceptedFiles ?? 'image/*',
       parallelUploads: 2, // Process 2 files at a time.
       maxFilesize: this.props.maxFileSize ?? 10.48576, // Maximum file size in megabytes.
       headers: {
         Authorization: `Bearer ${this.#auth.accessToken()}`,
-        "Cache-Control": null,
-        "X-Requested-With": null,
+        'Cache-Control': null,
+        'X-Requested-With': null,
       },
       // maxFiles: 1,
       autoReset: null, // Time for resetting component after upload (Default: null).

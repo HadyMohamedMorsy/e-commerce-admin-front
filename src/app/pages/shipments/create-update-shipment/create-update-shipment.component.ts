@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { ShipmentFieldsService } from '../services/shipment-fields.service';
 import { ShipmentModel } from '../services/services-type';
+import { ShipmentFieldsService } from '../services/shipment-fields.service';
 
 @Component({
   selector: 'app-create-update-shipment',
@@ -15,10 +15,12 @@ import { ShipmentModel } from '../services/services-type';
 })
 export default class CreateUpdateShipmentComponent extends FormPageComponent {
   fieldsService = inject(ShipmentFieldsService);
-
+  #queryData = {} as { [key: string]: any };
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
+    this.#queryData = JSON.parse(this.filtersQuery() || '{}');
+    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
+    isCreate ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('shipments');
   }
@@ -26,7 +28,9 @@ export default class CreateUpdateShipmentComponent extends FormPageComponent {
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
       ? new ShipmentModel(this.filterDataForUpdate(new ShipmentModel()))
-      : new ShipmentModel();
+      : new ShipmentModel({
+          locationId: this.#queryData.locationId,
+        } as ShipmentModel);
 
     this.formTitle.set(isUpdate ? 'Update Shipment' : 'Create New Shipment');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');

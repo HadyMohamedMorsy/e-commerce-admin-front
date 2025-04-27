@@ -1,43 +1,59 @@
 import { Routes } from '@angular/router';
 
-export const addressRoutes: Routes = [
+export const locationRoutes: Routes = [
   {
-    path: 'address',
-    loadComponent: () => import('./address/address.component'),
-    title: 'address',
+    path: 'locations',
+    loadComponent: () => import('./location/location.component'),
+    title: 'location',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     store: ['8x-owner', '8x-sales-team-leader'],
-    //     show: ['8x-owner', '8x-sales-team-leader', '8x-accountant'],
-    //     update: ['8x-owner'],
-    //     delete: ['8x-owner'],
+    //     index: [''],
+    //     store: [''],
+    //     show: [''],
+    //     update: [''],
+    //     delete: [''],
     //     redirectTo: '403',
     //   },
     // },
   },
   {
-    path: 'new-address',
-    loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
-    title: 'new address',
+    path: 'locations/:locationId',
+    loadComponent: () => import('./location/location.component'),
+    title: 'location',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner', '8x-sales-team-leader'],
+    //     index: [''],
+    //     store: [''],
+    //     show: [''],
+    //     update: [''],
+    //     delete: [''],
+    //     redirectTo: '403',
     //   },
     // },
   },
   {
-    path: 'update-address',
+    path: 'new-location',
     loadComponent: () =>
-      import('./create-update-address/create-update-address.component'),
-    title: 'Update address',
+      import('./create-update-location/create-update-location.component'),
+    title: 'new location',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
-    //     index: ['8x-owner'],
+    //     index: [''],
+    //   },
+    // },
+  },
+  {
+    path: 'update-location',
+    loadComponent: () =>
+      import('./create-update-location/create-update-location.component'),
+    title: 'Update location',
+    // canActivate: [RoleGuard],
+    // data: {
+    //   roles: {
+    //     index: [''],
     //   },
     // },
   },

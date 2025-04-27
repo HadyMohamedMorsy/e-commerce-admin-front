@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 export const bankRoutes: Routes = [
   {
-    path: 'bank',
+    path: 'banks',
     loadComponent: () => import('./banks/bank.component'),
-    title: 'bank',
+    title: 'banks',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {

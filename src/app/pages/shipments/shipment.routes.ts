@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 
 export const shipmentRoutes: Routes = [
   {
-    path: 'shipment',
-    loadComponent: () => import('./shipment/shipment.component'), 
-    title: 'shipment', 
+    path: 'shipments',
+    loadComponent: () => import('./shipment/shipment.component'),
+    title: 'shipments',
     // canActivate: [RoleGuard],
     // data: {
     //   roles: {
@@ -32,7 +32,7 @@ export const shipmentRoutes: Routes = [
   {
     path: 'update-shipment',
     loadComponent: () =>
-      import('./create-update-shipment/create-update-shipment.component'), 
+      import('./create-update-shipment/create-update-shipment.component'),
     title: 'Update shipment',
     // canActivate: [RoleGuard],
     // data: {

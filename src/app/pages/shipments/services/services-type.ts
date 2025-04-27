@@ -11,15 +11,15 @@ export interface Shipment {
 export class ShipmentModel {
   id?: number | null;
   type: 'item' | 'weight';
-  kg_price: number | null;
-  shipment_price: number | null;
-  location_id: number | null;
+  kgPrice: number | null;
+  shipmentPrice: number | null;
+  locationId: number | null;
 
   constructor(data?: ShipmentModel) {
     this.id = data?.id || null;
     this.type = data?.type || 'item';
-    this.kg_price = data?.kg_price || null;
-    this.shipment_price = data?.shipment_price || null;
-    this.location_id = data?.location_id || null;
+    this.kgPrice = data?.kgPrice || null;
+    this.shipmentPrice = data?.shipmentPrice || null;
+    this.locationId = data?.locationId || null;
   }
 }

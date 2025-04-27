@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { User } from '@pages/users/services/services-type';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { localStorageSignal } from '../../helpers';
 import { ApiService } from '../global-services/api.service';
 import { LoginData } from './service-types';
@@ -55,9 +55,27 @@ export class AuthService {
 
   /*****************************************/
 
+  /*****************************************/
+
+  // refresh token
+  #REFRESH_TOKEN_KEY = 'refresh-token-key';
+
+  #refreshToken = localStorageSignal<string | null>(
+    null,
+    this.#REFRESH_TOKEN_KEY,
+  );
+
+  refreshToken = this.#refreshToken.asReadonly();
+
+  updateRefreshToken(token: string | null) {
+    this.#refreshToken.set(token);
+  }
+
+  /*****************************************/
+
   #ROLE_KEY = 'role-key';
   #userRole = localStorageSignal<string[] | null>(null, this.#ROLE_KEY);
-  userRole = this.#userRole.asReadonly(); // exposed publicly.
+  userRole = this.#userRole.asReadonly();
 
   updateUserRole(role: string | null) {
     this.#userRole.set(role ? [role] : null);
@@ -92,6 +110,7 @@ export class AuthService {
   doLogin(data: LoginData) {
     this.setCurrentUser(data.user);
     this.updateAccessToken(data.access_token);
+    this.updateRefreshToken(data.refreshToken);
     this.updateUserRole(data.user.role);
   }
 
@@ -99,5 +118,14 @@ export class AuthService {
     this.setCurrentUser(null);
     this.updateAccessToken(null);
     this.updateUserRole(null);
+  }
+
+  refreshAccessToken() {
+    const requestBody = {
+      refreshToken: this.refreshToken(),
+    };
+    return this.#api
+      .request('post', 'auth/refresh-tokens', requestBody)
+      .pipe(map(({ data }) => data));
   }
 }

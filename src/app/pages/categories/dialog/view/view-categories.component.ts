@@ -5,7 +5,7 @@ import {
   input,
   model,
 } from '@angular/core';
-import { ViewDialogComponent } from 'src/app/shared/components/view-dialog/view-dialog.component';
+import { ViewDialogComponent } from '@shared';
 import { Category } from '../../services/services-type'; // adjust path if needed
 
 @Component({
