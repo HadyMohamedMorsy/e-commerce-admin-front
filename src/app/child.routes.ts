@@ -10,6 +10,7 @@ import { locationRoutes } from '@pages/locations/location.routes';
 import { OrdersRoutes } from '@pages/orders/orders.routes';
 import { reviewRoutes } from '@pages/reviews/review.routes';
 import { shipmentRoutes } from '@pages/shipments/shipment.routes';
+import { taxRoutes } from '@pages/taxes/tax.routes';
 
 import { CustomersRoutes } from '@pages/users/customer.routes';
 import { userRoutes } from '@pages/users/user.routes';
@@ -21,6 +22,7 @@ export default [
   ...contactRoutes,
   ...WishlistRoutes,
   ...FaqRoutes,
+  ...taxRoutes,
   ...userRoutes,
   ...addressRoutes,
   ...locationRoutes,

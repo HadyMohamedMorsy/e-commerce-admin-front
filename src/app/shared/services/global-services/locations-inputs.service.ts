@@ -29,7 +29,7 @@ export class LocationsInputsService {
     ];
   }
 
-  #getLocationsOptions(field: FormlyFieldConfig | undefined, endpoint: string) {
+  getLocationsOptions(field: FormlyFieldConfig | undefined, endpoint: string) {
     this.#cacheList
       .getData(endpoint, 'get', undefined, endpoint)
       .pipe(takeUntilDestroyed(this.#destroyRef))
@@ -65,10 +65,10 @@ export class LocationsInputsService {
       hooks: {
         onInit: (field) => {
           const regionField = field.parent?.get?.(this.regionKey());
-          this.#getLocationsOptions(field, 'location/select-options');
+          this.getLocationsOptions(field, 'location/select-options');
 
           if (field.formControl?.value) {
-            this.#getLocationsOptions(
+            this.getLocationsOptions(
               regionField,
               `location/select-options?parentId=${field.formControl?.value}`,
             );
@@ -76,7 +76,7 @@ export class LocationsInputsService {
           return field.formControl?.valueChanges.pipe(
             tap((id) => {
               if (id) {
-                this.#getLocationsOptions(
+                this.getLocationsOptions(
                   regionField,
                   `location/select-options?parentId=${id}`,
                 );
@@ -114,7 +114,7 @@ export class LocationsInputsService {
           const cityField = field.parent?.get?.(this.cityKey());
 
           if (field.formControl?.value) {
-            this.#getLocationsOptions(
+            this.getLocationsOptions(
               cityField,
               `location/select-options?parentId=${field.formControl?.value}`,
             );
@@ -123,7 +123,7 @@ export class LocationsInputsService {
           return field.formControl?.valueChanges.pipe(
             tap((id) => {
               if (id) {
-                this.#getLocationsOptions(
+                this.getLocationsOptions(
                   cityField,
                   `location/select-options?parentId=${id}`,
                 );
@@ -161,7 +161,7 @@ export class LocationsInputsService {
           const areaField = field.parent?.get?.(this.areaKey());
 
           if (field.formControl?.value) {
-            this.#getLocationsOptions(
+            this.getLocationsOptions(
               areaField,
               `location/select-options?parentId=${field.formControl?.value}`,
             );
@@ -170,7 +170,7 @@ export class LocationsInputsService {
           return field.formControl?.valueChanges.pipe(
             tap((id) => {
               if (id) {
-                this.#getLocationsOptions(
+                this.getLocationsOptions(
                   areaField,
                   `location/select-options?parentId=${id}`,
                 );
