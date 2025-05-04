@@ -27,3 +27,4 @@ export * from "./global-services/static-data.service";
 export * from "./global-services/theme.service";
 export * from "./global-services/menu-settings-sidebar.service";
 export * from "./global-services/cache.service";
+export * from "./global-services/excel-export.service";
