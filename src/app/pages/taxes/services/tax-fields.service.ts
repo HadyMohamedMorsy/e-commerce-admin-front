@@ -4,6 +4,7 @@ import { GlobalListService } from '@gService/global-list.service';
 import { LocationsInputsService } from '@gService/locations-inputs.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class TaxFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('tax');
+  pageList$ = of(1);
   isSingleUploading = signal(false);
   #locationInputs = inject(LocationsInputsService);
 
