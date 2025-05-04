@@ -122,23 +122,6 @@
   color: var(--red-color) !important;
 }
 
-.filters-section {
-  transition:
-    clip-path 0.2s,
-    visibility 0.2s,
-    opacity 0.2s;
-
-  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
-  visibility: visible;
-  opacity: 1;
-
-  &.hide {
-    clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
-    visibility: hidden;
-    opacity: 0;
-  }
-}
-
 .p-floatlabel label {
   font-size: 14px;
   text-transform: capitalize;

@@ -1,5 +1,5 @@
 @if (displayFilters()) {
-  <div class="my-3 filters-section" [ngClass]="{ hide: !displayFilters() }">
+  <div class="my-3" [ngClass]="{ hide: !displayFilters() }">
     <form [formGroup]="form">
       <formly-form
         [model]="model"
