@@ -16,6 +16,7 @@ export interface ProductSku {
   createdAt: string;
   deletedAt: string;
 }
+
 export interface ProductAttribute {
   id: number;
   name: string;
@@ -30,11 +31,43 @@ export class ProductModel {
   description: string | null;
   summary: string | null;
   cover: string | null;
+  categoryIds: number[] | null;
   constructor(data?: ProductModel) {
     this.id = data?.id || null;
     this.name = data?.name || null;
     this.description = data?.description || null;
     this.summary = data?.summary || null;
     this.cover = data?.cover || null;
+    this.categoryIds = data?.categoryIds || null;
+  }
+}
+
+export class ProductSkuModel {
+  id: number | null;
+  sku: string | null;
+  price: number | null;
+  quantity: number | null;
+  productId: number | null;
+
+  constructor(data?: ProductSkuModel) {
+    this.id = data?.id || null;
+    this.sku = data?.sku || null;
+    this.price = data?.price || null;
+    this.quantity = data?.quantity || null;
+    this.productId = data?.productId || null;
+  }
+}
+
+export class ProductAttributeModel {
+  id: number | null;
+  name: string | null;
+  value: string | null;
+  productId: number | null;
+
+  constructor(data?: ProductAttributeModel) {
+    this.id = data?.id || null;
+    this.name = data?.name || null;
+    this.value = data?.value || null;
+    this.productId = data?.productId || null;
   }
 }

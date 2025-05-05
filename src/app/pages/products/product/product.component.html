@@ -37,6 +37,40 @@
     <app-ellipsis-action [product]="product" />
   </ng-template>
 
+    <ng-template #cover let-product>
+    @if (product.cover) {
+      <p-image
+        [src]="domainUrl + '/' + product.cover"
+        [preview]="true"
+        alt="Image"
+        width="60"
+      >
+        <ng-template #indicator>
+          <i class="pi pi-search"></i>
+        </ng-template>
+        <ng-template #image>
+          <img
+            [src]="domainUrl + '/' + product.cover"
+            alt="image"
+            width="60"
+          />
+        </ng-template>
+        <ng-template
+          #preview
+          let-style="style"
+          let-previewCallback="previewCallback"
+        >
+          <img
+            [src]="domainUrl + '/' + product.cover"
+            alt="image"
+            [style]="style"
+            (click)="previewCallback()"
+          />
+        </ng-template>
+      </p-image>
+    }
+  </ng-template>
+
 </app-table-wrapper>
 
 

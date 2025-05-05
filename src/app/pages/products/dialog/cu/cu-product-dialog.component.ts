@@ -18,7 +18,7 @@ export class CuProductDialogComponent extends BaseCreateUpdateComponent<ProductM
   #globalList = inject(GlobalListService);
   #auth = inject(AuthService);
   fieldsService = inject(ProductFieldsService);
-  #list$ = this.#globalList.getGlobalList('products');
+  #list$ = this.#globalList.getGlobalList('product');
 
   ngOnInit() {
     this.dialogMeta = {

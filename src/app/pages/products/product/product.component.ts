@@ -5,10 +5,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
+import { ImageModule } from 'primeng/image';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuProductDialogComponent } from '../dialog/cu/cu-product-dialog.component';
@@ -22,6 +24,7 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
     TableWrapperComponent,
     ButtonModule,
     TooltipModule,
+    ImageModule,
     ViewProductComponent,
     TranslateModule,
     EllipsisActionComponent,
@@ -33,6 +36,8 @@ import { EllipsisActionComponent } from './ellipsis-action/ellipsis-action.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ProductsComponent extends BaseIndexComponent<Product> {
+  cover = viewChild.required<TemplateRef<any>>('cover');
+  domainUrl = environment.Domain_URL;
 
   ngOnInit() {
     this.dialogComponent = CuProductDialogComponent;
@@ -56,14 +61,27 @@ export default class ProductsComponent extends BaseIndexComponent<Product> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Price')),
-          name: `price`,
+          title: this.#translate(_('name')),
+          name: `name`,
           searchable: true,
           orderable: false,
         },
         {
+          title: this.#translate(_('summary')),
+          name: `summary`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('cover')),
+          name: `cover`,
+          searchable: false,
+          orderable: false,
+          render: this.cover(),
+        },
+        {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

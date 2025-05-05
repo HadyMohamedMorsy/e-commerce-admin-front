@@ -3,9 +3,9 @@ import { RoleGuard } from '@shared';
 
 export const blogRoutes: Routes = [
   {
-    path: 'blog',
+    path: 'blogs',
     loadComponent: () => import('./blog/blog.component'),
-    title: 'Blog',
+    title: 'blogs',
     canActivate: [RoleGuard],
     data: {
       roles: {

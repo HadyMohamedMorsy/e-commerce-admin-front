@@ -31,6 +31,39 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
+  <ng-template #image let-category>
+    @if (category.image) {
+      <p-image
+        [src]="domainUrl + '/' + category.image"
+        [preview]="true"
+        alt="Image"
+        width="60"
+      >
+        <ng-template #indicator>
+          <i class="pi pi-search"></i>
+        </ng-template>
+        <ng-template #image>
+          <img
+            [src]="domainUrl + '/' + category.image"
+            alt="image"
+            width="60"
+          />
+        </ng-template>
+        <ng-template
+          #preview
+          let-style="style"
+          let-previewCallback="previewCallback"
+        >
+          <img
+            [src]="domainUrl + '/' + category.image"
+            alt="image"
+            [style]="style"
+            (click)="previewCallback()"
+          />
+        </ng-template>
+      </p-image>
+    }
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

@@ -3,12 +3,11 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { GlobalListService } from '@gService/global-list.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductFieldsService {
+export class ProductAttributeFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
@@ -24,48 +23,25 @@ export class ProductFieldsService {
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Product Name'),
+            label: _('Attribute Name'),
           },
         },
         {
-          key: 'categoryIds',
-          type: 'select-field',
+          key: 'value',
+          type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            multiple: true,
-            label: _('Product Category'),
-            options: this.pageList$.pipe(map(({ category }) => category)),
+            label: _('Attribute Value'),
           },
         },
-        {
-          key: 'description',
-          type: 'textarea-field',
-          className: 'col-12',
-          props: {
-            required: true,
-            label: _('Product Description'),
-          },
-        },
-        {
-          key: 'summary',
-          type: 'textarea-field',
-          className: 'col-12',
-          props: {
-            required: true,
-            label: _('Product summary'),
-          },
-        },
-      ]),
 
-      this.fieldBuilder.fieldBuilder([
         {
-          key: 'cover',
-          type: 'file-field',
+          key: 'isActive',
+          type: 'switch-field',
+          className: 'md:col-4 col-12',
           props: {
-            label: _('Product cover'),
-            mode: editData ? 'update' : 'store',
-            isUploading: this.isSingleUploading,
+            label: _('Active'),
           },
         },
       ]),

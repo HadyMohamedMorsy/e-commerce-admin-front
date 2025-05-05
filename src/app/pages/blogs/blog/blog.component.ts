@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -34,17 +29,28 @@ import { Blog } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BlogsComponent extends BaseIndexComponent<Blog> {
-  title = viewChild.required<TemplateRef<any>>('title');
-
   ngOnInit() {
     this.dialogComponent = CuBlogDialogComponent;
-
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'content/blogs',
-        delete: 'content/blogs/delete',
+        index: 'blog/index',
+        delete: 'blog/delete',
       },
+      provideFields: [
+        'description',
+        'shortDescription',
+        'metaTitle',
+        'metaDescription',
+        'startDate',
+        'endDate',
+        'featuredImages',
+        'isFeatured',
+        'isPublished',
+        'mediaType',
+        'thumb',
+        'video',
+      ],
       navigateCreatePage: 'new-blog',
       displayViewButton: true,
       indexTitle: this.#translate(_('Blogs')),
@@ -59,21 +65,44 @@ export default class BlogsComponent extends BaseIndexComponent<Blog> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Title')),
+          title: this.#translate(_('title')),
           name: `title`,
-          searchable: true,
-          orderable: true,
-          render: this.title(),
-        },
-        {
-          title: this.#translate(_('Author')),
-          name: `author_name`,
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Published At')),
-          name: 'published_at',
+          title: this.#translate(_('sub Title')),
+          name: `subTitle`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('post Type')),
+          name: `postType`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('slug')),
+          name: `slug`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('meta Title')),
+          name: `metaTitle`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('order')),
+          name: `order`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('views')),
+          name: 'views',
           searchable: false,
           orderable: true,
         },

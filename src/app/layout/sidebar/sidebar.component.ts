@@ -59,6 +59,11 @@ export default class SidebarComponent {
           routerlink: 'categories',
           visible: true,
         },
+        {
+          name: 'blogs',
+          routerlink: 'blogs',
+          visible: true,
+        },
       ],
     },
   ]);

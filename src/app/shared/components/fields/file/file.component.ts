@@ -37,7 +37,7 @@ export class FileFieldComponent extends FieldType<FieldTypeConfig> {
   fileUploader = viewChild.required<FileUpload>('fileUploader');
 
   selectedFile = signal<any>(null);
-  url = `${environment.API_URL}/v1/global-media/upload`;
+  url = `${environment.API_URL}/v1/global-media/upload-single`;
 
   mediaFile = signal<string | null>(null);
   isFailed = signal(false);

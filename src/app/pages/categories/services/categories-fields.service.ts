@@ -1,16 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { GlobalListService } from '@gService/global-list.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { of } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryFieldsService {
   translate = inject(TranslateService);
+  #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = of(1);
+  pageList$ = this.#globalList.getGlobalList('category');
   isUploading = signal(false);
 
   configureFields(editData: any) {
@@ -23,6 +25,18 @@ export class CategoryFieldsService {
           props: {
             required: true,
             label: _('Category Name'),
+          },
+        },
+        {
+          key: 'categoryType',
+          type: 'select-field',
+          className: 'md:col-4 col-12',
+          props: {
+            isFloatedLabel: true,
+            label: _('select post type'),
+            options: this.pageList$.pipe(
+              map(({ categoryType }) => categoryType),
+            ),
           },
         },
         {

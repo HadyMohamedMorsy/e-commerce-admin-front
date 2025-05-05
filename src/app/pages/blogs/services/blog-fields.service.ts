@@ -4,7 +4,7 @@ import { GlobalListService } from '@gService/global-list.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,9 @@ export class BlogFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('blogs');
+  pageList$ = this.#globalList.getGlobalList('blog');
   isSingleUploading = signal(false);
+  isMultiUploading = signal(false);
 
   configureFields(editData: any) {
     return [
@@ -29,7 +30,7 @@ export class BlogFieldsService {
           },
         },
         {
-          key: 'sub_title',
+          key: 'subTitle',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -53,99 +54,90 @@ export class BlogFieldsService {
           props: {
             type: 'number',
             required: true,
-            label: _('Title'),
+            label: _('order'),
           },
         },
         {
-          key: 'published_at',
+          key: 'isPublished',
+          type: 'switch-field',
+          className: 'md:col-4 col-12',
+          props: {
+            label: _('isPublished'),
+          },
+        },
+        {
+          key: 'isFeatured',
+          type: 'switch-field',
+          className: 'md:col-4 col-12',
+          props: {
+            label: _('isFeatured'),
+          },
+        },
+        {
+          key: 'startDate',
           type: 'date-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('published at'),
+            label: _('start Date'),
           },
         },
         {
-          key: `views`,
-          type: 'input-field',
+          key: 'endDate',
+          type: 'date-field',
           className: 'md:col-4 col-12',
           props: {
-            type: 'number',
             required: true,
-            label: _('views'),
+            label: _('end Date'),
           },
         },
         {
-          key: 'category_id',
+          key: 'categoryIds',
           type: 'select-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
+            multiple: true,
             label: _('Select category'),
-            placeholder: _('Select category'),
-            options: [],
+            options: this.pageList$.pipe(map(({ category }) => category)),
           },
         },
         {
-          key: 'post_type',
+          key: 'postType',
           type: 'select-field',
           className: 'col-12 md:col-6',
           props: {
             isFloatedLabel: true,
             label: _('select post type'),
-            placeholder: _('select post type'),
-            options: [
-              {
-                label: this.translate.instant(_('article')),
-                value: 'article',
-              },
-              {
-                label: this.translate.instant(_('video')),
-                value: 'video',
-              },
-              {
-                label: this.translate.instant(_('gallery')),
-                value: 'gallery',
-              },
-            ],
+            options: this.pageList$.pipe(map(({ articleType }) => articleType)),
           },
         },
         {
-          key: 'media_type',
+          key: 'mediaType',
           type: 'select-field',
           expressions: {
             hide: (field) => {
-              const postType = field.parent?.form?.get?.('post_type');
-              return postType?.value !== 'article';
+              const postType = field.parent?.form?.get?.('postType');
+              return postType?.value !== 'video';
             },
           },
           props: {
             required: true,
-            label: _('select article type'),
-            placeholder: _('select article type'),
-            options: [
-              {
-                label: _('url'),
-                value: 'url',
-              },
-              {
-                label: _('iframe'),
-                value: 'iframe',
-              },
-            ],
+            label: _('select media type'),
+            options: this.pageList$.pipe(map(({ mediaType }) => mediaType)),
           },
           hooks: {
             onInit: (field: FormlyFieldConfig) => {
               return field.formControl?.valueChanges.pipe(
                 tap(() => {
-                  field.form?.get('media_data')?.setValue(null);
+                  field.form?.get('video')?.setValue(null);
                 }),
               );
             },
           },
         },
         {
-          key: 'media_data',
+          key: 'mediaData',
           type: 'input-field',
           expressions: {
             hide: (field) => field.form?.get('media_type')?.value !== 'iframe',
@@ -156,7 +148,7 @@ export class BlogFieldsService {
           },
         },
         {
-          key: 'media_data',
+          key: 'mediaData',
           type: 'input-field',
           expressions: {
             hide: (field) => field.form?.get('media_type')?.value !== 'url',
@@ -177,7 +169,7 @@ export class BlogFieldsService {
           },
         },
         {
-          key: 'short_description',
+          key: 'shortDescription',
           type: 'textarea-field',
           className: 'md:col-12 col-12',
           props: {
@@ -187,7 +179,7 @@ export class BlogFieldsService {
           },
         },
         {
-          key: 'meta_title',
+          key: 'metaTitle',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
@@ -196,7 +188,7 @@ export class BlogFieldsService {
           },
         },
         {
-          key: 'meta_description',
+          key: 'metaDescription',
           type: 'textarea-field',
           className: 'md:col-12 col-12',
           props: {
@@ -209,11 +201,12 @@ export class BlogFieldsService {
 
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'featured_images',
-          type: 'file-field',
+          key: 'featuredImages',
+          type: 'multi-files-field',
+          resetOnHide: false,
           expressions: {
             hide: (field) => {
-              const postType = field.parent?.form?.get?.('post_type');
+              const postType = field.parent?.form?.get?.('postType');
               return postType?.value !== 'gallery';
             },
           },
@@ -221,6 +214,7 @@ export class BlogFieldsService {
             multiple: true,
             required: true,
             type: 'image',
+            isUploading: this.isMultiUploading,
             chooseLabel: _('gallery'),
             description: _('Allowed format is jpeg, jpg, png'),
             fileLabel: _('gallery'),
@@ -233,7 +227,7 @@ export class BlogFieldsService {
           type: 'file-field',
           expressions: {
             hide: (field) => {
-              const postType = field.parent?.form?.get?.('post_type');
+              const postType = field.parent?.form?.get?.('postType');
               return postType?.value !== 'gallery';
             },
           },
@@ -241,6 +235,7 @@ export class BlogFieldsService {
             multiple: true,
             required: true,
             type: 'image',
+            isUploading: this.isSingleUploading,
             chooseLabel: _('thumb'),
             description: _('Allowed format is jpeg, jpg, png'),
             fileLabel: _('thumb'),
@@ -250,18 +245,19 @@ export class BlogFieldsService {
 
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'media_data',
+          key: 'video',
           type: 'file-field',
           props: {
             chooseLabel: _('upload Video'),
             accept: 'video/*',
             type: 'video',
+            isUploading: this.isSingleUploading,
             description: _('Allowed format is mp3, mp4'),
             fileLabel: _('Video'),
           },
           expressions: {
             hide: (field) => {
-              const postType = field.parent?.form?.get?.('post_type');
+              const postType = field.parent?.form?.get?.('postType');
               return postType?.value !== 'video';
             },
           },

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -7,6 +12,8 @@ import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { environment } from '@env';
+import { ImageModule } from 'primeng/image';
 import { CuCategoryDialogComponent } from '../dialog/cu/cu-categories-dialog.component';
 import { ViewCategoryComponent } from '../dialog/view/view-categories.component';
 import { Category } from '../services/services-type';
@@ -18,6 +25,7 @@ import { Category } from '../services/services-type';
     ButtonModule,
     TooltipModule,
     TranslateModule,
+    ImageModule,
     ViewCategoryComponent,
     MenuModule,
     Dialog,
@@ -27,10 +35,14 @@ import { Category } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CategoriesComponent extends BaseIndexComponent<Category> {
+  image = viewChild.required<TemplateRef<any>>('image');
+  domainUrl = environment.Domain_URL;
+
   ngOnInit() {
     this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
+      provideFields: ['image'],
       endpoints: {
         index: 'category/index',
         delete: 'category/delete',
@@ -53,6 +65,19 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
           name: `name`,
           searchable: true,
           orderable: false,
+        },
+        {
+          title: this.#translate(_('categoty type')),
+          name: `categoryType`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('image')),
+          name: `image`,
+          searchable: true,
+          orderable: false,
+          render: this.image(),
         },
         {
           title: this.#translate(_('Created At')),

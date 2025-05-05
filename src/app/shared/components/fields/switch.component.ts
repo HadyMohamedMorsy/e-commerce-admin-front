@@ -12,8 +12,8 @@ import { ToggleSwitch } from "primeng/toggleswitch";
         <p-toggleswitch
           [formControl]="formControl"
           [formlyAttributes]="field"
-          [trueValue]="props.trueValue ?? 1"
-          [falseValue]="props.falseValue ?? 0"
+          [trueValue]="props.trueValue ?? true"
+          [falseValue]="props.falseValue ?? false"
           (onChange)="props.change && props.change(field, $event)"
         />
 

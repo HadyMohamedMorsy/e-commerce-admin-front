@@ -8,7 +8,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductFieldsService {
+export class ProductSkuFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
@@ -19,53 +19,32 @@ export class ProductFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'name',
+          key: 'sku',
           type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Product Name'),
+            label: _('SKU Code'),
           },
         },
         {
-          key: 'categoryIds',
-          type: 'select-field',
+          key: 'price',
+          type: 'input-field',
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            multiple: true,
-            label: _('Product Category'),
-            options: this.pageList$.pipe(map(({ category }) => category)),
+            type: 'number',
+            label: _('Price'),
           },
         },
         {
-          key: 'description',
-          type: 'textarea-field',
-          className: 'col-12',
+          key: 'quantity',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Product Description'),
-          },
-        },
-        {
-          key: 'summary',
-          type: 'textarea-field',
-          className: 'col-12',
-          props: {
-            required: true,
-            label: _('Product summary'),
-          },
-        },
-      ]),
-
-      this.fieldBuilder.fieldBuilder([
-        {
-          key: 'cover',
-          type: 'file-field',
-          props: {
-            label: _('Product cover'),
-            mode: editData ? 'update' : 'store',
-            isUploading: this.isSingleUploading,
+            type: 'number',
+            label: _('Quantity'),
           },
         },
       ]),

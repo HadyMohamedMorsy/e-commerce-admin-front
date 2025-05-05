@@ -46,7 +46,7 @@ export class EllipsisActionComponent {
   getFiltersQuery() {
     return JSON.stringify({
       customer_id: this.product()?.id,
-      customer_name: this.product()?.full_name,
+      customer_name: 'test',
       method: 'create',
     });
   }

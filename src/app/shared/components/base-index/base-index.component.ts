@@ -140,6 +140,7 @@ export abstract class BaseIndexComponent<
         ...oldFilters,
         length: event.rows,
         start: event.first || 0,
+        provideFields: this.indexMeta.provideFields,
         search: { value: this.globalFilterValue(), regex: false },
         columns: this.indexMeta.columns
           .filter(

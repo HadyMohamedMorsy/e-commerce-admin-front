@@ -5,16 +5,16 @@ import {
   effect,
   inject,
   signal,
-} from "@angular/core";
-import { FieldType, FieldTypeConfig, FormlyModule } from "@ngx-formly/core";
-import { TranslateModule } from "@ngx-translate/core";
-import { PrimeNG } from "primeng/config";
+} from '@angular/core';
+import { FieldType, FieldTypeConfig, FormlyModule } from '@ngx-formly/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { PrimeNG } from 'primeng/config';
 
-import { environment } from "@env";
-import { DropzoneConfigInterface, DropzoneModule } from "ngx-dropzone-wrapper";
-import { ButtonModule } from "primeng/button";
-import { ImageModule } from "primeng/image";
-import { AuthService } from "src/app/shared/services";
+import { environment } from '@env';
+import { DropzoneConfigInterface, DropzoneModule } from 'ngx-dropzone-wrapper';
+import { ButtonModule } from 'primeng/button';
+import { ImageModule } from 'primeng/image';
+import { AuthService } from 'src/app/shared/services';
 
 export interface MediaFile {
   id: number;
@@ -27,11 +27,17 @@ export interface MediaFile {
 }
 
 @Component({
-  selector: "formly-multi-files-field",
-  templateUrl: "./multi-files.component.html",
-  styleUrl: "./multi-files.component.scss",
+  selector: 'formly-multi-files-field',
+  templateUrl: './multi-files.component.html',
+  styleUrl: './multi-files.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DropzoneModule, ImageModule, ButtonModule, FormlyModule, TranslateModule],
+  imports: [
+    DropzoneModule,
+    ImageModule,
+    ButtonModule,
+    FormlyModule,
+    TranslateModule,
+  ],
 })
 export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
   #config = inject(PrimeNG);
@@ -40,26 +46,28 @@ export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
   uploadedFiles = signal<{ original_name: string; name: string }[]>([]);
   mediaFiles = signal<MediaFile[]>([]);
 
-  uploadedFileNames = computed(() => this.uploadedFiles().map(f => f.name));
+  uploadedFileNames = computed(() => this.uploadedFiles().map((f) => f.name));
   files = computed(() => [...new Set(this.uploadedFileNames())]);
-  mediaIds = computed(() => this.mediaFiles().map(m => m.id));
+  mediaIds = computed(() => this.mediaFiles().map((m) => m.id));
 
   config!: DropzoneConfigInterface;
 
   formControlEffect = effect(() => {
-    this.files().length ? this.formControl.setValue(this.files()) : this.formControl.setValue(null);
+    this.files().length
+      ? this.formControl.setValue(this.files())
+      : this.formControl.setValue(null);
   });
 
   mediaIdsEffect = effect(() => {
-    if (this.props.mode === "update") {
-      this.field.model["media_ids"] = this.mediaIds();
+    if (this.props.mode === 'update') {
+      this.field.model['media_ids'] = this.mediaIds();
     }
   });
 
   onUploadSuccess(args: any): void {
-    if (!args[1].status) return;
+    if (args[1].statusCode !== 201) return;
     const files = args[1].data;
-    this.uploadedFiles.update(oldfiles => [...oldfiles, ...files]);
+    this.uploadedFiles.update((oldfiles) => [...oldfiles, ...files]);
   }
 
   ngOnInit() {
@@ -82,18 +90,21 @@ export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
       cancelReset: null, // Time for resetting component after canceling (Default: null).
     };
 
-    const media = this.model["media"]; // returned object in datatable/storedRecord
-    if (this.props.mode === "update" && media && media.length > 0) {
+    const mediaAccessKey = this.props?.mediaAccessKey ?? 'media';
+    const media = this.field.model?.[mediaAccessKey];
+    if (this.props.mode === 'update' && media && media.length > 0) {
       this.mediaFiles.set(media);
     }
   }
 
   removeFile(index: number) {
-    this.mediaFiles.update(files => files.filter((_, i) => i !== index));
+    this.mediaFiles.update((files) => files.filter((_, i) => i !== index));
   }
 
   onRemovedFile(file: any) {
-    this.uploadedFiles.update(files => files.filter(f => f.original_name !== file.name));
+    this.uploadedFiles.update((files) =>
+      files.filter((f) => f.original_name !== file.name),
+    );
   }
 
   formatSize(bytes: number) {

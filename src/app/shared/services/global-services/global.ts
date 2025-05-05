@@ -47,6 +47,7 @@ export interface Charts {
 export class BaseCrudIndexMeta {
   endpoints: { [key: string]: string };
   columns: DataTableColumn[];
+  provideFields: string[];
   indexIcon: string;
   indexTitle: string;
   navigateCreatePage: string;
@@ -70,6 +71,7 @@ export class BaseCrudIndexMeta {
   constructor() {
     this.endpoints = {} as { [key: string]: string };
     this.columns = [];
+    this.provideFields = [];
     this.indexIcon = 'fa-solid fa-info';
     this.withAction = true;
     this.displayCreateButton = true;
