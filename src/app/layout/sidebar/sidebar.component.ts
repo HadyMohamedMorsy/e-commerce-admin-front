@@ -64,6 +64,16 @@ export default class SidebarComponent {
           routerlink: 'blogs',
           visible: true,
         },
+        {
+          name: 'coupons',
+          routerlink: 'coupons',
+          visible: true,
+        },
+        {
+          name: 'products',
+          routerlink: 'products',
+          visible: true,
+        },
       ],
     },
   ]);
