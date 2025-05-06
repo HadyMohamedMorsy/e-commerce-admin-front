@@ -18,30 +18,41 @@ export class ProductAttributeFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'name',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
+          key: 'attributes',
+          type: 'repeatable-field',
+          className: 'col-12',
           props: {
-            required: true,
-            label: _('Attribute Name'),
-          },
-        },
-        {
-          key: 'value',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            required: true,
-            label: _('Attribute Value'),
-          },
-        },
-
-        {
-          key: 'isActive',
-          type: 'switch-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('Active'),
+            label: _('Product Attributes'),
+            fields: [
+              {
+                key: 'name',
+                type: 'input-field',
+                className: 'md:col-4 col-12',
+                props: {
+                  required: true,
+                  label: _('Attribute Name'),
+                },
+              },
+              {
+                key: 'value',
+                type: 'input-field',
+                className: 'md:col-4 col-12',
+                props: {
+                  required: true,
+                  label: _('Attribute Value'),
+                },
+              },
+              {
+                key: 'image',
+                type: 'file-field',
+                className: 'md:col-4 col-12',
+                props: {
+                  label: _('Attribute Image'),
+                  mode: editData ? 'update' : 'store',
+                  isUploading: this.isSingleUploading,
+                },
+              },
+            ],
           },
         },
       ]),

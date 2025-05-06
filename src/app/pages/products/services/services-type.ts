@@ -62,12 +62,14 @@ export class ProductAttributeModel {
   id: number | null;
   name: string | null;
   value: string | null;
+  image: string | null;
   productId: number | null;
 
   constructor(data?: ProductAttributeModel) {
     this.id = data?.id || null;
     this.name = data?.name || null;
     this.value = data?.value || null;
+    this.image = data?.image || null;
     this.productId = data?.productId || null;
   }
 }

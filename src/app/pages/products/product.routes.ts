@@ -82,4 +82,169 @@ export const ProductsRoutes: Routes = [
       },
     },
   },
+  {
+    path: 'product-skus',
+    loadComponent: () => import('./product-sku/product-sku.component'),
+    title: 'product skus',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        show: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        delete: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'new-product-sku',
+    loadComponent: () =>
+      import('./create-update-product-sku/create-update-product-sku.component'),
+    title: 'new product sku',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'update-product-sku',
+    loadComponent: () =>
+      import('./create-update-product-sku/create-update-product-sku.component'),
+    title: 'Update product sku',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'product-attributes',
+    loadComponent: () =>
+      import('./product-attribute/product-attribute.component'),
+    title: 'product attributes',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        show: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        delete: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'new-product-attribute',
+    loadComponent: () =>
+      import(
+        './create-update-product-attribute/create-update-product-attribute.component'
+      ),
+    title: 'new product attribute',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'update-product-attribute',
+    loadComponent: () =>
+      import(
+        './create-update-product-attribute/create-update-product-attribute.component'
+      ),
+    title: 'Update product attribute',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
 ];

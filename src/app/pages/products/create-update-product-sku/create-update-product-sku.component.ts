@@ -15,10 +15,14 @@ import { ProductSkuModel } from '../services/services-type';
 })
 export default class CreateUpdateProductSkuComponent extends FormPageComponent {
   fieldsService = inject(ProductSkuFieldsService);
+  #queryData = {} as { [key: string]: any };
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
+    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
+    this.filtersQuery() && isCreate
+      ? this.setupForm(true)
+      : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('products');
   }
@@ -26,7 +30,9 @@ export default class CreateUpdateProductSkuComponent extends FormPageComponent {
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
       ? new ProductSkuModel(this.filterDataForUpdate(new ProductSkuModel()))
-      : new ProductSkuModel();
+      : new ProductSkuModel({
+          productId: this.#queryData.productId,
+        } as ProductSkuModel);
 
     this.formTitle.set(
       isUpdate ? 'Update Product SKU' : 'Create New Product SKU',

@@ -15,10 +15,13 @@ import { ProductAttributeModel } from '../services/services-type';
 })
 export default class CreateUpdateProductAttributeComponent extends FormPageComponent {
   fieldsService = inject(ProductAttributeFieldsService);
-
+  #queryData = {} as { [key: string]: any };
   ngOnInit() {
+    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
+    this.filtersQuery() && isCreate
+      ? this.setupForm(true)
+      : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('products');
   }
@@ -28,7 +31,9 @@ export default class CreateUpdateProductAttributeComponent extends FormPageCompo
       ? new ProductAttributeModel(
           this.filterDataForUpdate(new ProductAttributeModel()),
         )
-      : new ProductAttributeModel();
+      : new ProductAttributeModel({
+          productId: this.#queryData.productId,
+        } as ProductAttributeModel);
 
     this.formTitle.set(
       isUpdate ? 'Update Product Attribute' : 'Create New Product Attribute',
