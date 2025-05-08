@@ -3,7 +3,7 @@ import { RoleGuard } from '@shared';
 
 export const reviewRoutes: Routes = [
   {
-    path: 'review',
+    path: 'reviews',
     loadComponent: () => import('./reviews/reviews.component'),
     title: 'review',
     canActivate: [RoleGuard],

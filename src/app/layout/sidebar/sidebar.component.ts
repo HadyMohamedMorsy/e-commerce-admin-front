@@ -50,6 +50,10 @@ export default class SidebarComponent {
   defaultVisibleItems = signal(4);
   openSetting = signal(false);
 
+  private checkVisibility(roles: string[]): boolean {
+    return this.#userRoles.hasAnyRole(roles);
+  }
+
   lists = computed(() => [
     {
       title: 'Manage',
@@ -57,22 +61,67 @@ export default class SidebarComponent {
         {
           name: 'categories',
           routerlink: 'categories',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'blogs',
           routerlink: 'blogs',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'coupons',
           routerlink: 'coupons',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'products',
           routerlink: 'products',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'reviews',
+          routerlink: 'reviews',
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
       ],
     },
@@ -85,42 +134,93 @@ export default class SidebarComponent {
         {
           name: 'users',
           routerlink: 'users',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'banks',
           routerlink: 'banks',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'locations',
           routerlink: 'locations',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'customers',
           routerlink: 'customers',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'contact',
           routerlink: 'contact',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'faqs',
           routerlink: 'faqs',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
         {
           name: 'shipments',
           routerlink: 'shipments',
-          visible: true,
-        },
-        {
-          name: 'wishlists',
-          routerlink: 'wishlists',
-          visible: true,
+          visible: this.checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
         },
       ],
     },

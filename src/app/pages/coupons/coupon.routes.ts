@@ -3,7 +3,7 @@ import { RoleGuard } from '@shared';
 
 export const couponRoutes: Routes = [
   {
-    path: 'coupon',
+    path: 'coupons',
     loadComponent: () => import('./coupons/coupons.component'),
     title: 'Coupons',
     canActivate: [RoleGuard],
