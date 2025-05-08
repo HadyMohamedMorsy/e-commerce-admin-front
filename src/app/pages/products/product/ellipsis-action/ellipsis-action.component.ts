@@ -27,26 +27,35 @@ export class EllipsisActionComponent {
     {
       label: _('New Attrpuite'),
       icon: 'pi pi-receipt',
-      routerLink: '/new-invoice',
+      routerLink: '/new-product-attribute',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),
       },
-      visible: this.userRoles.hasAnyRole([
-        '8x-owner',
-        '8x-admin-assistant',
-        '8x-cs-manager',
-        '8x-cs-team-leader',
-        '8x-customer-success',
-        '8x-renewals-manager',
-        '8x-accountant',
-      ]),
+      visible: true,
+    },
+    {
+      label: _('New prodcuts sku'),
+      icon: 'pi pi-receipt',
+      routerLink: '/new-product-sku',
+      queryParams: {
+        filtersQuery: this.getFiltersQuery(),
+      },
+      visible: true,
+    },
+    {
+      label: _('new faq'),
+      icon: 'pi pi-receipt',
+      routerLink: '/new-faq',
+      queryParams: {
+        filtersQuery: this.getFiltersQuery(),
+      },
+      visible: true,
     },
   ]);
 
   getFiltersQuery() {
     return JSON.stringify({
-      customer_id: this.product()?.id,
-      customer_name: 'test',
+      productId: this.product()?.id,
       method: 'create',
     });
   }

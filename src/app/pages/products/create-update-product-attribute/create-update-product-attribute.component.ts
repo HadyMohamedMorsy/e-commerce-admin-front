@@ -17,11 +17,10 @@ export default class CreateUpdateProductAttributeComponent extends FormPageCompo
   fieldsService = inject(ProductAttributeFieldsService);
   #queryData = {} as { [key: string]: any };
   ngOnInit() {
-    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() && isCreate
-      ? this.setupForm(true)
-      : this.setupForm(false);
+    this.#queryData = JSON.parse(this.filtersQuery() || '{}');
+    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
+    isCreate ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('products');
   }
@@ -33,14 +32,20 @@ export default class CreateUpdateProductAttributeComponent extends FormPageCompo
         )
       : new ProductAttributeModel({
           productId: this.#queryData.productId,
+          attributes: [
+            {
+              id: null,
+              name: null,
+              value: null,
+              image: null,
+            },
+          ],
         } as ProductAttributeModel);
 
     this.formTitle.set(
       isUpdate ? 'Update Product Attribute' : 'Create New Product Attribute',
     );
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(
-      isUpdate ? 'product-attribute/update' : 'product-attribute/store',
-    );
+    this.endpoint.set(isUpdate ? 'attribute/update' : 'attribute/store');
   }
 }

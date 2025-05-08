@@ -1,13 +1,16 @@
-export class faqModel {
+import { Product } from '@pages/products/services/services-type';
+export class FaqModel {
   id?: number | null;
-  select_questionable_type: 'Product' | 'All';
+  selectQuestionableType: 'Product' | 'All';
   question: string | null;
+  productId: number | null;
   answer: string | null;
-  constructor(data?: faqModel) {
+  constructor(data?: FaqModel) {
     this.id = data?.id || null;
-    this.select_questionable_type = data?.select_questionable_type || 'All';
+    this.selectQuestionableType = data?.selectQuestionableType || 'All';
     this.question = data?.question || null;
     this.answer = data?.answer || null;
+    this.productId = data?.productId || null;
   }
 }
 export interface Faq {
@@ -15,5 +18,6 @@ export interface Faq {
   question: string;
   select_questionable_type: 'Product' | 'All';
   answer: string;
+  Product: Product;
   created_at: string;
 }

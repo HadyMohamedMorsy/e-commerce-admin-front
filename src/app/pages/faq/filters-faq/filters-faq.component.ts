@@ -22,7 +22,7 @@ export class FiltersFaqsComponent extends FilterBaseComponent {
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'select_questionable_type',
+            key: 'selectQuestionableType',
             type: 'select-field',
             className: 'md:col-2 col-12',
             props: {

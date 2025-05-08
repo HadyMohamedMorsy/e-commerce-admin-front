@@ -19,10 +19,9 @@ export default class CreateUpdateProductSkuComponent extends FormPageComponent {
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
+    this.#queryData = JSON.parse(this.filtersQuery() || '{}');
     const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
-    this.filtersQuery() && isCreate
-      ? this.setupForm(true)
-      : this.setupForm(false);
+    isCreate ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('products');
   }

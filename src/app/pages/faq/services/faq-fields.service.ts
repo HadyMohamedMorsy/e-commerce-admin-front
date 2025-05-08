@@ -12,7 +12,6 @@ export class FaqFieldsService {
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
   pageList$ = this.#globalList.getGlobalList('faq');
-  isSingleUploading = signal(false);
 
   configureFields(editData: any) {
     return [

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
 import { FaqFieldsService } from '@pages/faq/services/faq-fields.service';
-import { faqModel } from '@pages/faq/services/services-type';
+import { FaqModel } from '@pages/faq/services/services-type';
 import { BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 
@@ -14,7 +14,7 @@ import { FormDialogComponent } from 'src/app/shared/components/base-create-updat
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CuFaqDialogComponent extends BaseCreateUpdateComponent<faqModel> {
+export class CuFaqDialogComponent extends BaseCreateUpdateComponent<FaqModel> {
   #globalList = inject(GlobalListService);
   fieldsService = inject(FaqFieldsService);
   #list$ = this.#globalList.getGlobalList('faqs');
@@ -34,7 +34,7 @@ export class CuFaqDialogComponent extends BaseCreateUpdateComponent<faqModel> {
       },
     };
 
-    this.model = new faqModel(this.editData);
+    this.model = new FaqModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }
