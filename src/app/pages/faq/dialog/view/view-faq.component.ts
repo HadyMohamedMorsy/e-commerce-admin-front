@@ -24,6 +24,19 @@ export class ViewFaqComponent {
         label: '#ID',
         value: this.faq()?.id,
       },
+      {
+        label: 'Question',
+        value: this.faq()?.question,
+      },
+      {
+        label: 'Answer',
+        value: this.faq()?.answer,
+        hasToolTip: true,
+      },
+      {
+        label: 'Created At',
+        value: this.faq()?.createdAt,
+      },
     ];
   });
 }

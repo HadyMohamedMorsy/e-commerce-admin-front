@@ -82,7 +82,7 @@ export abstract class BaseCreateUpdateComponent<
     const apiVersion = isUpdateAction ? updateApiVersion : createApiVersion;
 
     const action = this.api.request(
-      'post',
+      isUpdateAction ? 'put' : 'post',
       endpoint,
       this.updateModel(model),
       headers,

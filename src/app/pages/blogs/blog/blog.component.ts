@@ -106,6 +106,18 @@ export default class BlogsComponent extends BaseIndexComponent<Blog> {
           searchable: false,
           orderable: true,
         },
+        {
+          title: this.#translate(_('created At')),
+          name: 'createdAt',
+          searchable: false,
+          orderable: true,
+        },
+        {
+          title: this.#translate(_('updated At')),
+          name: 'updatedAt',
+          searchable: false,
+          orderable: true,
+        },
       ],
     };
 

@@ -217,14 +217,14 @@ export abstract class BaseIndexComponent<
   }
 
   initRolesUser() {
-    // const routeData = this.#route.snapshot.data;
-    // this.roles.set({
-    //   index: this.userRoles.hasAnyRole(routeData.roles.index),
-    //   create: this.userRoles.hasAnyRole(routeData.roles.store),
-    //   show: this.userRoles.hasAnyRole(routeData.roles.show),
-    //   update: this.userRoles.hasAnyRole(routeData.roles.update),
-    //   delete: this.userRoles.hasAnyRole(routeData.roles.delete),
-    // });
+    const routeData = this.#route.snapshot.data;
+    this.roles.set({
+      index: this.userRoles.hasAnyRole(routeData.roles.index ?? []),
+      create: this.userRoles.hasAnyRole(routeData.roles.store ?? []),
+      show: this.userRoles.hasAnyRole(routeData.roles.show ?? []),
+      update: this.userRoles.hasAnyRole(routeData.roles.update ?? []),
+      delete: this.userRoles.hasAnyRole(routeData.roles.delete ?? []),
+    });
   }
 
   protected deleteRecord(record: T) {

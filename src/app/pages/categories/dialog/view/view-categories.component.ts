@@ -34,6 +34,19 @@ export class ViewCategoryComponent {
         value: this.category()?.description,
         hasToolTip: true,
       },
+      {
+        label: 'Image',
+        value: this.category()?.image,
+        type: 'image',
+      },
+      {
+        label: 'Created At',
+        value: this.category()?.createdAt,
+      },
+      {
+        label: 'Updated At',
+        value: this.category()?.updatedAt,
+      },
     ];
   });
 }

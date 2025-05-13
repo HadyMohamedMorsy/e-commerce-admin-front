@@ -1,3 +1,5 @@
+import { User } from '@pages/users/services/services-type';
+
 export interface Blog {
   id: number;
   order: number;
@@ -18,8 +20,9 @@ export interface Blog {
   thumb: string;
   video: string;
   mediaType: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: User;
 }
 
 export class BlogModel {

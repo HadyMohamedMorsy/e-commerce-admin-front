@@ -50,7 +50,7 @@ export default class SidebarComponent {
   defaultVisibleItems = signal(4);
   openSetting = signal(false);
 
-  private checkVisibility(roles: string[]): boolean {
+  #checkVisibility(roles: string[]): boolean {
     return this.#userRoles.hasAnyRole(roles);
   }
 
@@ -59,9 +59,9 @@ export default class SidebarComponent {
       title: 'Manage',
       items: [
         {
-          name: 'categories',
+          name: 'Categories',
           routerlink: 'categories',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -72,9 +72,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'blogs',
+          name: 'Blogs',
           routerlink: 'blogs',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -85,9 +85,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'coupons',
+          name: 'Coupons',
           routerlink: 'coupons',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -98,9 +98,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'products',
+          name: 'Products',
           routerlink: 'products',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -111,9 +111,35 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'reviews',
+          name: 'Reviews',
           routerlink: 'reviews',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Taxes',
+          routerlink: 'taxes',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Shapes',
+          routerlink: 'shapes',
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -132,9 +158,9 @@ export default class SidebarComponent {
       title: 'Settings',
       items: [
         {
-          name: 'users',
+          name: 'Users',
           routerlink: 'users',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -145,9 +171,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'banks',
+          name: 'Banks',
           routerlink: 'banks',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -158,9 +184,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'locations',
+          name: 'Locations',
           routerlink: 'locations',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -171,9 +197,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'customers',
+          name: 'Customers',
           routerlink: 'customers',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -184,9 +210,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'contact',
+          name: 'Contacts',
           routerlink: 'contact',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -197,9 +223,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'faqs',
+          name: 'FAQs',
           routerlink: 'faqs',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',
@@ -210,9 +236,9 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'shipments',
+          name: 'Shipments',
           routerlink: 'shipments',
-          visible: this.checkVisibility([
+          visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',
             'STORE_MANAGER',

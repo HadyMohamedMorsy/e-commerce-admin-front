@@ -8,12 +8,12 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ShipmentFieldsService {
+export class ShapeFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('shipment');
-  isSingleUploading = signal(false);
+  pageList$ = this.#globalList.getGlobalList('facialFeature');
+  isUploading = signal(false);
 
   configureFields(editData: any) {
     return [
@@ -21,19 +21,25 @@ export class ShipmentFieldsService {
         {
           key: 'type',
           type: 'select-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('type'),
-            options: this.pageList$.pipe(map(({ weight }) => weight)),
-          },
-        },
-        {
-          key: 'shipmentPrice',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
+          className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('shipment Price'),
+            label: _('type'),
+            options: this.pageList$.pipe(
+              map(({ facialFeatureType }) => facialFeatureType),
+            ),
+          },
+        },
+      ]),
+      this.fieldBuilder.fieldBuilder([
+        {
+          key: 'image',
+          type: 'file-field',
+          props: {
+            label: _('Category Image'),
+            isUploading: this.isUploading,
+            accept: '.svg',
+            mode: editData ? 'update' : 'store',
           },
         },
       ]),

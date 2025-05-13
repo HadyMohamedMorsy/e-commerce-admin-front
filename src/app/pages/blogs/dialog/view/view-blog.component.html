@@ -2,4 +2,37 @@
   [(showDialog)]="isShowDialog"
   [title]="blog().title"
   [data]="list()"
-/>
+>
+</app-view-dialog>
+
+<h3 class="text-xl">{{ "Thumbnail" | translate }}</h3>
+<p-image
+  [src]="domainUrl + blog().thumb"
+  [preview]="true"
+  alt="Thumbnail"
+  width="100%"
+  class="block"
+>
+  <ng-template #indicator>
+    <i class="pi pi-search"></i>
+  </ng-template>
+</p-image>
+
+<div class="py-2 box-color border-round-lg mt-3">
+  <h3 class="text-xl">{{ "Featured Images" | translate }}</h3>
+  <div class="grid grid-cols-3 gap-4">
+    @for (image of blog().featuredImages; track $index) {
+      <p-image
+        [src]="domainUrl + image"
+        [preview]="true"
+        alt="Featured Image"
+        width="100%"
+        class="block"
+      >
+        <ng-template #indicator>
+          <i class="pi pi-search"></i>
+        </ng-template>
+      </p-image>
+    }
+  </div>
+</div>

@@ -25,8 +25,16 @@ export class ViewOrderComponent {
         value: this.order()?.id,
       },
       {
-        label: '#Total',
+        label: 'Total',
         value: this.order()?.total,
+      },
+      {
+        label: 'createdBy',
+        value: this.order()?.createdBy,
+      },
+      {
+        label: 'Created At',
+        value: this.order()?.createdAt,
       },
     ];
   });

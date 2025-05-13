@@ -251,11 +251,17 @@
                       "
                     />
                   } @else if (
-                    col.name === "created_at" ||
-                    col.name === "updated_at" ||
-                    col.name === "contract_date"
+                    col.name === "createdAt" || col.name === "updatedAt"
                   ) {
-                    {{ rowData | nestedProperty: col.name }}
+                    {{
+                      rowData | nestedProperty: col.name | date: "yyyy-MM-dd"
+                    }}
+                  } @else if (col.name === "user.createdBy") {
+                    {{
+                      rowData.createdBy?.firstName +
+                        " " +
+                        rowData.createdBy?.lastName
+                    }}
                   } @else if (col.name === "status") {
                     <p-tag
                       [severity]="

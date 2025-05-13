@@ -6,40 +6,40 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuTaxDialogComponent } from '../dialog/cu/cu-tax-dialog.component';
-import { ViewTaxComponent } from '../dialog/view/view-tax.component';
-import { Tax } from '../services/services-type';
+import { CuShapeDialogComponent } from '../dialog/cu/cu-shape-dialog.component';
+import { ViewShapeComponent } from '../dialog/view/view-shape.component';
+import { Shape } from '../services/services-type';
 
 @Component({
-  selector: 'app-taxes',
+  selector: 'app-shapes',
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    ViewTaxComponent,
+    ViewShapeComponent,
     TooltipModule,
     TranslateModule,
     MenuModule,
     Dialog,
     TranslateModule,
   ],
-  templateUrl: './tax.component.html',
+  templateUrl: './shape.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class TaxesComponent extends BaseIndexComponent<Tax> {
+export default class ShapesComponent extends BaseIndexComponent<Shape> {
   ngOnInit() {
-    this.dialogComponent = CuTaxDialogComponent;
+    this.dialogComponent = CuShapeDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'tax/index',
-        delete: 'tax/delete',
+        index: 'shapes/index',
+        delete: 'shapes/delete',
       },
-      navigateCreatePage: 'new-tax',
+      navigateCreatePage: 'new-shape',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Taxes')),
-      indexIcon: 'pi pi-percentage',
-      createBtnLabel: this.#translate(_('Create Tax')),
-      indexTableKey: 'TAXES_KEY',
+      indexTitle: this.#translate(_('Shapes')),
+      indexIcon: 'pi pi-shapes',
+      createBtnLabel: this.#translate(_('Create Shape')),
+      indexTableKey: 'SHAPES_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -48,20 +48,14 @@ export default class TaxesComponent extends BaseIndexComponent<Tax> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Name')),
-          name: `name`,
+          title: this.#translate(_('Type')),
+          name: `type`,
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('Rate')),
-          name: `rate`,
-          searchable: false,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('isActive')),
-          name: `isActive`,
+          title: this.#translate(_('Image')),
+          name: `image`,
           searchable: false,
           orderable: false,
         },

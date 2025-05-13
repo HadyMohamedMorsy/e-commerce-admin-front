@@ -1,5 +1,5 @@
 export const constants = {
-  DEFAULT_LANGUAGE: 'en',
+  DEFAULT_LANGUAGE: 'ar',
   PAGE_TITLE_PREFIX: 'Azalove',
   LOGIN_SUCCESS_REDIRECT_URL: '/dashbored',
   MIN_LENGTH_TEXT_INPUT: 8,
@@ -8,6 +8,5 @@ export const constants = {
   TABLE_ROWS_LENGTH: 10,
   MAX_FILE_SIZE: 10_485_760,
   DATA_LIMIT: 12,
-  DEFAULT_COUNTRY_ID: 110,
   DATE_FORMAT: 'YYYY-MM-DD HH:mm',
 };

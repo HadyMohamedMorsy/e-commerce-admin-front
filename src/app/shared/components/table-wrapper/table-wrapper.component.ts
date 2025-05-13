@@ -1,4 +1,4 @@
-import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { DatePipe, DecimalPipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -58,6 +58,7 @@ export function tableFactory(table: TableWrapperComponent): Table {
     Skeleton,
     FormatStringPipe,
     InputTextModule,
+    DatePipe,
     IconField,
     TagModule,
     InputIcon,
@@ -217,13 +218,8 @@ export class TableWrapperComponent {
   getStatusSeverity(status: string) {
     const statusMap: { [key: string]: string } = {
       cancelled: 'danger',
-      unpaid: 'danger',
-      failed: 'danger',
-      inactive: 'danger',
-      partially_paid: 'warn',
-      expired: 'warn',
-      pending: 'warn',
-      'on-hold': 'warn',
+      no_show: 'danger',
+      scheduled: 'warn',
     };
 
     return statusMap[status];

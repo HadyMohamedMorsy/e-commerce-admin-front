@@ -27,6 +27,7 @@
   (updateBtnClicked)="openUpdateRecordDialog($event)"
   (deleteBtnClicked)="confirmDelete($event)"
   (viewClicked)="openView($event)"
+  [withActionsColumn]="indexMeta.withAction"
   [withCustomFilters]="true"
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
@@ -37,21 +38,21 @@
       [(filtersData)]="filtersData"
     />
   </ng-template>
-
-  <p-dialog
-    [(visible)]="showView"
-    appendTo="body"
-    position="topright"
-    [showHeader]="false"
-    [draggable]="false"
-    [modal]="true"
-    [resizable]="false"
-    [focusOnShow]="true"
-    [closeOnEscape]="false"
-    styleClass="m-0 min-h-full border-none temporarily-hide-header"
-  >
-    @if (showView()) {
-      <app-view-review [(isShowDialog)]="showView" [review]="recordView()" />
-    }
-  </p-dialog>
 </app-table-wrapper>
+
+<p-dialog
+  [(visible)]="showView"
+  appendTo="body"
+  position="topright"
+  [showHeader]="false"
+  [draggable]="false"
+  [modal]="true"
+  [resizable]="false"
+  [focusOnShow]="true"
+  [closeOnEscape]="false"
+  styleClass="m-0 min-h-full border-none temporarily-hide-header"
+>
+  @if (showView()) {
+    <app-view-review [(isShowDialog)]="showView" [review]="recordView()" />
+  }
+</p-dialog>

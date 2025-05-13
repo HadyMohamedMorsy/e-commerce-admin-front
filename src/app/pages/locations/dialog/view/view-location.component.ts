@@ -25,6 +25,10 @@ export class ViewLocationComponent {
         value: this.location()?.id,
       },
       {
+        label: 'Name',
+        value: this.location()?.name,
+      },
+      {
         label: 'Created At',
         value: this.location()?.created_at,
       },

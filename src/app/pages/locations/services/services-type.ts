@@ -1,6 +1,7 @@
 export interface Locations {
   id: number;
   name: string;
+  slug: string;
   created_at: string;
 }
 

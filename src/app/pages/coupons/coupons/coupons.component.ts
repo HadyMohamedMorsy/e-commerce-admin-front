@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -17,7 +16,6 @@ import { Coupon } from '../services/services-type';
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    RouterLink,
     FiltersCouponsComponent,
     TooltipModule,
     TranslateModule,
@@ -64,26 +62,38 @@ export default class CouponsComponent extends BaseIndexComponent<Coupon> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Type')),
-          name: 'type',
+          title: this.#translate(_('Coupon Type')),
+          name: 'couponType',
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('Start Date')),
-          name: 'start_date',
+          title: this.#translate(_('expiry Date')),
+          name: 'expiryDate',
           searchable: false,
           orderable: false,
         },
         {
-          title: this.#translate(_('End Date')),
-          name: 'end_date',
+          title: this.#translate(_('min Order Total Price')),
+          name: 'minOrderTotalPrice',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('min Order Item Count')),
+          name: 'minOrderItemCount',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('Number of Users')),
+          name: 'numberOfUsers',
           searchable: false,
           orderable: false,
         },
         {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },

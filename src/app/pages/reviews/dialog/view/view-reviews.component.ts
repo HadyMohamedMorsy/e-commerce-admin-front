@@ -25,8 +25,28 @@ export class ViewReviewComponent {
         value: this.review()?.id,
       },
       {
-        label: 'Title',
-        value: this.review()?.title,
+        label: 'Product',
+        value: this.review()?.product?.name,
+      },
+      {
+        label: 'User',
+        value:
+          this.review()?.createdBy?.firstName +
+          ' ' +
+          this.review()?.createdBy?.lastName,
+      },
+      {
+        label: 'Rating',
+        value: this.review()?.rate,
+      },
+      {
+        label: 'Comment',
+        value: this.review()?.comment,
+        hasToolTip: true,
+      },
+      {
+        label: 'Created At',
+        value: this.review()?.createdAt,
       },
     ];
   });

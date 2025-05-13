@@ -28,6 +28,46 @@ export class ViewCouponComponent {
         label: 'Code',
         value: this.coupon()?.code,
       },
+      {
+        label: 'Discount',
+        value: this.coupon()?.discount,
+      },
+      {
+        label: 'Expired At',
+        value: this.coupon()?.expiredAt,
+      },
+      {
+        label: 'Expiry Date',
+        value: this.coupon()?.expiryDate,
+      },
+      {
+        label: 'Min Order Total Price',
+        value: this.coupon()?.minOrderTotalPrice,
+      },
+      {
+        label: 'Min Order Item Count',
+        value: this.coupon()?.minOrderItemCount,
+      },
+      {
+        label: 'Number Of Users',
+        value: this.coupon()?.numberOfUsers,
+      },
+      {
+        label: 'Coupon Type',
+        value: this.coupon()?.couponType,
+      },
+      {
+        label: 'Discount Type',
+        value: this.coupon()?.discountType,
+      },
+      {
+        label: 'Created At',
+        value: this.coupon()?.createdAt,
+      },
+      {
+        label: 'Is Active',
+        value: this.coupon()?.isActive,
+      },
     ];
   });
 }

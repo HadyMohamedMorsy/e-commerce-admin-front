@@ -25,6 +25,27 @@ export class ViewContactComponent {
         label: '#ID',
         value: this.contact()?.id,
       },
+      {
+        label: 'Name',
+        value: this.contact()?.name,
+      },
+      {
+        label: 'Email',
+        value: this.contact()?.email,
+      },
+      {
+        label: 'Phone',
+        value: this.contact()?.phone,
+      },
+      {
+        label: 'Message',
+        value: this.contact()?.message,
+        hasToolTip: true,
+      },
+      {
+        label: 'Created At',
+        value: this.contact()?.createdAt,
+      },
     ];
   });
 }

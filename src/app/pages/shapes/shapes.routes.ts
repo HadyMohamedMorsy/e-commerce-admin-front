@@ -1,33 +1,15 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const blogRoutes: Routes = [
+export const shapesRoutes: Routes = [
   {
-    path: 'blogs',
-    loadComponent: () => import('./blog/blog.component'),
-    title: 'blogs',
+    path: 'shapes',
+    loadComponent: () => import('./shape/shape.component'),
+    title: 'shapes',
     canActivate: [RoleGuard],
     data: {
       roles: {
         index: [
-          'CEO',
-          'TECH_SUPPORT',
-          'STORE_MANAGER',
-          'SUPER_ADMIN',
-          'INVENTORY_MANAGER',
-          'CONTENT_MANAGER',
-          'SYSTEM_ADMIN',
-        ],
-        store: [
-          'CEO',
-          'TECH_SUPPORT',
-          'STORE_MANAGER',
-          'SUPER_ADMIN',
-          'INVENTORY_MANAGER',
-          'CONTENT_MANAGER',
-          'SYSTEM_ADMIN',
-        ],
-        update: [
           'CEO',
           'TECH_SUPPORT',
           'STORE_MANAGER',
@@ -59,10 +41,10 @@ export const blogRoutes: Routes = [
     },
   },
   {
-    path: 'new-blog',
+    path: 'new-shape',
     loadComponent: () =>
-      import('./create-update-blog/create-update-blog.component'),
-    title: 'Create New Blog',
+      import('./create-update-shape/create-update-shape.component'),
+    title: 'new shape',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -80,12 +62,10 @@ export const blogRoutes: Routes = [
     },
   },
   {
-    path: 'update-blog',
+    path: 'update-shape',
     loadComponent: () =>
-      import('./create-update-blog/create-update-blog.component').then(
-        (m) => m.default,
-      ),
-    title: 'Update Blog',
+      import('./create-update-shape/create-update-shape.component'),
+    title: 'Update shape',
     canActivate: [RoleGuard],
     data: {
       roles: {

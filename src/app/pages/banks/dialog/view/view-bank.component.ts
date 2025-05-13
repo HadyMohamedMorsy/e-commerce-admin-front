@@ -24,6 +24,46 @@ export class ViewBankComponent {
         label: '#ID',
         value: this.bank()?.id,
       },
+      {
+        label: 'Account Name',
+        value: this.bank()?.account_name,
+      },
+      {
+        label: 'Account Number',
+        value: this.bank()?.account_number,
+      },
+      {
+        label: 'Branch Name',
+        value: this.bank()?.branch_name,
+      },
+      {
+        label: 'Bank Name',
+        value: this.bank()?.bank_name,
+      },
+      {
+        label: 'IBAN',
+        value: this.bank()?.iban,
+      },
+      {
+        label: 'Swift Code',
+        value: this.bank()?.swift_code,
+      },
+      {
+        label: 'City',
+        value: this.bank()?.city?.name,
+      },
+      {
+        label: 'Country',
+        value: this.bank()?.country?.name,
+      },
+      {
+        label: 'Area',
+        value: this.bank()?.area?.name,
+      },
+      {
+        label: 'Created At',
+        value: this.bank()?.createdAt,
+      },
     ];
   });
 }

@@ -17,7 +17,7 @@ import { CategoryModel } from '../../services/services-type';
 export class CuCategoryDialogComponent extends BaseCreateUpdateComponent<CategoryModel> {
   #globalList = inject(GlobalListService);
   fieldsService = inject(CategoryFieldsService);
-  #list$ = this.#globalList.getGlobalList('categories');
+  #list$ = this.#globalList.getGlobalList('category');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';

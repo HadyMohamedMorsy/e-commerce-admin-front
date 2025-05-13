@@ -1,3 +1,6 @@
+import { Product } from '@pages/products/services/services-type';
+import { User } from '@pages/users/services/services-type';
+
 export interface Review {
   id: number;
   title: string;
@@ -7,9 +10,9 @@ export interface Review {
   rate: number;
   is_liked: 0 | 1;
   likes_count: number;
-  creator_name: string;
-  creator_image: string;
-  media: string[];
+  product: Product;
+  createdBy: User;
+  createdAt: string;
 }
 
 export class ReviewModel {

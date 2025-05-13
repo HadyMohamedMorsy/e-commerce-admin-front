@@ -24,6 +24,18 @@ export class ViewShipmentComponent {
         label: '#ID',
         value: this.shipment()?.id,
       },
+      {
+        label: 'shipment price',
+        value: this.shipment()?.shipment_price,
+      },
+      {
+        label: 'Location',
+        value: this.shipment()?.location?.name,
+      },
+      {
+        label: 'Type',
+        value: this.shipment()?.type,
+      },
     ];
   });
 }

@@ -55,12 +55,6 @@ export default class ShipmentsComponent extends BaseIndexComponent<Shipment> {
           orderable: false,
         },
         {
-          title: this.#translate(_('kg Price')),
-          name: `kgPrice`,
-          searchable: false,
-          orderable: false,
-        },
-        {
           title: this.#translate(_('shipment Price')),
           name: `shipmentPrice`,
           searchable: false,

@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  input,
+  numberAttribute,
   TemplateRef,
   viewChild,
 } from '@angular/core';
@@ -12,8 +14,11 @@ import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { environment } from '@env';
 import { ImageModule } from 'primeng/image';
+import { filter, tap } from 'rxjs';
 import { CuCategoryDialogComponent } from '../dialog/cu/cu-categories-dialog.component';
 import { ViewCategoryComponent } from '../dialog/view/view-categories.component';
 import { Category } from '../services/services-type';
@@ -24,6 +29,7 @@ import { Category } from '../services/services-type';
     TableWrapperComponent,
     ButtonModule,
     TooltipModule,
+    RouterLink,
     TranslateModule,
     ImageModule,
     ViewCategoryComponent,
@@ -36,16 +42,18 @@ import { Category } from '../services/services-type';
 })
 export default class CategoriesComponent extends BaseIndexComponent<Category> {
   image = viewChild.required<TemplateRef<any>>('image');
+  name = viewChild.required<TemplateRef<any>>('name');
   domainUrl = environment.Domain_URL;
+  categoryId = input.required({ transform: numberAttribute });
 
   ngOnInit() {
     this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
-      provideFields: ['image'],
+      provideFields: ['description'],
       endpoints: {
-        index: 'category/index',
-        delete: 'category/delete',
+        index: !this.categoryId() ? 'category/index' : 'sub-category/index',
+        delete: !this.categoryId() ? 'category/delete' : 'sub-category/delete',
       },
       navigateCreatePage: 'new-category',
       displayViewButton: true,
@@ -65,6 +73,7 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
           name: `name`,
           searchable: true,
           orderable: false,
+          render: this.name(),
         },
         {
           title: this.#translate(_('categoty type')),
@@ -89,6 +98,27 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
     };
 
     this.initRolesUser();
+  }
+
+  parentCategoryId$ = toObservable(this.categoryId).pipe(
+    filter((categoryId) => !!categoryId),
+    tap((categoryId) => {
+      this.globalFilterValue.set(null);
+      this.filtersData.update((oldData) => ({
+        ...oldData,
+        search: { value: null, regex: false },
+        parentId: categoryId,
+      }));
+      const data = { parentId: categoryId, method: 'create' };
+      this.dialogConfig = { ...this.dialogConfig, data };
+    }),
+  );
+
+  parentCategoryIdReadonly = toSignal(this.parentCategoryId$);
+
+  override openUpdateRecordDialog(oldModel: any) {
+    const model = { ...oldModel, parentId: this.categoryId() };
+    super.openUpdateRecordDialog(model);
   }
 
   #translate(text: string) {

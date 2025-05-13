@@ -19,5 +19,5 @@ export interface Faq {
   select_questionable_type: 'Product' | 'All';
   answer: string;
   Product: Product;
-  created_at: string;
+  createdAt: string;
 }

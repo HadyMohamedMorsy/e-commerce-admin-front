@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -69,48 +70,126 @@ export default class HeaderComponent {
     initialValue: false,
   });
 
-  createItems = signal<MenuItem[]>([
+  createItems = computed<MenuItem[]>(() => [
     {
       label: this.#translate.instant(_('New User')),
       icon: 'pi pi-users',
       routerLink: '/new-user',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
     {
       label: this.#translate.instant(_('New Customer')),
       icon: 'pi pi-users',
       routerLink: '/new-customer',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
     {
-      label: this.#translate.instant(_('New Invoice')),
-      icon: 'pi pi-receipt',
-      routerLink: '/new-invoice',
+      label: this.#translate.instant(_('New Product')),
+      icon: 'pi pi-users',
+      routerLink: '/new-product',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
     {
-      label: this.#translate.instant(_('New Subscription')),
-      icon: 'fa-solid fa-play',
-      routerLink: '/new-subscription',
+      label: this.#translate.instant(_('New Blog')),
+      icon: 'pi pi-users',
+      routerLink: '/new-blog',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
     {
-      label: this.#translate.instant(_('New Service')),
-      icon: 'pi pi-server',
-      routerLink: '/new-service',
+      label: this.#translate.instant(_('New Coupon')),
+      icon: 'pi pi-users',
+      routerLink: '/new-coupon',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
     {
-      label: this.#translate.instant(_('New Package')),
-      icon: 'pi pi-box',
-      routerLink: '/new-package',
+      label: this.#translate.instant(_('New Tax')),
+      icon: 'pi pi-users',
+      routerLink: '/new-tax',
       routerLinkActiveOptions: { exact: true },
-      visible: true,
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
+    },
+    {
+      label: this.#translate.instant(_('New Shapes')),
+      icon: 'pi pi-users',
+      routerLink: '/new-shapes',
+      routerLinkActiveOptions: { exact: true },
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
+    },
+    {
+      label: this.#translate.instant(_('New Shipment')),
+      icon: 'pi pi-users',
+      routerLink: '/new-shipment',
+      routerLinkActiveOptions: { exact: true },
+      visible: this.#checkVisibility([
+        'CEO',
+        'TECH_SUPPORT',
+        'STORE_MANAGER',
+        'SUPER_ADMIN',
+        'INVENTORY_MANAGER',
+        'CONTENT_MANAGER',
+        'SYSTEM_ADMIN',
+      ]),
     },
   ]);
 
@@ -119,15 +198,11 @@ export default class HeaderComponent {
     document.documentElement.style.setProperty('--sidebar-faq-width', '28rem');
   }
 
+  #checkVisibility(roles: string[]): boolean {
+    return this.#userRoles.hasAnyRole(roles);
+  }
+
   userItems = signal<MenuItem[]>([
-    // {
-    //   label: this.#translate.instant(_('Update Profile')),
-    //   command: () => {
-    //     this.#router.navigate(['/update-customer'], {
-    //       queryParams: { filtersQuery: JSON.stringify(this.currentUser()) },
-    //     });
-    //   },
-    // },
     {
       label: this.#translate.instant(_('Logout')),
       command: () => {

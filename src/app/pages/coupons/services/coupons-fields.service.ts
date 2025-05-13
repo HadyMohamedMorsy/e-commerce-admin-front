@@ -75,7 +75,7 @@ export class CouponFieldsService {
           className: 'md:col-4 col-12',
           props: {
             type: 'number',
-            label: _('number_of_users'),
+            label: _('number of users'),
           },
         },
         {
@@ -86,6 +86,15 @@ export class CouponFieldsService {
             isFloatedLabel: true,
             label: _('select coupon type'),
             options: this.pageList$.pipe(map(({ couponType }) => couponType)),
+          },
+        },
+        {
+          key: 'expiryDate',
+          type: 'date-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('expiry Date'),
           },
         },
       ]),

@@ -18,9 +18,7 @@ export class ViewDialogComponent {
   showDialog = model(true);
   title = input.required<string>();
   data =
-    input.required<{ label: string; value: any; hasToolTip?: boolean }[]>();
-  
-  ngOnInit() { 
-    console.log(this.data());
-  }
+    input.required<
+      { label: string; value: any; hasToolTip?: boolean; type?: string }[]
+    >();
 }

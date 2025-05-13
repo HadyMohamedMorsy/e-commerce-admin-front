@@ -10,7 +10,7 @@ export interface Bank {
   city: Location;
   country: Location;
   area: Location;
-  created_at: string;
+  createdAt: string;
 }
 
 interface Location {
