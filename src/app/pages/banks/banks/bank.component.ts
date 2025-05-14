@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuBankDialogComponent } from '../dialog/cu/cu-bank-dialog.component';
 import { ViewBankComponent } from '../dialog/view/view-bank.component';
@@ -19,6 +26,8 @@ import { Bank } from '../services/services-type';
     FiltersBanksComponent,
     TooltipModule,
     TranslateModule,
+    FormsModule,
+    ToggleSwitchModule,
     ViewBankComponent,
     MenuModule,
     Dialog,
@@ -27,6 +36,8 @@ import { Bank } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BanksComponent extends BaseIndexComponent<Bank> {
+  isActive = viewChild.required<TemplateRef<any>>('isActive');
+
   ngOnInit() {
     this.dialogComponent = CuBankDialogComponent;
     this.indexMeta = {
@@ -107,6 +118,13 @@ export default class BanksComponent extends BaseIndexComponent<Bank> {
           name: 'area.name',
           searchable: false,
           orderable: false,
+        },
+        {
+          title: this.#translate(_('isActive')),
+          name: 'isActive',
+          searchable: false,
+          orderable: false,
+          render: this.isActive(),
         },
         {
           title: this.#translate(_('created at')),

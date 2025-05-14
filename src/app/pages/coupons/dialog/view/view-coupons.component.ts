@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Coupon } from '@pages/coupons/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-coupon',
@@ -17,7 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewCouponComponent {
   isShowDialog = model(false);
   coupon = input.required<Coupon>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -62,7 +62,10 @@ export class ViewCouponComponent {
       },
       {
         label: 'Created At',
-        value: this.coupon()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.coupon()?.createdAt,
+          'relative',
+        ),
       },
       {
         label: 'Is Active',

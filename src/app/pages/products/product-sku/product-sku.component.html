@@ -31,4 +31,31 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
+  <ng-template #isFeatured let-productSku>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          productSku,
+          'products/change-featured-status',
+          'isFeatured',
+          $event.checked
+        )
+      "
+      [ngModel]="productSku.isFeatured"
+    ></p-toggleswitch>
+  </ng-template>
+
+  <ng-template #isOffered let-productSku>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          productSku,
+          'products/change-offered-status',
+          'isOffered',
+          $event.checked
+        )
+      "
+      [ngModel]="productSku.isOffered"
+    ></p-toggleswitch>
+  </ng-template>
 </app-table-wrapper>

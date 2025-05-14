@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Bank } from '@pages/banks/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-bank',
@@ -17,6 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewBankComponent {
   isShowDialog = model(false);
   bank = input.required<Bank>();
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -62,7 +63,10 @@ export class ViewBankComponent {
       },
       {
         label: 'Created At',
-        value: this.bank()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.bank()?.createdAt,
+          'relative',
+        ),
       },
     ];
   });

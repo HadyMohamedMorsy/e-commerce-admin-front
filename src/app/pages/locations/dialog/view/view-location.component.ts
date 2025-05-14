@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Locations } from '@pages/locations/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-location',
@@ -17,7 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewLocationComponent {
   isShowDialog = model(false);
   location = input.required<Locations>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -30,7 +30,10 @@ export class ViewLocationComponent {
       },
       {
         label: 'Created At',
-        value: this.location()?.created_at,
+        value: this.#dateFormatter.transform(
+          this.location()?.created_at,
+          'relative',
+        ),
       },
     ];
   });

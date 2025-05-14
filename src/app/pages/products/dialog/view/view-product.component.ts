@@ -5,12 +5,18 @@ import {
   input,
   model,
 } from '@angular/core';
+import ProductAttributesComponent from '@pages/products/product-attribute/product-attribute.component';
+import ProductSkusComponent from '@pages/products/product-sku/product-sku.component';
 import { Product } from '@pages/products/services/services-type'; // Change to ProductList
 import { ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-product',
-  imports: [ViewDialogComponent],
+  imports: [
+    ViewDialogComponent,
+    ProductSkusComponent,
+    ProductAttributesComponent,
+  ],
   templateUrl: './view-product.component.html', // Update to correct template path
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -23,6 +29,37 @@ export class ViewProductComponent {
       {
         label: '#ID',
         value: this.product()?.id,
+      },
+      {
+        label: 'Name',
+        value: this.product()?.name,
+      },
+      {
+        label: 'Description',
+        value: this.product()?.description,
+        hasToolTip: true,
+      },
+      {
+        label: 'Meta Title',
+        value: this.product()?.metaTitle,
+      },
+      {
+        label: 'Meta Description',
+        value: this.product()?.metaDescription,
+        hasToolTip: true,
+      },
+      {
+        label: 'Summary',
+        value: this.product()?.summary,
+      },
+      {
+        label: 'Cover',
+        value: this.product()?.cover,
+        type: 'image',
+      },
+      {
+        label: 'Created At',
+        value: this.product()?.createdAt,
       },
     ];
   });

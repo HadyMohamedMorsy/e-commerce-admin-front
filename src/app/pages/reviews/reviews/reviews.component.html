@@ -38,6 +38,20 @@
       [(filtersData)]="filtersData"
     />
   </ng-template>
+
+  <ng-template #isApproved let-review>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          review,
+          'reviews/change-approve-status',
+          'isApproved',
+          $event.checked
+        )
+      "
+      [ngModel]="review.isApproved"
+    ></p-toggleswitch>
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

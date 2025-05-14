@@ -37,6 +37,20 @@
       [(filtersData)]="filtersData"
     />
   </ng-template>
+
+  <ng-template #isActive let-coupon>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          coupon,
+          'coupons/change-active-status',
+          'isActive',
+          $event.checked
+        )
+      "
+      [ngModel]="coupon.isActive"
+    ></p-toggleswitch>
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

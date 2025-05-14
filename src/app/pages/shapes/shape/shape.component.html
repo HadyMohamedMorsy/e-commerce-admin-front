@@ -31,6 +31,13 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
+  <ng-template #image let-shape>
+    <img
+      [src]="domainUrl + shape.image"
+      [alt]="shape?.image"
+      class="w-10 h-10 rounded-full"
+    />
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

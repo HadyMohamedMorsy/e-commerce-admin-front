@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Tax } from '@pages/taxes/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-tax',
@@ -17,6 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewTaxComponent {
   isShowDialog = model(false);
   tax = input.required<Tax>();
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -42,7 +43,7 @@ export class ViewTaxComponent {
       },
       {
         label: 'Created At',
-        value: this.tax()?.createdAt,
+        value: this.#dateFormatter.transform(this.tax()?.createdAt, 'relative'),
       },
     ];
   });

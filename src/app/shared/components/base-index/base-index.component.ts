@@ -43,7 +43,7 @@ interface item {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /*
-Abstract classes don’t exist as part of the JavaScript language, they are a specific TypeScript feature. when we see the word abstract we never call that class directly - we only inherit from it. It is a naming convention given to a class in TypeScript that says "only inherit from me". If we call that class directly, TypeScript will throw an error and not let we as it is marked as abstract.
+Abstract classes don't exist as part of the JavaScript language, they are a specific TypeScript feature. when we see the word abstract we never call that class directly - we only inherit from it. It is a naming convention given to a class in TypeScript that says "only inherit from me". If we call that class directly, TypeScript will throw an error and not let we as it is marked as abstract.
 */
 export abstract class BaseIndexComponent<
   T extends item,
@@ -245,6 +245,19 @@ export abstract class BaseIndexComponent<
     this.records.update((records) => records.filter((i) => i.id !== record.id));
     this.totalRecords.update((totalRecords) => totalRecords - 1);
     this.recordsFiltered.update((recordsFiltered) => recordsFiltered - 1);
+  }
+
+  changeStatus(record: T, endpoint: string, key: string, value: any) {
+    this.confirmService.confirmDelete({
+      acceptCallback: () => {
+        this.api
+          .request('patch', endpoint, { id: record.id, [key]: value })
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            this.updateRecord({ ...record, [key]: value });
+          });
+      },
+    });
   }
 
   openView(record: any) {

@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Review } from '@pages/reviews/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-review',
@@ -17,7 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewReviewComponent {
   isShowDialog = model(false);
   review = input.required<Review>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -46,7 +46,10 @@ export class ViewReviewComponent {
       },
       {
         label: 'Created At',
-        value: this.review()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.review()?.createdAt,
+          'relative',
+        ),
       },
     ];
   });

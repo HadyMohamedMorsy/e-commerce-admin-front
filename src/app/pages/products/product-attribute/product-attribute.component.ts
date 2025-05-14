@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuProductAttributeDialogComponent } from '../dialog/cu/cu-product-attribute-dialog.component';
 import { ProductAttribute } from '../services/services-type';
@@ -16,6 +18,8 @@ import { ProductAttribute } from '../services/services-type';
     TooltipModule,
     TranslateModule,
     MenuModule,
+    FormsModule,
+    ToggleSwitchModule,
   ],
   templateUrl: './product-attribute.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,8 +32,8 @@ export default class ProductAttributesComponent extends BaseIndexComponent<Produ
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'product-attribute/index',
-        delete: 'product-attribute/delete',
+        index: 'attribute/index',
+        delete: 'attribute/delete',
       },
       navigateCreatePage: 'new-product-attribute',
       displayViewButton: true,

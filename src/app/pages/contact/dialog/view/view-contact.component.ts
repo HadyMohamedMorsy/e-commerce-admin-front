@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Contact } from '@pages/contact/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-contact',
@@ -18,6 +18,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewContactComponent {
   isShowDialog = model(false);
   contact = input.required<Contact>();
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -44,7 +45,10 @@ export class ViewContactComponent {
       },
       {
         label: 'Created At',
-        value: this.contact()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.contact().createdAt,
+          'relative',
+        ),
       },
     ];
   });

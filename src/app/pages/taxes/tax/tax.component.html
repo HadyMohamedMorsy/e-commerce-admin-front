@@ -31,6 +31,19 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
+  <ng-template #isActive let-tax>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          tax,
+          'taxes/change-active-status',
+          'isActive',
+          $event.checked
+        )
+      "
+      [ngModel]="tax.isActive"
+    ></p-toggleswitch>
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

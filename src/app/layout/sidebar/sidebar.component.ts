@@ -85,6 +85,19 @@ export default class SidebarComponent {
           ]),
         },
         {
+          name: 'Orders',
+          routerlink: 'orders',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
           name: 'Coupons',
           routerlink: 'coupons',
           visible: this.#checkVisibility([
@@ -157,6 +170,19 @@ export default class SidebarComponent {
     {
       title: 'Settings',
       items: [
+        {
+          name: 'Address',
+          routerlink: 'address',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
         {
           name: 'Users',
           routerlink: 'users',

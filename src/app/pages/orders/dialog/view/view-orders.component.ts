@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Order } from '@pages/orders/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-order',
@@ -17,7 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewOrderComponent {
   isShowDialog = model(false);
   order = input.required<Order>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -34,7 +34,10 @@ export class ViewOrderComponent {
       },
       {
         label: 'Created At',
-        value: this.order()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.order()?.createdAt,
+          'relative',
+        ),
       },
     ];
   });

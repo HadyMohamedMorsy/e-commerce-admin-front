@@ -38,7 +38,33 @@
     />
   </ng-template>
 
+  <ng-template #isPublished let-blog>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          blog,
+          'blog/change-published-status',
+          'isPublished',
+          $event.checked
+        )
+      "
+      [ngModel]="blog.isPublished"
+    ></p-toggleswitch>
+  </ng-template>
 
+  <ng-template #isFeatured let-blog>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          blog,
+          'blog/change-featured-status',
+          'isFeatured',
+          $event.checked
+        )
+      "
+      [ngModel]="blog.isFeatured"
+    ></p-toggleswitch>
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

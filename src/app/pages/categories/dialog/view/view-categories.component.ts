@@ -5,7 +5,8 @@ import {
   input,
   model,
 } from '@angular/core';
-import { ViewDialogComponent } from '@shared';
+import { environment } from '@env';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 import { Category } from '../../services/services-type'; // adjust path if needed
 
 @Component({
@@ -17,6 +18,8 @@ import { Category } from '../../services/services-type'; // adjust path if neede
 export class ViewCategoryComponent {
   isShowDialog = model(false);
   category = input.required<Category>();
+  domainUrl = environment.Domain_URL;
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -36,16 +39,22 @@ export class ViewCategoryComponent {
       },
       {
         label: 'Image',
-        value: this.category()?.image,
+        value: this.domainUrl + this.category()?.image,
         type: 'image',
       },
       {
         label: 'Created At',
-        value: this.category()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.category()?.createdAt,
+          'relative',
+        ),
       },
       {
         label: 'Updated At',
-        value: this.category()?.updatedAt,
+        value: this.#dateFormatter.transform(
+          this.category()?.updatedAt,
+          'relative',
+        ),
       },
     ];
   });

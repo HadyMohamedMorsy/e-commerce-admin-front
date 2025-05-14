@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Faq } from '@pages/faq/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-faq',
@@ -17,6 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewFaqComponent {
   isShowDialog = model(false);
   faq = input.required<Faq>();
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
@@ -35,7 +36,10 @@ export class ViewFaqComponent {
       },
       {
         label: 'Created At',
-        value: this.faq()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.faq()?.createdAt,
+          'relative',
+        ),
       },
     ];
   });

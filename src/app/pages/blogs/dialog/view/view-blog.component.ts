@@ -9,6 +9,7 @@ import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { ViewDialogComponent } from '@shared';
 import { ImageModule } from 'primeng/image';
+import { DateFormatterPipe } from '../../../../shared/pipes/date-formatter.pipe';
 import { Blog } from '../../services/services-type'; // Adjust the import path as needed
 
 @Component({
@@ -22,6 +23,7 @@ export class ViewBlogComponent {
   isShowDialog = model(false);
   blog = input.required<Blog>();
   domainUrl = environment.Domain_URL;
+  #dateFormatter = new DateFormatterPipe();
 
   list = computed<
     { label: string; value: any; hasToolTip?: boolean; type?: string }[]
@@ -65,11 +67,17 @@ export class ViewBlogComponent {
       },
       {
         label: 'Start Date',
-        value: this.blog()?.startDate,
+        value: this.#dateFormatter.transform(
+          this.blog()?.startDate,
+          'relative',
+        ),
       },
       {
         label: 'End Date',
-        value: this.blog()?.endDate,
+        value: this.#dateFormatter.transform(
+          this.blog()?.endDate,
+          'relative',
+        ),
       },
       {
         label: 'Description',
@@ -96,11 +104,17 @@ export class ViewBlogComponent {
       },
       {
         label: 'Created At',
-        value: this.blog()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.blog()?.createdAt,
+          'relative',
+        ),
       },
       {
         label: 'Updated At',
-        value: this.blog()?.updatedAt,
+        value: this.#dateFormatter.transform(
+          this.blog()?.updatedAt,
+          'relative',
+        ),
       },
     ];
   });

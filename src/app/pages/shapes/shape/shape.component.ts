@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
@@ -26,6 +32,9 @@ import { Shape } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ShapesComponent extends BaseIndexComponent<Shape> {
+  image = viewChild.required<TemplateRef<any>>('image');
+  domainUrl = environment.Domain_URL;
+
   ngOnInit() {
     this.dialogComponent = CuShapeDialogComponent;
     this.indexMeta = {
@@ -58,6 +67,7 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
           name: `image`,
           searchable: false,
           orderable: false,
+          render: this.image(),
         },
         {
           title: this.#translate(_('Created At')),

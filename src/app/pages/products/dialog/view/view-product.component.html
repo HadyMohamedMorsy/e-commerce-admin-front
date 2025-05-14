@@ -1,5 +1,9 @@
 <app-view-dialog
   [(showDialog)]="isShowDialog"
-  [title]="'test'"
+  [title]="product().name"
   [data]="list()"
 />
+<div class="flex flex-col gap-4">
+  <app-product-skus [productId]="product().id" />
+  <app-product-attributes [productId]="product().id" />
+</div>

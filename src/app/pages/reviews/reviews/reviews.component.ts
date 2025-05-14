@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuReviewDialogComponent } from '../dialog/cu/cu-reviews-dialog.component';
 import { ViewReviewComponent } from '../dialog/view/view-reviews.component';
@@ -23,11 +30,15 @@ import { Review } from '../services/services-type';
     MenuModule,
     Dialog,
     TranslateModule,
+    FormsModule,
+    ToggleSwitchModule,
   ],
   templateUrl: './reviews.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ReviewsComponent extends BaseIndexComponent<Review> {
+  isApproved = viewChild.required<TemplateRef<any>>('isApproved');
+
   ngOnInit() {
     this.dialogComponent = CuReviewDialogComponent;
     this.indexMeta = {
@@ -69,6 +80,14 @@ export default class ReviewsComponent extends BaseIndexComponent<Review> {
           searchable: false,
           orderable: false,
         },
+        {
+          title: this.#translate(_('isApproved')),
+          name: 'isApproved',
+          searchable: false,
+          orderable: false,
+          render: this.isApproved(),
+        },
+
         {
           title: this.#translate(_('createdAt')),
           name: 'createdAt',

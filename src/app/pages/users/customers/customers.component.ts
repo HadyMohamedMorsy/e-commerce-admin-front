@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuCustomerDialogComponent } from '../dialog/cu/cu-customer-dialog.component';
 import { ViewCustomerComponent } from '../dialog/view/view-customer/view-customer.component';
@@ -23,11 +30,15 @@ import { Customer } from '../services/services-type';
     MenuModule,
     Dialog,
     TranslateModule,
+    FormsModule,
+    ToggleSwitchModule,
   ],
   templateUrl: './customers.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CustomersComponent extends BaseIndexComponent<Customer> {
+  isActive = viewChild.required<TemplateRef<any>>('isActive');
+
   ngOnInit() {
     this.dialogComponent = CuCustomerDialogComponent;
     this.indexMeta = {
@@ -84,6 +95,13 @@ export default class CustomersComponent extends BaseIndexComponent<Customer> {
           name: `phoneNumber`,
           searchable: true,
           orderable: false,
+        },
+        {
+          title: this.#translate(_('isActive')),
+          name: 'isActive',
+          searchable: false,
+          orderable: false,
+          render: this.isActive(),
         },
         {
           title: this.#translate(_('created at')),

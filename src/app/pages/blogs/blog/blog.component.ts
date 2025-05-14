@@ -1,16 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuBlogDialogComponent } from '../dialog/cu/cu-blog-dialog.component';
 import { ViewBlogComponent } from '../dialog/view/view-blog.component';
 import { FiltersBlogsComponent } from '../filters-blog/filters-blog.component';
 import { Blog } from '../services/services-type';
-
 @Component({
   selector: 'app-blogs',
   standalone: true,
@@ -19,6 +25,8 @@ import { Blog } from '../services/services-type';
     ButtonModule,
     FiltersBlogsComponent,
     TooltipModule,
+    FormsModule,
+    ToggleSwitchModule,
     TranslateModule,
     ViewBlogComponent,
     MenuModule,
@@ -29,6 +37,9 @@ import { Blog } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BlogsComponent extends BaseIndexComponent<Blog> {
+  isPublished = viewChild.required<TemplateRef<any>>('isPublished');
+  isFeatured = viewChild.required<TemplateRef<any>>('isFeatured');
+
   ngOnInit() {
     this.dialogComponent = CuBlogDialogComponent;
     this.indexMeta = {
@@ -105,6 +116,20 @@ export default class BlogsComponent extends BaseIndexComponent<Blog> {
           name: 'views',
           searchable: false,
           orderable: true,
+        },
+        {
+          title: this.#translate(_('isPublished')),
+          name: 'isPublished',
+          searchable: false,
+          orderable: true,
+          render: this.isPublished(),
+        },
+        {
+          title: this.#translate(_('isFeatured')),
+          name: 'isFeatured',
+          searchable: false,
+          orderable: true,
+          render: this.isFeatured(),
         },
         {
           title: this.#translate(_('created At')),

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 import { CuAddressDialogComponent } from '../dialog/cu/cu-address-dialog.component';
 import { ViewAddressComponent } from '../dialog/view/view-address.component';
@@ -19,6 +21,8 @@ import { Address } from '../services/services-type';
     FiltersAddressesComponent,
     TooltipModule,
     TranslateModule,
+    FormsModule,
+    ToggleSwitchModule,
     ViewAddressComponent,
     MenuModule,
     Dialog,
@@ -79,6 +83,7 @@ export default class AddressesComponent extends BaseIndexComponent<Address> {
           searchable: false,
           orderable: false,
         },
+
         {
           title: this.#translate(_('created_at')),
           name: 'created_at',

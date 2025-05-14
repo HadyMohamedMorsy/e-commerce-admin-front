@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { Customer } from '@pages/users/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-customer',
@@ -17,6 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewCustomerComponent {
   isShowDialog = model(false);
   customer = input.required<Customer>();
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {

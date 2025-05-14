@@ -2,6 +2,8 @@ export interface Product {
   id: number;
   name: string;
   description: string;
+  metaTitle: string;
+  metaDescription: string;
   summary: string;
   cover: string;
   createdAt: string;
@@ -29,6 +31,8 @@ export class ProductModel {
   id: number | null;
   name: string | null;
   description: string | null;
+  metaTitle: string | null;
+  metaDescription: string | null;
   summary: string | null;
   cover: string | null;
   categoryIds: number[] | null;
@@ -36,6 +40,8 @@ export class ProductModel {
     this.id = data?.id || null;
     this.name = data?.name || null;
     this.description = data?.description || null;
+    this.metaTitle = data?.metaTitle || null;
+    this.metaDescription = data?.metaDescription || null;
     this.summary = data?.summary || null;
     this.cover = data?.cover || null;
     this.categoryIds = data?.categoryIds || null;

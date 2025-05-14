@@ -48,6 +48,24 @@ export class ProductFieldsService {
           },
         },
         {
+          key: 'metaTitle',
+          type: 'textarea-field',
+          className: 'col-12',
+          props: {
+            required: true,
+            label: _('Product Meta Title'),
+          },
+        },
+        {
+          key: 'metaDescription',
+          type: 'textarea-field',
+          className: 'col-12',
+          props: {
+            required: true,
+            label: _('Product Meta Description'),
+          },
+        },
+        {
           key: 'summary',
           type: 'textarea-field',
           className: 'col-12',

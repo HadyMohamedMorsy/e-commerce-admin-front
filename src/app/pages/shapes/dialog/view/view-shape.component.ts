@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Shape } from '../../services/services-type';
 
@@ -19,7 +19,7 @@ import { Shape } from '../../services/services-type';
 export class ViewShapeComponent {
   isShowDialog = model(false);
   shape = input.required<Shape>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -37,7 +37,10 @@ export class ViewShapeComponent {
       },
       {
         label: 'Created At',
-        value: this.shape()?.createdAt,
+        value: this.#dateFormatter.transform(
+          this.shape()?.createdAt,
+          'relative',
+        ),
       },
     ];
   });

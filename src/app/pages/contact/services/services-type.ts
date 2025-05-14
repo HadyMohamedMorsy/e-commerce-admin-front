@@ -5,6 +5,6 @@ export interface Contact {
   phone?: string;
   subject: string;
   message: string;
-  createdAt?: string; // Auto-generated timestamp
-  updatedAt?: string; // Auto-generated timestamp
+  createdAt: string; // Auto-generated timestamp
+  updatedAt: string; // Auto-generated timestamp
 }

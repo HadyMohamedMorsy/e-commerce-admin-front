@@ -6,7 +6,7 @@ import {
   model,
 } from '@angular/core';
 import { User } from '@pages/users/services/services-type';
-import { ViewDialogComponent } from '@shared';
+import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 
 @Component({
   selector: 'app-view-user',
@@ -17,7 +17,7 @@ import { ViewDialogComponent } from '@shared';
 export class ViewUserComponent {
   isShowDialog = model(false);
   user = input.required<User>();
-
+  #dateFormatter = new DateFormatterPipe();
   list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
     return [
       {
@@ -60,7 +60,10 @@ export class ViewUserComponent {
       },
       {
         label: 'created at',
-        value: this.user()?.created_at,
+        value: this.#dateFormatter.transform(
+          this.user()?.created_at,
+          'relative',
+        ),
       },
     ];
   });
