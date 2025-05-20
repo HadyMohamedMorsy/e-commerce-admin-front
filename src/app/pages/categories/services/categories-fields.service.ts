@@ -40,6 +40,23 @@ export class CategoryFieldsService {
           },
         },
         {
+          key: 'slug',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('Slug'),
+          },
+        },
+        {
+          key: 'icon',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            label: _('Icon'),
+          },
+        },
+        {
           key: 'description',
           type: 'textarea-field',
           className: 'col-12',
