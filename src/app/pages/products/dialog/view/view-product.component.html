@@ -3,7 +3,11 @@
   [title]="product().name"
   [data]="list()"
 />
-<div class="flex flex-col gap-4">
-  <app-product-skus [productId]="product().id" />
-  <app-product-attributes [productId]="product().id" />
+<div class="flex flex-column gap-4 mt-4">
+  <div>
+    <app-product-skus [productId]="product().id" />
+  </div>
+  <div>
+    <app-product-attributes [productId]="product().id" />
+  </div>
 </div>

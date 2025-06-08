@@ -34,6 +34,8 @@ export default class ProductSkusComponent extends BaseIndexComponent<ProductSku>
   productId = input<number>();
   isFeatured = viewChild.required<TemplateRef<any>>('isFeatured');
   isOffered = viewChild.required<TemplateRef<any>>('isOffered');
+  isNew = viewChild.required<TemplateRef<any>>('isNew');
+  isBestSeller = viewChild.required<TemplateRef<any>>('isBestSeller');
 
   ngOnInit() {
     this.dialogComponent = CuProductSkuDialogComponent;
@@ -43,8 +45,9 @@ export default class ProductSkusComponent extends BaseIndexComponent<ProductSku>
         index: 'product-sku/index',
         delete: 'product-sku/delete',
       },
+      displayCreateButton: false,
+      displayViewButton: false,
       navigateCreatePage: 'new-product-sku',
-      displayViewButton: true,
       indexTitle: this.#translate(_('Product SKUs')),
       indexIcon: 'pi pi-box',
       createBtnLabel: this.#translate(_('Create Product SKU')),
@@ -87,6 +90,32 @@ export default class ProductSkusComponent extends BaseIndexComponent<ProductSku>
           searchable: false,
           orderable: false,
           render: this.isOffered(),
+        },
+        {
+          title: this.#translate(_('isNew')),
+          name: 'isNew',
+          searchable: false,
+          orderable: false,
+          render: this.isNew(),
+        },
+        {
+          title: this.#translate(_('isBestSeller')),
+          name: 'isBestSeller',
+          searchable: false,
+          orderable: false,
+          render: this.isBestSeller(),
+        },
+        {
+          title: this.#translate(_('discount type')),
+          name: 'discountType',
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('discount')),
+          name: 'discount',
+          searchable: false,
+          orderable: false,
         },
         {
           title: this.#translate(_('Created At')),

@@ -35,7 +35,16 @@ export class CuBlogDialogComponent extends BaseCreateUpdateComponent<BlogModel> 
       submitButtonLabel,
     };
 
-    this.model = new BlogModel(this.editData);
+    const model = {
+      ...this.editData,
+      ...(!isCreateMode && {
+        categoryIds: this.editData.categories.map(
+          (category: any) => category.id,
+        ),
+      }),
+    };
+
+    this.model = new BlogModel(model);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

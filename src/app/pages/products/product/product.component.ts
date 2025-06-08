@@ -43,6 +43,7 @@ export default class ProductsComponent extends BaseIndexComponent<Product> {
     this.dialogComponent = CuProductDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
+      provideFields: ['description', 'metaTitle', 'metaDescription'],
       endpoints: {
         index: 'product/index',
         delete: 'product/delete',
@@ -69,6 +70,12 @@ export default class ProductsComponent extends BaseIndexComponent<Product> {
         {
           title: this.#translate(_('summary')),
           name: `summary`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('slug')),
+          name: `slug`,
           searchable: true,
           orderable: false,
         },

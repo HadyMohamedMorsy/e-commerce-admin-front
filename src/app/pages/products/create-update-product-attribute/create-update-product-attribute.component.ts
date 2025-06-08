@@ -38,6 +38,9 @@ export default class CreateUpdateProductAttributeComponent extends FormPageCompo
               name: null,
               value: null,
               image: null,
+              images: null,
+              quantity: null,
+              priceChange: null,
             },
           ],
         } as ProductAttributeModel);

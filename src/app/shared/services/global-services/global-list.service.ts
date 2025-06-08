@@ -1,4 +1,6 @@
 import { inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { ApiService } from './api.service';
 import { CacheService } from './cache.service';
 
 @Injectable({
@@ -6,9 +8,12 @@ import { CacheService } from './cache.service';
 })
 export class GlobalListService {
   #cacheList = inject(CacheService);
+  #api = inject(ApiService);
 
   getGlobalList(slug: string) {
     const cacheKey = `list/${slug}`;
-    return this.#cacheList.getData(`lists/slug/${slug}`, 'get', {}, cacheKey);
+    return this.#api
+      .request('get', `lists/slug/${slug}`)
+      .pipe(map(({ data }) => data));
   }
 }

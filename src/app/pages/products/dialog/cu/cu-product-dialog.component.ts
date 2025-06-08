@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
 import { ProductFieldsService } from '@pages/products/services/product-fields.service';
-import { AuthService, BaseCreateUpdateComponent } from '@shared';
+import { BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { ProductModel } from '../../services/services-type';
 
@@ -16,11 +16,16 @@ import { ProductModel } from '../../services/services-type';
 })
 export class CuProductDialogComponent extends BaseCreateUpdateComponent<ProductModel> {
   #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(ProductFieldsService);
   #list$ = this.#globalList.getGlobalList('product');
 
   ngOnInit() {
+    const isCreateMode = !this.editData || this.editData.method === 'create';
+    const dialogTitle = isCreateMode
+      ? _('Create New Product')
+      : _('Update Product');
+    const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
@@ -28,23 +33,20 @@ export class CuProductDialogComponent extends BaseCreateUpdateComponent<ProductM
         store: 'product/store',
         update: 'product/update',
       },
+      dialogTitle,
+      submitButtonLabel,
+    };
+    
+    const model = {
+      ...this.editData,
+      ...(!isCreateMode && {
+        categoryIds: this.editData.categories.map(
+          (category: any) => category.id,
+        ),
+      }),
     };
 
-    if (this.editData) {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Update Product')),
-        submitButtonLabel: this.translate.instant(_('Update Product')),
-      };
-      this.model = new ProductModel(this.editData);
-    } else {
-      this.dialogMeta = {
-        ...this.dialogMeta,
-        dialogTitle: this.translate.instant(_('Create New Product')),
-        submitButtonLabel: this.translate.instant(_('Create New Product')),
-      };
-      this.model = new ProductModel();
-    }
+    this.model = new ProductModel(model);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

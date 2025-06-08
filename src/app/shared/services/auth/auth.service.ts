@@ -16,7 +16,7 @@ export class AuthService {
 
   /*****************************************/
   // current user
-  #CURRENT_USER_KEY = 'current-user-key';
+  #CURRENT_USER_KEY = 'azalove-current-user-key';
   #currentUser = localStorageSignal<User | null>(null, this.#CURRENT_USER_KEY);
 
   currentUser = this.#currentUser.asReadonly(); // exposed publicly.
@@ -27,7 +27,7 @@ export class AuthService {
   }
   /*****************************************/
 
-  #ACCESS_TOKEN_KEY = 'ecommerce-app-access-token-key';
+  #ACCESS_TOKEN_KEY = 'azalove-access-token-key';
 
   #accessToken = localStorageSignal<string | null>(
     null,
@@ -58,7 +58,7 @@ export class AuthService {
   /*****************************************/
 
   // refresh token
-  #REFRESH_TOKEN_KEY = 'refresh-token-key';
+  #REFRESH_TOKEN_KEY = 'azalove-refresh-token-key';
 
   #refreshToken = localStorageSignal<string | null>(
     null,
@@ -73,7 +73,7 @@ export class AuthService {
 
   /*****************************************/
 
-  #ROLE_KEY = 'role-key';
+  #ROLE_KEY = 'azalove-role-key';
   #userRole = localStorageSignal<string[] | null>(null, this.#ROLE_KEY);
   userRole = this.#userRole.asReadonly();
 

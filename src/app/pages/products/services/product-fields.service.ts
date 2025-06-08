@@ -14,6 +14,7 @@ export class ProductFieldsService {
   fieldBuilder = inject(FieldBuilderService);
   pageList$ = this.#globalList.getGlobalList('product');
   isSingleUploading = signal(false);
+  isMultiUploading = signal(false);
 
   configureFields(editData: any) {
     return [
@@ -25,6 +26,15 @@ export class ProductFieldsService {
           props: {
             required: true,
             label: _('Product Name'),
+          },
+        },
+        {
+          key: 'slug',
+          type: 'input-field',
+          className: 'md:col-4 col-12',
+          props: {
+            required: true,
+            label: _('Product Slug'),
           },
         },
         {
@@ -84,6 +94,21 @@ export class ProductFieldsService {
             label: _('Product cover'),
             mode: editData ? 'update' : 'store',
             isUploading: this.isSingleUploading,
+          },
+        },
+      ]),
+      this.fieldBuilder.fieldBuilder([
+        {
+          key: 'images',
+          type: 'multi-files-field',
+          className: 'col-12',
+          props: {
+            multiple: true,
+            type: 'image',
+            isUploading: this.isMultiUploading,
+            chooseLabel: _('images'),
+            description: _('Allowed format is jpeg, jpg, png'),
+            fileLabel: _('images'),
           },
         },
       ]),

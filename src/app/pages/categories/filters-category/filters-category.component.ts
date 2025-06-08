@@ -7,40 +7,30 @@ import { map } from 'rxjs';
 import { FilterBaseComponent } from 'src/app/shared/components/filter-base/filter-base.component';
 
 @Component({
-  selector: 'app-blogs-filters',
+  selector: 'app-categories-filters',
   standalone: true,
   imports: [FormlyModule, NgClass, ReactiveFormsModule],
   templateUrl:
     '../../../shared/components/filter-base/filter-base.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FiltersBlogsComponent extends FilterBaseComponent {
-  pageList$ = this.globalList.getGlobalList('blog');
+export class FiltersCategoriesComponent extends FilterBaseComponent {
+  pageList$ = this.globalList.getGlobalList('category');
 
   ngOnInit() {
     this.fields = [
       this.fieldBuilder.fieldBuilder(
         [
           {
-            key: 'postType',
+            key: 'categoryType',
             type: 'select-field',
-            className: 'md:col-3 col-12',
+            className: 'md:col-4 col-12',
             props: {
               isFloatedLabel: true,
               label: _('select post type'),
               options: this.pageList$.pipe(
-                map(({ articleType }) => articleType),
+                map(({ categoryType }) => categoryType),
               ),
-            },
-          },
-          {
-            key: 'mediaType',
-            type: 'select-field',
-            className: 'md:col-3 col-12',
-            props: {
-              required: true,
-              label: _('select article type'),
-              options: this.pageList$.pipe(map(({ mediaType }) => mediaType)),
             },
           },
           {

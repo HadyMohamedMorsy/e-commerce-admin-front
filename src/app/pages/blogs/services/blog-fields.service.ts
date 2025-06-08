@@ -54,7 +54,7 @@ export class BlogFieldsService {
           props: {
             type: 'number',
             required: true,
-            label: _('order'),
+            label: _('order sort'),
           },
         },
         {
@@ -184,7 +184,7 @@ export class BlogFieldsService {
           className: 'md:col-4 col-12',
           props: {
             required: true,
-            label: _('Title'),
+            label: _('metaTitle'),
           },
         },
         {
@@ -192,7 +192,7 @@ export class BlogFieldsService {
           type: 'textarea-field',
           className: 'md:col-12 col-12',
           props: {
-            label: _('Description'),
+            label: _('metaDescription'),
             rows: 3,
             autoResize: true,
           },

@@ -4,7 +4,7 @@ import { GlobalListService } from '@gService/global-list.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService, StaticDataService } from '@shared';
-import { startWith, tap } from 'rxjs';
+import { map, startWith, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,9 @@ export class ProductAttributeFieldsService {
   translate = inject(TranslateService);
   #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = this.#globalList.getGlobalList('product');
+  pageList$ = this.#globalList.getGlobalList('product-attributes');
   isSingleUploading = signal(false);
+  isMultiUploading = signal(false);
   #staticDataService = inject(StaticDataService);
 
   configureFields(editData: any) {
@@ -25,7 +26,7 @@ export class ProductAttributeFieldsService {
           type: 'repeat-field',
           className: 'col-12',
           props: {
-            addBtnText: _('add_translation'),
+            addBtnText: _('add attribute'),
             disabledRepeater: false,
           },
           hooks: {
@@ -48,11 +49,12 @@ export class ProductAttributeFieldsService {
           fieldArray: this.fieldBuilder.fieldBuilder([
             {
               key: 'name',
-              type: 'input-field',
+              type: 'select-field',
               className: 'md:col-4 col-12',
               props: {
                 required: true,
-                label: _('Attribute Name'),
+                label: _('Name'),
+                options: this.pageList$.pipe(map(({ nameTypes }) => nameTypes)),
               },
             },
             {
@@ -65,6 +67,26 @@ export class ProductAttributeFieldsService {
               },
             },
             {
+              key: 'priceChange',
+              type: 'input-field',
+              className: 'md:col-4 col-12',
+              props: {
+                required: true,
+                type: 'number',
+                label: _('Price'),
+              },
+            },
+            {
+              key: 'quantity',
+              type: 'input-field',
+              className: 'md:col-4 col-12',
+              props: {
+                required: true,
+                type: 'number',
+                label: _('Quantity'),
+              },
+            },
+            {
               key: 'image',
               type: 'file-field',
               className: 'col-12',
@@ -72,6 +94,19 @@ export class ProductAttributeFieldsService {
                 label: _('Attribute Image'),
                 mode: editData ? 'update' : 'store',
                 isUploading: this.isSingleUploading,
+              },
+            },
+            {
+              key: 'images',
+              type: 'multi-files-field',
+              className: 'col-12',
+              props: {
+                multiple: true,
+                type: 'image',
+                isUploading: this.isMultiUploading,
+                chooseLabel: _('images'),
+                description: _('Allowed format is jpeg, jpg, png'),
+                fileLabel: _('images'),
               },
             },
           ]),

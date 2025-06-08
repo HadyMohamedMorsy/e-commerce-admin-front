@@ -32,18 +32,22 @@ export class ProductModel {
   name: string | null;
   description: string | null;
   metaTitle: string | null;
+  slug: string | null;
   metaDescription: string | null;
   summary: string | null;
   cover: string | null;
+  images: string[] | null;
   categoryIds: number[] | null;
   constructor(data?: ProductModel) {
     this.id = data?.id || null;
     this.name = data?.name || null;
+    this.slug = data?.slug || null;
     this.description = data?.description || null;
     this.metaTitle = data?.metaTitle || null;
     this.metaDescription = data?.metaDescription || null;
     this.summary = data?.summary || null;
     this.cover = data?.cover || null;
+    this.images = data?.images || null;
     this.categoryIds = data?.categoryIds || null;
   }
 }
@@ -54,6 +58,8 @@ export class ProductSkuModel {
   price: number | null;
   quantity: number | null;
   productId: number | null;
+  discountType: string | null;
+  discount: number | null;
 
   constructor(data?: ProductSkuModel) {
     this.id = data?.id || null;
@@ -61,6 +67,8 @@ export class ProductSkuModel {
     this.price = data?.price || null;
     this.quantity = data?.quantity || null;
     this.productId = data?.productId || null;
+    this.discountType = data?.discountType || null;
+    this.discount = data?.discount || null;
   }
 }
 
@@ -72,6 +80,9 @@ export class ProductAttributeModel {
         name: string | null;
         value: string | null;
         image: string | null;
+        images: string[] | null;
+        quantity: number | null;
+        priceChange: number | null;
       }[]
     | null;
 
@@ -83,6 +94,9 @@ export class ProductAttributeModel {
         name: null,
         value: null,
         image: null,
+        images: null,
+        quantity: null,
+        priceChange: null,
       },
     ];
   }

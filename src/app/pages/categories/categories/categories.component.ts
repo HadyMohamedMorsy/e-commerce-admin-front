@@ -21,6 +21,7 @@ import { ImageModule } from 'primeng/image';
 import { filter, tap } from 'rxjs';
 import { CuCategoryDialogComponent } from '../dialog/cu/cu-categories-dialog.component';
 import { ViewCategoryComponent } from '../dialog/view/view-categories.component';
+import { FiltersCategoriesComponent } from '../filters-category/filters-category.component';
 import { Category } from '../services/services-type';
 
 @Component({
@@ -29,6 +30,7 @@ import { Category } from '../services/services-type';
     TableWrapperComponent,
     ButtonModule,
     TooltipModule,
+    FiltersCategoriesComponent,
     RouterLink,
     TranslateModule,
     ImageModule,
@@ -50,7 +52,7 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
     this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
-      provideFields: ['description'],
+      provideFields: ['description', 'icon'],
       endpoints: {
         index: !this.categoryId() ? 'category/index' : 'sub-category/index',
         delete: !this.categoryId() ? 'category/delete' : 'sub-category/delete',
@@ -74,6 +76,12 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
           searchable: true,
           orderable: false,
           render: this.name(),
+        },
+        {
+          title: this.#translate(_('slug')),
+          name: `slug`,
+          searchable: true,
+          orderable: false,
         },
         {
           title: this.#translate(_('categoty type')),

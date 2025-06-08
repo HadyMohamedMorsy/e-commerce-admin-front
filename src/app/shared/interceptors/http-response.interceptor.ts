@@ -54,7 +54,7 @@ export const HttpResponseInterceptor: HttpInterceptorFn = (request, next) => {
           errorMessage = error.error.message;
         }
       }
-
+      console.log(errorMessage);
       alertService?.setMessage({ severity: 'error', detail: errorMessage });
       return throwError(() => error); // Re-throw the error
     }),

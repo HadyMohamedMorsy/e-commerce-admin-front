@@ -36,7 +36,7 @@
       (onChange)="
         changeStatus(
           productSku,
-          'products/change-featured-status',
+          'product-sku/change-featured-status',
           'isFeatured',
           $event.checked
         )
@@ -50,12 +50,40 @@
       (onChange)="
         changeStatus(
           productSku,
-          'products/change-offered-status',
+          'product-sku/change-offered-status',
           'isOffered',
           $event.checked
         )
       "
       [ngModel]="productSku.isOffered"
+    ></p-toggleswitch>
+  </ng-template>
+
+  <ng-template #isNew let-productSku>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          productSku,
+          'product-sku/change-new-status',
+          'isNew',
+          $event.checked
+        )
+      "
+      [ngModel]="productSku.isNew"
+    ></p-toggleswitch>
+  </ng-template>
+
+  <ng-template #isBestSeller let-productSku>
+    <p-toggleswitch
+      (onChange)="
+        changeStatus(
+          productSku,
+          'product-sku/change-best-seller-status',
+          'isBestSeller',
+          $event.checked
+        )
+      "
+      [ngModel]="productSku.isBestSeller"
     ></p-toggleswitch>
   </ng-template>
 </app-table-wrapper>

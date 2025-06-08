@@ -18,7 +18,7 @@ export class CuProductAttributeDialogComponent extends BaseCreateUpdateComponent
   #globalList = inject(GlobalListService);
   #auth = inject(AuthService);
   fieldsService = inject(ProductAttributeFieldsService);
-  #list$ = this.#globalList.getGlobalList('product');
+  #list$ = this.#globalList.getGlobalList('product-attributes');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';

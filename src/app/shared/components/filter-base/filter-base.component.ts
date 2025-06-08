@@ -36,4 +36,25 @@ export class FilterBaseComponent {
   form = new FormGroup({});
   options: FormlyFormOptions = {};
   fields = [] as FormlyFieldConfig[];
+
+  sendModel() {
+    if (Object.keys(this.model).length === 0) return;
+    this.filtersData.update((filters) => ({
+      ...filters,
+      customFilters: {
+        ...this.model,
+      },
+    }));
+  }
+
+  refreshModel() {
+    const modelKeys = Object.keys(this.model);
+    if (modelKeys.length === 0) return;
+    this.options.resetModel?.();
+    this.filtersData.update((oldFilters) => {
+      const updatedFilters = { ...oldFilters };
+      delete updatedFilters.customFilters;
+      return updatedFilters;
+    });
+  }
 }

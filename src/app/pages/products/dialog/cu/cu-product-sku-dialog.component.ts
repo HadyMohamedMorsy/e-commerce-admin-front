@@ -38,7 +38,14 @@ export class CuProductSkuDialogComponent extends BaseCreateUpdateComponent<Produ
       submitButtonLabel,
     };
 
-    this.model = new ProductSkuModel(this.editData);
+    const model = {
+      ...this.editData,
+      ...(!isCreateMode && {
+        productId: this.editData.product.id,
+      }),
+    };
+
+    this.model = new ProductSkuModel(model);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

@@ -25,7 +25,7 @@ export class EllipsisActionComponent {
 
   items = computed<MenuItem[]>(() => [
     {
-      label: _('New Attrpuite'),
+      label: _('New Attribute'),
       icon: 'pi pi-receipt',
       routerLink: '/new-product-attribute',
       queryParams: {
@@ -34,7 +34,7 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
-      label: _('New prodcuts sku'),
+      label: _('New Product Sku'),
       icon: 'pi pi-receipt',
       routerLink: '/new-product-sku',
       queryParams: {
@@ -43,7 +43,7 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
-      label: _('new faq'),
+      label: _('New Faq'),
       icon: 'pi pi-receipt',
       routerLink: '/new-faq',
       queryParams: {
