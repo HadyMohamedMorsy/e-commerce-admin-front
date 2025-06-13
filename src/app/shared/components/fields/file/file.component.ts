@@ -33,6 +33,7 @@ import { constants } from 'src/app/shared/config';
 })
 export class FileFieldComponent extends FieldType<FieldTypeConfig> {
   #sanitizer = inject(DomSanitizer);
+  domain = environment.Domain_URL;
 
   fileUploader = viewChild.required<FileUpload>('fileUploader');
 
@@ -46,7 +47,7 @@ export class FileFieldComponent extends FieldType<FieldTypeConfig> {
   ngOnInit() {
     const value = this.formControl?.value;
     if (this.props.mode === 'update' && value) {
-      this.mediaFile.set(value);
+      this.mediaFile.set(this.domain + value);
     }
   }
 

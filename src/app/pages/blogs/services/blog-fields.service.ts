@@ -218,6 +218,7 @@ export class BlogFieldsService {
             chooseLabel: _('gallery'),
             description: _('Allowed format is jpeg, jpg, png'),
             fileLabel: _('gallery'),
+            mode: !editData ? 'create' : 'update',
           },
         },
       ]),
@@ -239,6 +240,7 @@ export class BlogFieldsService {
             chooseLabel: _('thumb'),
             description: _('Allowed format is jpeg, jpg, png'),
             fileLabel: _('thumb'),
+            mode: !editData ? 'create' : 'update',
           },
         },
       ]),
@@ -254,6 +256,7 @@ export class BlogFieldsService {
             isUploading: this.isSingleUploading,
             description: _('Allowed format is mp3, mp4'),
             fileLabel: _('Video'),
+            mode: !editData ? 'create' : 'update',
           },
           expressions: {
             hide: (field) => {

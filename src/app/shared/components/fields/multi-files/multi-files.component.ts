@@ -16,16 +16,6 @@ import { ButtonModule } from 'primeng/button';
 import { ImageModule } from 'primeng/image';
 import { AuthService } from 'src/app/shared/services';
 
-export interface MediaFile {
-  id: number;
-  name: string;
-  file_name: string;
-  mime_type: string;
-  size: number;
-  file: string;
-  extension: string; // controls the icon to display
-}
-
 @Component({
   selector: 'formly-multi-files-field',
   templateUrl: './multi-files.component.html',
@@ -42,13 +32,13 @@ export interface MediaFile {
 export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
   #config = inject(PrimeNG);
   #auth = inject(AuthService);
+  domain = environment.Domain_URL;
 
   uploadedFiles = signal<{ original_name: string; name: string }[]>([]);
-  mediaFiles = signal<MediaFile[]>([]);
+  mediaFiles = signal<string[]>([]);
 
   uploadedFileNames = computed(() => this.uploadedFiles().map((f) => f.name));
   files = computed(() => [...new Set(this.uploadedFileNames())]);
-  mediaIds = computed(() => this.mediaFiles().map((m) => m.id));
 
   config!: DropzoneConfigInterface;
 
@@ -56,12 +46,6 @@ export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
     this.files().length
       ? this.formControl.setValue(this.files())
       : this.formControl.setValue(null);
-  });
-
-  mediaIdsEffect = effect(() => {
-    if (this.props.mode === 'update') {
-      this.field.model['media_ids'] = this.mediaIds();
-    }
   });
 
   onUploadSuccess(args: any): void {
@@ -90,10 +74,10 @@ export class MultiFilesFieldComponent extends FieldType<FieldTypeConfig> {
       cancelReset: null, // Time for resetting component after canceling (Default: null).
     };
 
-    const mediaAccessKey = this.props?.mediaAccessKey ?? 'media';
+    const mediaAccessKey = this.props?.mediaAccessKey ?? 'featuredImages';
     const media = this.field.model?.[mediaAccessKey];
     if (this.props.mode === 'update' && media && media.length > 0) {
-      this.mediaFiles.set(media);
+      this.mediaFiles.set(media.map((m: string) => this.domain + m));
     }
   }
 

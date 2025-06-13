@@ -43,7 +43,7 @@ export default class ProductsComponent extends BaseIndexComponent<Product> {
     this.dialogComponent = CuProductDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
-      provideFields: ['description', 'metaTitle', 'metaDescription'],
+      provideFields: ['description', 'metaTitle', 'images', 'metaDescription'],
       endpoints: {
         index: 'product/index',
         delete: 'product/delete',
