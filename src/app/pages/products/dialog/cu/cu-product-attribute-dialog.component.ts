@@ -16,7 +16,6 @@ import { ProductAttributeModel } from '../../services/services-type';
 })
 export class CuProductAttributeDialogComponent extends BaseCreateUpdateComponent<ProductAttributeModel> {
   #globalList = inject(GlobalListService);
-  #auth = inject(AuthService);
   fieldsService = inject(ProductAttributeFieldsService);
   #list$ = this.#globalList.getGlobalList('product-attributes');
 

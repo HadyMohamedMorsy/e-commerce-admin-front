@@ -3,13 +3,9 @@ import { User } from '@pages/users/services/services-type';
 
 export interface Review {
   id: number;
-  title: string;
-  is_approved: number;
+  isApproved: number;
   comment: string;
-  created_at: string;
   rate: number;
-  is_liked: 0 | 1;
-  likes_count: number;
   product: Product;
   createdBy: User;
   createdAt: string;
@@ -19,18 +15,16 @@ export class ReviewModel {
   id?: number | null;
   comment: string | null;
   rate: number | null;
+  productId: number | null;
   reviewable_type: 'product' | 'blog';
-  reviewable_id: number | null;
-  media_ids: number[] | null;
-  is_approved: number;
+  isApproved: boolean;
 
   constructor(data?: ReviewModel) {
     this.id = data?.id || null;
     this.comment = data?.comment || null;
+    this.productId = data?.productId || null;
     this.rate = data?.rate || null;
     this.reviewable_type = data?.reviewable_type || 'product';
-    this.reviewable_id = data?.reviewable_id || null;
-    this.media_ids = data?.media_ids || null;
-    this.is_approved = data?.is_approved ?? 0;
+    this.isApproved = data?.isApproved ?? false;
   }
 }

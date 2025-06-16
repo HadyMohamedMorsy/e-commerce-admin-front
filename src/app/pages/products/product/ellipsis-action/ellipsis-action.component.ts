@@ -34,6 +34,15 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
+      label: _('New Specification'),
+      icon: 'pi pi-list',
+      routerLink: '/new-specification',
+      queryParams: {
+        filtersQuery: this.getFiltersQuery(),
+      },
+      visible: true,
+    },
+    {
       label: _('New Product Sku'),
       icon: 'pi pi-receipt',
       routerLink: '/new-product-sku',
@@ -46,6 +55,15 @@ export class EllipsisActionComponent {
       label: _('New Faq'),
       icon: 'pi pi-receipt',
       routerLink: '/new-faq',
+      queryParams: {
+        filtersQuery: this.getFiltersQuery(),
+      },
+      visible: true,
+    },
+    {
+      label: _('Review'),
+      icon: 'pi pi-receipt',
+      routerLink: '/new-review',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),
       },

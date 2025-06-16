@@ -63,20 +63,8 @@ export default class ReviewsComponent extends BaseIndexComponent<Review> {
           orderable: false,
         },
         {
-          title: this.#translate(_('title')),
-          name: `title`,
-          searchable: true,
-          orderable: false,
-        },
-        {
           title: this.#translate(_('rate')),
           name: 'rate',
-          searchable: false,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('likesCount')),
-          name: 'likesCount',
           searchable: false,
           orderable: false,
         },

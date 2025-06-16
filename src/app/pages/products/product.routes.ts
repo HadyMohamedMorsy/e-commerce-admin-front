@@ -247,4 +247,88 @@ export const ProductsRoutes: Routes = [
       },
     },
   },
+  {
+    path: 'specifications',
+    loadComponent: () => import('./specification/specification.component'),
+    title: 'specifications',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        show: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        delete: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'new-specification',
+    loadComponent: () =>
+      import(
+        './create-update-specification/create-update-specification.component'
+      ),
+    title: 'new specification',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
+  {
+    path: 'update-specification',
+    loadComponent: () =>
+      import(
+        './create-update-specification/create-update-specification.component'
+      ),
+    title: 'Update specification',
+    canActivate: [RoleGuard],
+    data: {
+      roles: {
+        index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        redirectTo: '403',
+      },
+    },
+  },
 ];

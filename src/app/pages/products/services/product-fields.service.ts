@@ -37,6 +37,30 @@ export class ProductFieldsService {
             label: _('Product Slug'),
           },
         },
+        // {
+        //   key: 'standard_shipping',
+        //   type: 'input-field',
+        //   className: 'md:col-4 col-12',
+        //   props: {
+        //     label: _('Standard Shipping'),
+        //   },
+        // },
+        // {
+        //   key: 'express_shipping',
+        //   type: 'input-field',
+        //   className: 'md:col-4 col-12',
+        //   props: {
+        //     label: _('Standard Shipping'),
+        //   },
+        // },
+        // {
+        //   key: 'returns',
+        //   type: 'input-field',
+        //   className: 'md:col-4 col-12',
+        //   props: {
+        //     label: _('Standard Shipping'),
+        //   },
+        // },
         {
           key: 'categoryIds',
           type: 'select-field',

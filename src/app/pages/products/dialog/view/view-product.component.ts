@@ -8,6 +8,7 @@ import {
 import ProductAttributesComponent from '@pages/products/product-attribute/product-attribute.component';
 import ProductSkusComponent from '@pages/products/product-sku/product-sku.component';
 import { Product } from '@pages/products/services/services-type'; // Change to ProductList
+import SpecificationsComponent from '@pages/products/specification/specification.component';
 import { ViewDialogComponent } from '@shared';
 
 @Component({
@@ -16,6 +17,7 @@ import { ViewDialogComponent } from '@shared';
     ViewDialogComponent,
     ProductSkusComponent,
     ProductAttributesComponent,
+    SpecificationsComponent,
   ],
   templateUrl: './view-product.component.html', // Update to correct template path
   changeDetection: ChangeDetectionStrategy.OnPush,

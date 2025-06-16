@@ -27,6 +27,17 @@ export interface ProductAttribute {
   deletedAt: string;
 }
 
+export interface Specification {
+  id: number;
+  title: string;
+  attributes: {
+    name: string;
+    value: string;
+  }[];
+  createdAt: string;
+  deletedAt: string;
+}
+
 export class ProductModel {
   id: number | null;
   name: string | null;
@@ -97,6 +108,30 @@ export class ProductAttributeModel {
         images: null,
         quantity: null,
         priceChange: null,
+      },
+    ];
+  }
+}
+
+export class SpecificationModel {
+  id?: number | null;
+  productId: number | null;
+  title: string | null;
+  attributes:
+    | {
+        name: string | null;
+        value: string | null;
+      }[]
+    | null;
+
+  constructor(data?: SpecificationModel) {
+    this.id = data?.id || null;
+    this.productId = data?.productId || null;
+    this.title = data?.title || null;
+    this.attributes = data?.attributes || [
+      {
+        name: null,
+        value: null,
       },
     ];
   }

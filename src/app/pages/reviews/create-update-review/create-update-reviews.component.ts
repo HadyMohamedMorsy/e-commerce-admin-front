@@ -15,10 +15,13 @@ import { ReviewModel } from '../services/services-type';
 })
 export default class CreateUpdateReviewComponent extends FormPageComponent {
   fieldsService = inject(ReviewFieldsService);
+  #queryData = {} as { [key: string]: any };
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
+    this.#queryData = JSON.parse(this.filtersQuery() || '{}');
+    const isCreate = this.filtersQuery() && this.#queryData.method === 'create';
+    isCreate ? this.setupForm(false) : this.setupForm(true);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('reviews');
   }
@@ -26,7 +29,11 @@ export default class CreateUpdateReviewComponent extends FormPageComponent {
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
       ? new ReviewModel(this.filterDataForUpdate(new ReviewModel()))
-      : new ReviewModel();
+      : new ReviewModel({
+          productId: this.#queryData.productId,
+          reviewable_type: 'product',
+          isApproved: true,
+        } as ReviewModel);
 
     this.formTitle.set(isUpdate ? 'Update Review' : 'Create New Review');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
