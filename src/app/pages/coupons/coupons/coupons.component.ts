@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,12 +33,15 @@ import { Coupon } from '../services/services-type';
     TranslateModule,
     FormsModule,
     ToggleSwitchModule,
+    DatePipe,
   ],
   templateUrl: './coupons.component.html',
+  providers: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CouponsComponent extends BaseIndexComponent<Coupon> {
   isActive = viewChild.required<TemplateRef<any>>('isActive');
+  expiryDate = viewChild.required<TemplateRef<any>>('expiryDate');
   ngOnInit() {
     this.dialogComponent = CuCouponDialogComponent;
     this.indexMeta = {
@@ -82,6 +86,7 @@ export default class CouponsComponent extends BaseIndexComponent<Coupon> {
           name: 'expiryDate',
           searchable: false,
           orderable: false,
+          render: this.expiryDate(),
         },
         {
           title: this.#translate(_('min Order Total Price')),

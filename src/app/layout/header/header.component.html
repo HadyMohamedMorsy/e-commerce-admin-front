@@ -21,7 +21,7 @@
       <div class="flex align-items-center gap-3">
         @if (isLgScreen()) {
           <p-button
-            label="{{ 'Create' | translate }}"
+            [label]="'create' | translate"
             class="custom-button-menu"
             (onClick)="menu.toggle($event)"
             icon="pi pi-angle-down"

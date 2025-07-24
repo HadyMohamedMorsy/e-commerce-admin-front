@@ -25,8 +25,8 @@ export class EllipsisActionComponent {
 
   items = computed<MenuItem[]>(() => [
     {
-      label: _('New Attribute'),
-      icon: 'pi pi-receipt',
+      label: _('Attribute'),
+      icon: 'pi pi-tags',
       routerLink: '/new-product-attribute',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),
@@ -34,7 +34,7 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
-      label: _('New Specification'),
+      label: _('Specification'),
       icon: 'pi pi-list',
       routerLink: '/new-specification',
       queryParams: {
@@ -43,8 +43,8 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
-      label: _('New Product Sku'),
-      icon: 'pi pi-receipt',
+      label: _('Sku'),
+      icon: 'pi pi-id-card',
       routerLink: '/new-product-sku',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),
@@ -52,8 +52,8 @@ export class EllipsisActionComponent {
       visible: true,
     },
     {
-      label: _('New Faq'),
-      icon: 'pi pi-receipt',
+      label: _('Faq'),
+      icon: 'pi pi-question-circle',
       routerLink: '/new-faq',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),
@@ -62,7 +62,7 @@ export class EllipsisActionComponent {
     },
     {
       label: _('Review'),
-      icon: 'pi pi-receipt',
+      icon: 'pi pi-star',
       routerLink: '/new-review',
       queryParams: {
         filtersQuery: this.getFiltersQuery(),

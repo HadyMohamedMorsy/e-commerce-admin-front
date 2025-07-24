@@ -129,6 +129,13 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
     super.openUpdateRecordDialog(model);
   }
 
+  override navigateCreatePage() {
+    const data = this.categoryId()
+      ? { categoryId: this.categoryId(), method: 'create' }
+      : undefined;
+    super.navigateCreatePage(undefined, data);
+  }
+
   #translate(text: string) {
     return this.translate.instant(text);
   }

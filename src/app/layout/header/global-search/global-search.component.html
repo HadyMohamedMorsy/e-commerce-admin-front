@@ -2,7 +2,7 @@
   <ng-select
     class="border-none shadow-nonw font-medium global-search-input"
     [items]="items()"
-    placeholder="Search By product Name or order"
+    [placeholder]="'search by product name or order' | translate"
     [clearOnBackspace]="true"
     bindLabel="label"
     [trackByFn]="trackByFn"

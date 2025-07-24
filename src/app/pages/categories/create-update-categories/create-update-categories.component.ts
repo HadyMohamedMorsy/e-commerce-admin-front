@@ -15,10 +15,13 @@ import { CategoryModel } from '../services/services-type';
 })
 export default class CreateUpdateCategoryComponent extends FormPageComponent {
   fieldsService = inject(CategoryFieldsService);
+  #queryData = {} as { [key: string]: any };
 
   ngOnInit() {
     this.pageList$ = this.fieldsService.pageList$;
-    this.filtersQuery() ? this.setupForm(true) : this.setupForm(false);
+    this.#queryData = JSON.parse(this.filtersQuery() || '{}');
+    const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
+    isCreate ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
     this.navigateAfterSubmit.set('categories');
   }
@@ -26,10 +29,27 @@ export default class CreateUpdateCategoryComponent extends FormPageComponent {
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
       ? new CategoryModel(this.filterDataForUpdate(new CategoryModel()))
-      : new CategoryModel();
+      : new CategoryModel({
+          categoryId: this.#queryData.categoryId,
+        } as CategoryModel);
 
-    this.formTitle.set(isUpdate ? 'Update Category' : 'Create New Category');
+    const storeEndpoint = this.#queryData.categoryId
+      ? 'sub-category/store'
+      : 'category/store';
+    const updateEndpoint = this.#queryData.categoryId
+      ? 'sub-category/update'
+      : 'category/update';
+
+    const titleStore = this.#queryData.categoryId
+      ? 'Create New Sub Category'
+      : 'Create New Category';
+
+    const titleUpdate = this.#queryData.categoryId
+      ? 'Update Sub Category'
+      : 'Update Category';
+
+    this.formTitle.set(isUpdate ? titleUpdate : titleStore);
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(isUpdate ? 'category/update' : 'category/store');
+    this.endpoint.set(isUpdate ? updateEndpoint : storeEndpoint);
   }
 }

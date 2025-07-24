@@ -21,22 +21,27 @@ export class CuCategoryDialogComponent extends BaseCreateUpdateComponent<Categor
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';
+    const hasParentId = this.editData?.parentId;
+    const categoryType = hasParentId ? 'Subcategory' : 'Category';
     const dialogTitle = isCreateMode
-      ? _('Create New Category')
-      : _('Update Category');
+      ? _(`Create New ${categoryType}`)
+      : _(`Update ${categoryType}`);
     const submitButtonLabel = isCreateMode ? _('create') : _('update');
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'category/store',
-        update: 'category/update',
+        store: hasParentId ? 'sub-category/store' : 'category/store',
+        update: hasParentId ? 'sub-category/update' : 'category/update',
       },
       dialogTitle,
       submitButtonLabel,
     };
 
-    this.model = new CategoryModel(this.editData);
+    this.model = new CategoryModel({
+      ...this.editData,
+      categoryId: this.editData.parentId,
+    });
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

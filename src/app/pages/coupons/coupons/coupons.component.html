@@ -51,6 +51,10 @@
       [ngModel]="coupon.isActive"
     ></p-toggleswitch>
   </ng-template>
+
+  <ng-template #expiryDate let-coupon>
+    {{ coupon.expiryDate | date: "short" }}
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog
