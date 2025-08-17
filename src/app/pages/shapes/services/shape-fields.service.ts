@@ -34,12 +34,13 @@ export class ShapeFieldsService {
       this.fieldBuilder.fieldBuilder([
         {
           key: 'image',
-          type: 'file-field',
+          type: 'svg-textarea-field',
+          className: 'md:col-12 col-12',
           props: {
-            label: _('Category Image'),
-            isUploading: this.isUploading,
-            accept: '.svg',
-            mode: editData ? 'update' : 'store',
+            label: _('SVG Code'),
+            rows: 10,
+            description:
+              'Enter SVG code here. The preview will show how the SVG will be rendered.',
           },
         },
       ]),

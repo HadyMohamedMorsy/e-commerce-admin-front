@@ -8,6 +8,7 @@ import { contactRoutes } from '@pages/contact/contact.routes';
 import { couponRoutes } from '@pages/coupons/coupon.routes';
 import { dashboredRoutes } from '@pages/dashbored/dashbored.routes';
 import { FaqRoutes } from '@pages/faq/faq.routes';
+import { generalSettingsRoutes } from '@pages/general-settings/general-settings.routes';
 import { locationRoutes } from '@pages/locations/location.routes';
 import { OrdersRoutes } from '@pages/orders/orders.routes';
 import { ProductsRoutes } from '@pages/products/product.routes';
@@ -30,6 +31,7 @@ export default [
   ...shapesRoutes,
   ...blogRoutes,
   ...FaqRoutes,
+  ...generalSettingsRoutes,
   ...taxRoutes,
   ...userRoutes,
   ...addressRoutes,

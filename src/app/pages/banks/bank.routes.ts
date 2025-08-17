@@ -18,6 +18,15 @@ export const bankRoutes: Routes = [
           'CONTENT_MANAGER',
           'SYSTEM_ADMIN',
         ],
+        store: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
         show: [
           'CEO',
           'TECH_SUPPORT',

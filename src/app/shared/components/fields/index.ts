@@ -13,6 +13,7 @@ export * from './input.component';
 export * from './map.component';
 export * from './multi-files/multi-files.component';
 export * from './ng-select/ng-select.component';
+export * from './otp/otp.component';
 export * from './password.component';
 export * from './radio.component';
 export * from './rating.component';
@@ -20,9 +21,7 @@ export * from './repeat-array.component';
 export * from './repeat.component';
 export * from './select/select.component';
 export * from './separator.component';
+export * from './svg-textarea.component';
 export * from './switch.component';
 export * from './textarea.component';
 export * from './tree.component';
-export * from './otp/otp.component';
-export * from './autocomplete.component';
-

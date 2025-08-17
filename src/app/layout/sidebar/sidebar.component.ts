@@ -137,19 +137,6 @@ export default class SidebarComponent {
           ]),
         },
         {
-          name: 'Taxes',
-          routerlink: 'taxes',
-          visible: this.#checkVisibility([
-            'CEO',
-            'TECH_SUPPORT',
-            'STORE_MANAGER',
-            'SUPER_ADMIN',
-            'INVENTORY_MANAGER',
-            'CONTENT_MANAGER',
-            'SYSTEM_ADMIN',
-          ]),
-        },
-        {
           name: 'Shapes',
           routerlink: 'shapes',
           visible: this.#checkVisibility([
@@ -170,6 +157,19 @@ export default class SidebarComponent {
     {
       title: 'Settings',
       items: [
+        {
+          name: 'General Settings',
+          routerlink: 'general-setting',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
         {
           name: 'Address',
           routerlink: 'address',
