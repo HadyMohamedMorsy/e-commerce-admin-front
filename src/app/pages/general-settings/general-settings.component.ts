@@ -49,8 +49,8 @@ export default class ManageGlobalSettingsCuComponent {
       .pipe(
         map(({ data }) => data),
         tap((data) => {
-          data && this.type.set('update');
-          data && (this.model = { ...this.model, ...data });
+          data.data[0] && this.type.set('update');
+          data.data[0] && (this.model = { ...this.model, ...data.data[0] });
           this.loadingScreen.set(false);
           this.fields = this.configureFields();
         }),
