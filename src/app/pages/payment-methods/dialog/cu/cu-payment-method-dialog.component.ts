@@ -1,41 +1,42 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { TaxFieldsService } from '@pages/taxes/services/tax-fields.service';
+import { PaymentMethodFieldsService } from '@pages/payment-methods/services/payment-method-fields.service';
+import { PaymentMethodModel } from '@pages/payment-methods/services/services-type';
 import { BaseCreateUpdateComponent } from '@shared';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
-import { TaxModel } from '../../services/services-type';
 
 @Component({
-  selector: 'app-cu-tax-dialog',
+  selector: 'app-cu-payment-method-dialog',
   imports: [FormDialogComponent],
-  providers: [TaxFieldsService],
+  providers: [PaymentMethodFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CuTaxDialogComponent extends BaseCreateUpdateComponent<TaxModel> {
+export class CuPaymentMethodDialogComponent extends BaseCreateUpdateComponent<PaymentMethodModel> {
   #globalList = inject(GlobalListService);
-  fieldsService = inject(TaxFieldsService);
-  #list$ = this.#globalList.getGlobalList('tax');
+  fieldsService = inject(PaymentMethodFieldsService);
+  #list$ = this.#globalList.getGlobalList('payment-methods');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';
-    const dialogTitle = isCreateMode ? _('Create New Tax') : _('Update Tax');
+    const dialogTitle = isCreateMode
+      ? _('Create New Payment Method')
+      : _('Update Payment Method');
     const submitButtonLabel = isCreateMode ? _('create') : _('update');
-
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'tax/store',
-        update: 'tax/update',
+        store: 'payment-method/update',
+        update: 'payment-method/store',
+        dialogTitle,
+        submitButtonLabel,
       },
-      dialogTitle,
-      submitButtonLabel,
     };
 
-    this.model = new TaxModel(this.editData);
+    this.model = new PaymentMethodModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }

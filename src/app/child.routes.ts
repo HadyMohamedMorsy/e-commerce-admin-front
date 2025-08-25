@@ -11,11 +11,11 @@ import { FaqRoutes } from '@pages/faq/faq.routes';
 import { generalSettingsRoutes } from '@pages/general-settings/general-settings.routes';
 import { locationRoutes } from '@pages/locations/location.routes';
 import { OrdersRoutes } from '@pages/orders/orders.routes';
+import { PaymentMethodsRoutes } from '@pages/payment-methods/payment-methods.routes';
 import { ProductsRoutes } from '@pages/products/product.routes';
 import { reviewRoutes } from '@pages/reviews/review.routes';
 import { shapesRoutes } from '@pages/shapes/shapes.routes';
 import { shipmentRoutes } from '@pages/shipments/shipment.routes';
-import { taxRoutes } from '@pages/taxes/tax.routes';
 
 import { CustomersRoutes } from '@pages/users/customer.routes';
 import { userRoutes } from '@pages/users/user.routes';
@@ -31,8 +31,8 @@ export default [
   ...shapesRoutes,
   ...blogRoutes,
   ...FaqRoutes,
+  ...PaymentMethodsRoutes,
   ...generalSettingsRoutes,
-  ...taxRoutes,
   ...userRoutes,
   ...addressRoutes,
   ...locationRoutes,

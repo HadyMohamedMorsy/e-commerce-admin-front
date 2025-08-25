@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const taxRoutes: Routes = [
+export const PaymentMethodsRoutes: Routes = [
   {
-    path: 'taxes',
-    loadComponent: () => import('./tax/tax.component'),
-    title: 'taxes',
+    path: 'payment-methods',
+    loadComponent: () => import('./payment-methods/payment-methods.component'),
+    title: 'payment methods',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -41,10 +41,12 @@ export const taxRoutes: Routes = [
     },
   },
   {
-    path: 'new-tax',
+    path: 'new-payment-method',
     loadComponent: () =>
-      import('./create-update-tax/create-update-tax.component'),
-    title: 'new tax',
+      import(
+        './create-update-payment-method/create-update-payment-method.component'
+      ),
+    title: 'new payment method',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -62,10 +64,12 @@ export const taxRoutes: Routes = [
     },
   },
   {
-    path: 'update-tax',
+    path: 'update-payment-method',
     loadComponent: () =>
-      import('./create-update-tax/create-update-tax.component'),
-    title: 'Update tax',
+      import(
+        './create-update-payment-method/create-update-payment-method.component'
+      ),
+    title: 'Update payment method',
     canActivate: [RoleGuard],
     data: {
       roles: {

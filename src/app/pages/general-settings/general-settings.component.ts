@@ -60,11 +60,17 @@ export default class ManageGlobalSettingsCuComponent {
 
   configureFields(): FormlyFieldConfig[] {
     return [
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('store information'),
+        },
+      },
       this.#fieldBuilder.fieldBuilder([
         {
           key: 'store_name',
           type: 'input-field',
-          className: 'col-12 md:col-4',
           props: {
             type: 'text',
             label: _('store name'),
@@ -73,7 +79,6 @@ export default class ManageGlobalSettingsCuComponent {
         {
           key: 'store_email',
           type: 'input-field',
-          className: 'col-12 md:col-4',
           props: {
             type: 'email',
             label: _('store email'),
@@ -82,13 +87,29 @@ export default class ManageGlobalSettingsCuComponent {
         {
           key: 'store_phone',
           type: 'input-field',
-          className: 'col-12 md:col-4',
           props: {
             type: 'text',
             label: _('store phone'),
           },
         },
-
+        {
+          key: 'store_address',
+          type: 'textarea-field',
+          className: 'col-12',
+          props: {
+            label: _('store address'),
+            rows: 3,
+          },
+        },
+      ]),
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('currency & tax'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
           key: 'default_currency',
           type: 'input-field',
@@ -129,6 +150,64 @@ export default class ManageGlobalSettingsCuComponent {
             min: 1,
           },
         },
+      ]),
+
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('analytics & marketing'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
+        {
+          key: 'omnisend_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable omnisend'),
+          },
+        },
+        {
+          key: 'gtm_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable gtm'),
+          },
+        },
+        {
+          key: 'google_analytics_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable google tag manager'),
+          },
+        },
+        {
+          key: 'facebook_pixel_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable facebook pixel'),
+          },
+        },
+        {
+          key: 'snapchat_pixel_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable snapchat pixel'),
+          },
+        },
+        {
+          key: 'init_tiktok_enabled',
+          type: 'switch-field',
+          className: 'col-12 md:col-4',
+          props: {
+            label: _('enable init tiktok'),
+          },
+        },
         {
           key: 'gtm_container_id',
           type: 'input-field',
@@ -157,13 +236,42 @@ export default class ManageGlobalSettingsCuComponent {
           },
         },
         {
-          key: 'omnisend_enabled',
-          type: 'switch-field',
+          key: 'facebook_pixel_id',
+          type: 'input-field',
           className: 'col-12 md:col-4',
           props: {
-            label: _('enable omnisend'),
+            type: 'text',
+            label: _('google analytics id'),
           },
         },
+        {
+          key: 'snapchat_pixel_id',
+          type: 'input-field',
+          className: 'col-12 md:col-4',
+          props: {
+            type: 'text',
+            label: _('snapchat pixel id'),
+          },
+        },
+        {
+          key: 'init_tiktok_id',
+          type: 'input-field',
+          className: 'col-12 md:col-4',
+          props: {
+            type: 'text',
+            label: _('snapchat pixel id'),
+          },
+        },
+      ]),
+
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('social media'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
           key: 'facebook_url',
           type: 'input-field',
@@ -191,6 +299,16 @@ export default class ManageGlobalSettingsCuComponent {
             label: _('twitter url'),
           },
         },
+      ]),
+
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('seo settings'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
           key: 'meta_title',
           type: 'input-field',
@@ -201,7 +319,26 @@ export default class ManageGlobalSettingsCuComponent {
             maxLength: 60,
           },
         },
+        {
+          key: 'meta_description',
+          type: 'textarea-field',
+          className: 'col-12',
+          props: {
+            label: _('default meta description'),
+            rows: 3,
+            maxLength: 160,
+          },
+        },
+      ]),
 
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('smtp settings'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
           key: 'smtp_host',
           type: 'input-field',
@@ -221,7 +358,7 @@ export default class ManageGlobalSettingsCuComponent {
           },
         },
         {
-          key: 'smtp_username',
+          key: 'smtp_email',
           type: 'input-field',
           className: 'col-12 md:col-4',
           props: {
@@ -237,15 +374,16 @@ export default class ManageGlobalSettingsCuComponent {
             label: _('smtp password'),
           },
         },
-        {
-          key: 'smtp_encryption',
-          type: 'input-field',
-          className: 'col-12 md:col-4',
-          props: {
-            type: 'text',
-            label: _('smtp encryption'),
-          },
+      ]),
+
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('maintenance'),
         },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
           key: 'maintenance_mode',
           type: 'switch-field',
@@ -263,23 +401,56 @@ export default class ManageGlobalSettingsCuComponent {
             rows: 3,
           },
         },
+      ]),
+      {
+        type: 'separator-field',
+        fieldGroupClassName: 'col-12',
+        props: {
+          title: _('oauth settings'),
+        },
+      },
+      this.#fieldBuilder.fieldBuilder([
         {
-          key: 'store_address',
-          type: 'textarea-field',
-          className: 'col-12',
+          key: 'client_id_google',
+          type: 'input-field',
           props: {
-            label: _('store address'),
+            label: _('client id google'),
             rows: 3,
           },
         },
         {
-          key: 'meta_description',
-          type: 'textarea-field',
-          className: 'col-12',
+          key: 'client_secret_google',
+          type: 'input-field',
           props: {
-            label: _('default meta description'),
-            rows: 3,
-            maxLength: 160,
+            label: _('client secret google'),
+          },
+        },
+        {
+          key: 'client_callback_url_google',
+          type: 'input-field',
+          props: {
+            label: _('client callback url google'),
+          },
+        },
+        {
+          key: 'client_id_facebook',
+          type: 'input-field',
+          props: {
+            label: _('client id facebook'),
+          },
+        },
+        {
+          key: 'client_secret_facebook',
+          type: 'input-field',
+          props: {
+            label: _('client secret facebook'),
+          },
+        },
+        {
+          key: 'client_callback_url_facebook',
+          type: 'input-field',
+          props: {
+            label: _('client callback url facebook'),
           },
         },
       ]),

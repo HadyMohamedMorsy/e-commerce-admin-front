@@ -9,9 +9,10 @@
 
     <p-divider />
 
-    <form class="mt-6" [formGroup]="generalSettingsForm" (ngSubmit)="update()">
-      <div class="grid">
+    <form class="mt-6 w-full" [formGroup]="generalSettingsForm" (ngSubmit)="update()">
+      <div class="grid w-full">
         <formly-form
+          class="w-full"
           [model]="model"
           [fields]="fields"
           [form]="generalSettingsForm"

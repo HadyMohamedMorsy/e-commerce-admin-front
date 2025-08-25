@@ -1,55 +1,45 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuTaxDialogComponent } from '../dialog/cu/cu-tax-dialog.component';
-import { ViewTaxComponent } from '../dialog/view/view-tax.component';
-import { Tax } from '../services/services-type';
+import { CuPaymentMethodDialogComponent } from '../dialog/cu/cu-payment-method-dialog.component';
+import { ViewPaymentMethodComponent } from '../dialog/view/view-payment-method.component';
+import { PaymentMethod } from '../services/services-type';
 
 @Component({
-  selector: 'app-taxes',
+  selector: 'app-payment-methods',
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    ViewTaxComponent,
     TooltipModule,
     TranslateModule,
     MenuModule,
-    Dialog,
     TranslateModule,
-    FormsModule,
-    ToggleSwitchModule,
+    ViewPaymentMethodComponent,
+    Dialog,
   ],
-  templateUrl: './tax.component.html',
+  templateUrl: './payment-methods.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class TaxesComponent extends BaseIndexComponent<Tax> {
-  isActive = viewChild.required<TemplateRef<any>>('isActive');
+export default class PaymentMethodsComponent extends BaseIndexComponent<PaymentMethod> {
   ngOnInit() {
-    this.dialogComponent = CuTaxDialogComponent;
+    this.dialogComponent = CuPaymentMethodDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'tax/index',
-        delete: 'tax/delete',
+        index: 'payment-method/index',
+        delete: 'payment-method/delete',
       },
-      navigateCreatePage: 'new-tax',
+      navigateCreatePage: 'new-payment-method',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Taxes')),
-      indexIcon: 'pi pi-percentage',
-      createBtnLabel: this.#translate(_('Create Tax')),
-      indexTableKey: 'TAXES_KEY',
+      indexTitle: this.#translate(_('Payment Methods')),
+      indexIcon: 'pi pi-credit-card',
+      createBtnLabel: this.#translate(_('Create Payment Method')),
+      indexTableKey: 'PAYMENT_METHODS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -60,21 +50,20 @@ export default class TaxesComponent extends BaseIndexComponent<Tax> {
         {
           title: this.#translate(_('Name')),
           name: `name`,
-          searchable: false,
+          searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Rate')),
-          name: `rate`,
-          searchable: false,
+          title: this.#translate(_('Slug')),
+          name: 'slug',
+          searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('isActive')),
-          name: `isActive`,
+          title: this.#translate(_('Icon')),
+          name: 'icon',
           searchable: false,
           orderable: false,
-          render: this.isActive(),
         },
         {
           title: this.#translate(_('Created At')),
@@ -84,7 +73,6 @@ export default class TaxesComponent extends BaseIndexComponent<Tax> {
         },
       ],
     };
-
     this.initRolesUser();
   }
 
