@@ -48,9 +48,6 @@
   styleClass="m-0 min-h-full border-none temporarily-hide-header"
 >
   @if (showView()) {
-    <app-view-payment-method
-      [(isShowDialog)]="showView"
-      [paymentMethod]="recordView()"
-    />
+    <app-view-quiz [(isShowDialog)]="showView" [quiz]="recordView()" />
   }
 </p-dialog>

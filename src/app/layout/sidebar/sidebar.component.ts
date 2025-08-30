@@ -149,6 +149,45 @@ export default class SidebarComponent {
             'SYSTEM_ADMIN',
           ]),
         },
+        {
+          name: 'Pages',
+          routerlink: 'books',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Quiz',
+          routerlink: 'quiz',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Answers',
+          routerlink: 'answer',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
       ],
     },
   ]);
@@ -264,6 +303,19 @@ export default class SidebarComponent {
         {
           name: 'Shipments',
           routerlink: 'shipments',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Payment Methods',
+          routerlink: 'payment-methods',
           visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',

@@ -480,5 +480,17 @@
   "video": "فيديو",
   "views": "المشاهدات",
   "we will send you one time password (OTP)": "سنرسل لك رمز التحقق لمرة واحدة (OTP)",
-  "yes": "نعم"
+  "yes": "نعم",
+  "Quiz": "اختبار",
+  "Create Quiz": "إنشاء اختبار",
+  "Update Quiz": "تحديث الاختبار",
+  "Create New Quiz": "إنشاء اختبار جديد",
+  "Quiz Details": "تفاصيل الاختبار",
+  "Answers": "الإجابات",
+  "Create Answer": "إنشاء إجابة",
+  "Update Answer": "تحديث الإجابة",
+  "Create New Answer": "إنشاء إجابة جديدة",
+  "Answer Text": "نص الإجابة",
+  "Book": "الكتاب",
+  "Answer Details": "تفاصيل الإجابة"
 }

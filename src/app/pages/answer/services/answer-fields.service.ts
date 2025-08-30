@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PaymentMethodFieldsService {
+export class AnswerFieldsService {
   translate = inject(TranslateService);
   fieldBuilder = inject(FieldBuilderService);
   pageList$ = of([]);
@@ -17,35 +17,35 @@ export class PaymentMethodFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'name',
-          type: 'input-field',
-          className: 'md:col-6 col-12',
-          props: {
-            required: true,
-            label: _('Name'),
-          },
-        },
-        {
-          key: 'slug',
-          type: 'input-field',
-          className: 'md:col-6 col-12',
-          props: {
-            required: true,
-            label: _('Slug'),
-          },
-        },
-        {
-          key: 'icon',
-          type: 'file-field',
+          key: 'answerText',
+          type: 'textarea-field',
           className: 'col-12',
           props: {
             required: true,
-            isUploading: this.isSingleUploading,
-            chooseLabel: _('Icon'),
-            fileLabel: _('Icon'),
-            mode: !editData ? 'create' : 'update',
-            accept: 'image/*',
-            description: _('Allowed format is jpeg, jpg, png'),
+            label: _('Answer Text'),
+            rows: 4,
+          },
+        },
+        {
+          key: 'questionId',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('Question'),
+            placeholder: _('Select Question'),
+            options: [], // This will be populated with quiz questions
+          },
+        },
+        {
+          key: 'bookId',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('Book'),
+            placeholder: _('Select Book'),
+            options: [], // This will be populated with books
           },
         },
       ]),

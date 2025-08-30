@@ -1,15 +1,24 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const PaymentMethodsRoutes: Routes = [
+export const shapeCategoriesRoutes: Routes = [
   {
-    path: 'payment-methods',
-    loadComponent: () => import('./payment-methods/payment-methods.component'),
-    title: 'payment methods',
+    path: 'shape-categories',
+    loadComponent: () => import('./shape-category/shape-category.component'),
+    title: 'shape categories',
     canActivate: [RoleGuard],
     data: {
       roles: {
         index: [
+          'CEO',
+          'TECH_SUPPORT',
+          'STORE_MANAGER',
+          'SUPER_ADMIN',
+          'INVENTORY_MANAGER',
+          'CONTENT_MANAGER',
+          'SYSTEM_ADMIN',
+        ],
+        store: [
           'CEO',
           'TECH_SUPPORT',
           'STORE_MANAGER',
@@ -27,7 +36,7 @@ export const PaymentMethodsRoutes: Routes = [
           'CONTENT_MANAGER',
           'SYSTEM_ADMIN',
         ],
-        store: [
+        create: [
           'CEO',
           'TECH_SUPPORT',
           'STORE_MANAGER',
@@ -59,12 +68,12 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'new-payment-method',
+    path: 'new-shape-category',
     loadComponent: () =>
       import(
-        './create-update-payment-method/create-update-payment-method.component'
+        './create-update-shape-category/create-update-shape-category.component'
       ),
-    title: 'new payment method',
+    title: 'new shape category',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -82,12 +91,12 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'update-payment-method',
+    path: 'update-shape-category',
     loadComponent: () =>
       import(
-        './create-update-payment-method/create-update-payment-method.component'
+        './create-update-shape-category/create-update-shape-category.component'
       ),
-    title: 'Update payment method',
+    title: 'Update shape category',
     canActivate: [RoleGuard],
     data: {
       roles: {

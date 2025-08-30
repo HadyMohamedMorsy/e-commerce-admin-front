@@ -1,54 +1,46 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
-import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuShapeDialogComponent } from '../dialog/cu/cu-shape-dialog.component';
-import { ViewShapeComponent } from '../dialog/view/view-shape.component';
-import { Shape } from '../services/services-type';
+import CuAnswerDialogComponent from '../dialog/cu/cu-answer-dialog.component';
+import ViewAnswerComponent from '../dialog/view/view-answer.component';
+import { Answer } from '../services/services-type';
 
 @Component({
-  selector: 'app-shapes',
+  selector: 'app-answer',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    ViewShapeComponent,
     TooltipModule,
     TranslateModule,
     MenuModule,
-    Dialog,
     TranslateModule,
+    ViewAnswerComponent,
+    Dialog,
   ],
-  templateUrl: './shape.component.html',
+  templateUrl: './answer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ShapesComponent extends BaseIndexComponent<Shape> {
-  image = viewChild.required<TemplateRef<any>>('image');
-  domainUrl = environment.Domain_URL;
-
+export default class AnswerComponent extends BaseIndexComponent<Answer> {
   ngOnInit() {
-    this.dialogComponent = CuShapeDialogComponent;
+    this.dialogComponent = CuAnswerDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'shapes/index',
-        delete: 'shapes/delete',
+        index: 'answer/index',
+        delete: 'answer/delete',
       },
-      navigateCreatePage: 'new-shape',
+      navigateCreatePage: 'new-answer',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Shapes')),
-      indexIcon: 'pi pi-shapes',
-      createBtnLabel: this.#translate(_('Create Shape')),
-      indexTableKey: 'SHAPES_KEY',
+      indexTitle: this.#translate(_('Answers')),
+      indexIcon: 'pi pi-comments',
+      createBtnLabel: this.#translate(_('Create Answer')),
+      indexTableKey: 'ANSWERS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -57,11 +49,10 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Image')),
-          name: `image`,
-          searchable: false,
+          title: this.#translate(_('Answer Text')),
+          name: `answerText`,
+          searchable: true,
           orderable: false,
-          render: this.image(),
         },
         {
           title: this.#translate(_('Created At')),
@@ -71,7 +62,6 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
         },
       ],
     };
-
     this.initRolesUser();
   }
 

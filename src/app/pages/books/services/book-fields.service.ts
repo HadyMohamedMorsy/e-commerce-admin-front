@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PaymentMethodFieldsService {
+export class BookFieldsService {
   translate = inject(TranslateService);
   fieldBuilder = inject(FieldBuilderService);
   pageList$ = of([]);
@@ -17,35 +17,47 @@ export class PaymentMethodFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
-          key: 'name',
+          key: 'title',
           type: 'input-field',
           className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('Name'),
+            label: _('Title'),
           },
         },
         {
-          key: 'slug',
-          type: 'input-field',
+          key: 'price',
+          type: 'number-field',
           className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('Slug'),
+            label: _('Price'),
+            min: 0,
+            step: 0.01,
           },
         },
         {
-          key: 'icon',
+          key: 'description',
+          type: 'textarea-field',
+          className: 'col-12',
+          props: {
+            required: true,
+            label: _('Description'),
+            rows: 4,
+          },
+        },
+        {
+          key: 'svg',
           type: 'file-field',
           className: 'col-12',
           props: {
             required: true,
             isUploading: this.isSingleUploading,
-            chooseLabel: _('Icon'),
-            fileLabel: _('Icon'),
+            chooseLabel: _('SVG File'),
+            fileLabel: _('SVG File'),
             mode: !editData ? 'create' : 'update',
-            accept: 'image/*',
-            description: _('Allowed format is jpeg, jpg, png'),
+            accept: '.svg',
+            description: _('Allowed format is SVG only'),
           },
         },
       ]),

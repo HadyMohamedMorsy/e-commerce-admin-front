@@ -1,4 +1,4 @@
-<app-table-wrapper
+\<app-table-wrapper
   [headerTitle]="indexMeta.indexTitle"
   [titleIcon]="indexMeta.indexIcon"
   [headerBtnLabel]="indexMeta.createBtnLabel"
@@ -48,9 +48,6 @@
   styleClass="m-0 min-h-full border-none temporarily-hide-header"
 >
   @if (showView()) {
-    <app-view-payment-method
-      [(isShowDialog)]="showView"
-      [paymentMethod]="recordView()"
-    />
+    <app-view-book [(isShowDialog)]="showView" [book]="recordView()" />
   }
 </p-dialog>

@@ -1,54 +1,44 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
-import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuShapeDialogComponent } from '../dialog/cu/cu-shape-dialog.component';
-import { ViewShapeComponent } from '../dialog/view/view-shape.component';
-import { Shape } from '../services/services-type';
+import ViewQuizComponent from '../dialog/view/view-quiz.component';
+import { Quiz } from '../services/services-type';
 
 @Component({
-  selector: 'app-shapes',
+  selector: 'app-quiz',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    ViewShapeComponent,
     TooltipModule,
+    ViewQuizComponent,
     TranslateModule,
     MenuModule,
-    Dialog,
     TranslateModule,
+    Dialog,
   ],
-  templateUrl: './shape.component.html',
+  templateUrl: './quiz.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ShapesComponent extends BaseIndexComponent<Shape> {
-  image = viewChild.required<TemplateRef<any>>('image');
-  domainUrl = environment.Domain_URL;
-
+export default class QuizComponent extends BaseIndexComponent<Quiz> {
   ngOnInit() {
-    this.dialogComponent = CuShapeDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'shapes/index',
-        delete: 'shapes/delete',
+        index: 'quiz/index',
+        delete: 'quiz/delete',
       },
-      navigateCreatePage: 'new-shape',
+      navigateCreatePage: 'new-quiz',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Shapes')),
-      indexIcon: 'pi pi-shapes',
-      createBtnLabel: this.#translate(_('Create Shape')),
-      indexTableKey: 'SHAPES_KEY',
+      indexTitle: this.#translate(_('Quiz')),
+      indexIcon: 'pi pi-question-circle',
+      createBtnLabel: this.#translate(_('Create Quiz')),
+      indexTableKey: 'QUIZ_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -57,11 +47,10 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Image')),
-          name: `image`,
-          searchable: false,
+          title: this.#translate(_('Question')),
+          name: `question`,
+          searchable: true,
           orderable: false,
-          render: this.image(),
         },
         {
           title: this.#translate(_('Created At')),
@@ -71,7 +60,6 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
         },
       ],
     };
-
     this.initRolesUser();
   }
 

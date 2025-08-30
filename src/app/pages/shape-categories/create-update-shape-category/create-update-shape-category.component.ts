@@ -3,18 +3,18 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
-import { PaymentMethodFieldsService } from '../services/payment-method-fields.service';
-import { PaymentMethodModel } from '../services/services-type';
+import { ShapeCategoryModel } from '../services/services-type';
+import { ShapeCategoryFieldsService } from '../services/shape-category-fields.service';
 
 @Component({
-  selector: 'app-create-update-payment-method',
+  selector: 'app-create-update-shape-category',
   imports: [AsyncPipe, FormComponent, SpinnerComponent],
   templateUrl: '../../../shared/components/form-page/form-page.component.html',
-  providers: [PaymentMethodFieldsService],
+  providers: [ShapeCategoryFieldsService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CreateUpdatePaymentMethodComponent extends FormPageComponent {
-  fieldsService = inject(PaymentMethodFieldsService);
+export default class CreateUpdateShapeCategoryComponent extends FormPageComponent {
+  fieldsService = inject(ShapeCategoryFieldsService);
   #queryData = {} as { [key: string]: any };
 
   ngOnInit() {
@@ -23,22 +23,22 @@ export default class CreateUpdatePaymentMethodComponent extends FormPageComponen
     const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
     isCreate ? this.setupForm(true) : this.setupForm(false);
     this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
-    this.navigateAfterSubmit.set('payment-methods');
+    this.navigateAfterSubmit.set('shape-categories');
   }
 
   setupForm(isUpdate: boolean) {
     this.model = isUpdate
-      ? new PaymentMethodModel(
-          this.filterDataForUpdate(new PaymentMethodModel()),
+      ? new ShapeCategoryModel(
+          this.filterDataForUpdate(new ShapeCategoryModel()),
         )
-      : new PaymentMethodModel({} as PaymentMethodModel);
+      : new ShapeCategoryModel();
 
     this.formTitle.set(
-      isUpdate ? 'Update Payment Method' : 'Create New Payment Method',
+      isUpdate ? 'Update Shape Category' : 'Create New Shape Category',
     );
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
     this.endpoint.set(
-      isUpdate ? 'payment-methods/update' : 'payment-methods/store',
+      isUpdate ? 'shape-categories/update' : 'shape-categories/store',
     );
   }
 }

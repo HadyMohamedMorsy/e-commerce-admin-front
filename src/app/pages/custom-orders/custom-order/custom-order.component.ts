@@ -6,12 +6,12 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuPaymentMethodDialogComponent } from '../dialog/cu/cu-payment-method-dialog.component';
-import { ViewPaymentMethodComponent } from '../dialog/view/view-payment-method.component';
-import { PaymentMethod } from '../services/services-type';
+import ViewCustomOrderComponent from '../dialog/view/view-custom-order.component';
+import { CustomOrder } from '../services/services-type';
 
 @Component({
-  selector: 'app-payment-methods',
+  selector: 'app-custom-orders',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
@@ -19,27 +19,26 @@ import { PaymentMethod } from '../services/services-type';
     TranslateModule,
     MenuModule,
     TranslateModule,
-    ViewPaymentMethodComponent,
+    ViewCustomOrderComponent,
     Dialog,
   ],
-  templateUrl: './payment-methods.component.html',
+  templateUrl: './custom-order.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class PaymentMethodsComponent extends BaseIndexComponent<PaymentMethod> {
+export default class CustomOrdersComponent extends BaseIndexComponent<CustomOrder> {
   ngOnInit() {
-    this.dialogComponent = CuPaymentMethodDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'payment-methods/index',
-        delete: 'payment-methods/delete',
+        index: 'custom-orders/index',
+        delete: 'custom-orders/delete',
       },
-      navigateCreatePage: 'new-payment-method',
+      navigateCreatePage: 'new-custom-order',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Payment Methods')),
-      indexIcon: 'pi pi-credit-card',
-      createBtnLabel: this.#translate(_('Create Payment Method')),
-      indexTableKey: 'PAYMENT_METHODS_KEY',
+      indexTitle: this.#translate(_('Custom Orders')),
+      indexIcon: 'pi pi-shopping-cart',
+      createBtnLabel: this.#translate(_('Create Custom Order')),
+      indexTableKey: 'CUSTOM_ORDERS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -48,20 +47,32 @@ export default class PaymentMethodsComponent extends BaseIndexComponent<PaymentM
           orderable: false,
         },
         {
-          title: this.#translate(_('Name')),
-          name: `name`,
+          title: this.#translate(_('Total Price')),
+          name: `totalPrice`,
+          searchable: false,
+          orderable: true,
+        },
+        {
+          title: this.#translate(_('Status')),
+          name: 'status',
+          searchable: true,
+          orderable: true,
+        },
+        {
+          title: this.#translate(_('Customer')),
+          name: 'createdBy',
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Slug')),
-          name: 'slug',
+          title: this.#translate(_('Payment Method')),
+          name: 'paymentMethod',
           searchable: true,
           orderable: false,
         },
         {
-          title: this.#translate(_('Icon')),
-          name: 'icon',
+          title: this.#translate(_('Books Count')),
+          name: 'books',
           searchable: false,
           orderable: false,
         },

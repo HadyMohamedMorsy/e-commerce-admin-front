@@ -288,5 +288,17 @@
   "video": "Video",
   "views": "Views",
   "we will send you one time password (OTP)": "We will send you one time password (OTP)",
-  "yes": "Yes"
+  "yes": "Yes",
+  "Quiz": "Quiz",
+  "Create Quiz": "Create Quiz",
+  "Update Quiz": "Update Quiz",
+  "Create New Quiz": "Create New Quiz",
+  "Quiz Details": "Quiz Details",
+  "Answers": "Answers",
+  "Create Answer": "Create Answer",
+  "Update Answer": "Update Answer",
+  "Create New Answer": "Create New Answer",
+  "Answer Text": "Answer Text",
+  "Book": "Book",
+  "Answer Details": "Answer Details"
 }

@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const PaymentMethodsRoutes: Routes = [
+export const QuizRoutes: Routes = [
   {
-    path: 'payment-methods',
-    loadComponent: () => import('./payment-methods/payment-methods.component'),
-    title: 'payment methods',
+    path: 'quiz',
+    loadComponent: () => import('./quiz/quiz.component'),
+    title: 'quiz',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -59,12 +59,10 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'new-payment-method',
+    path: 'new-quiz',
     loadComponent: () =>
-      import(
-        './create-update-payment-method/create-update-payment-method.component'
-      ),
-    title: 'new payment method',
+      import('./create-update-quiz/create-update-quiz.component'),
+    title: 'new quiz',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -82,12 +80,10 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'update-payment-method',
+    path: 'update-quiz',
     loadComponent: () =>
-      import(
-        './create-update-payment-method/create-update-payment-method.component'
-      ),
-    title: 'Update payment method',
+      import('./create-update-quiz/create-update-quiz.component'),
+    title: 'Update quiz',
     canActivate: [RoleGuard],
     data: {
       roles: {

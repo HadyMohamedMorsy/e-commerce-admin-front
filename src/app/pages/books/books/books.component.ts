@@ -1,54 +1,46 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
-import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import { CuShapeDialogComponent } from '../dialog/cu/cu-shape-dialog.component';
-import { ViewShapeComponent } from '../dialog/view/view-shape.component';
-import { Shape } from '../services/services-type';
+import CuBookDialogComponent from '../dialog/cu/cu-book-dialog.component';
+import ViewBookComponent from '../dialog/view/view-book.component';
+import { Book } from '../services/services-type';
 
 @Component({
-  selector: 'app-shapes',
+  selector: 'app-books',
+  standalone: true,
   imports: [
     TableWrapperComponent,
     ButtonModule,
-    ViewShapeComponent,
     TooltipModule,
     TranslateModule,
     MenuModule,
-    Dialog,
     TranslateModule,
+    ViewBookComponent,
+    Dialog,
   ],
-  templateUrl: './shape.component.html',
+  templateUrl: './books.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ShapesComponent extends BaseIndexComponent<Shape> {
-  image = viewChild.required<TemplateRef<any>>('image');
-  domainUrl = environment.Domain_URL;
-
+export default class BooksComponent extends BaseIndexComponent<Book> {
   ngOnInit() {
-    this.dialogComponent = CuShapeDialogComponent;
+    this.dialogComponent = CuBookDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'shapes/index',
-        delete: 'shapes/delete',
+        index: 'books/index',
+        delete: 'books/delete',
       },
-      navigateCreatePage: 'new-shape',
+      navigateCreatePage: 'new-book',
       displayViewButton: true,
-      indexTitle: this.#translate(_('Shapes')),
-      indexIcon: 'pi pi-shapes',
-      createBtnLabel: this.#translate(_('Create Shape')),
-      indexTableKey: 'SHAPES_KEY',
+      indexTitle: this.#translate(_('Books')),
+      indexIcon: 'pi pi-book',
+      createBtnLabel: this.#translate(_('Create Book')),
+      indexTableKey: 'BOOKS_KEY',
       columns: [
         {
           title: this.#translate(_('#ID')),
@@ -57,11 +49,16 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
           orderable: false,
         },
         {
-          title: this.#translate(_('Image')),
-          name: `image`,
+          title: this.#translate(_('Title')),
+          name: `title`,
+          searchable: true,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('Price')),
+          name: 'price',
           searchable: false,
           orderable: false,
-          render: this.image(),
         },
         {
           title: this.#translate(_('Created At')),
@@ -71,7 +68,6 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
         },
       ],
     };
-
     this.initRolesUser();
   }
 

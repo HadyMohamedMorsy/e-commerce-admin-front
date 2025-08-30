@@ -23,13 +23,11 @@
   [globalFilterValue]="globalFilterValue()"
   [reorderableColumns]="indexMeta.reorderableColumns ?? false"
   [reorderableRows]="indexMeta.reorderableRows ?? false"
-  (deleteBtnClicked)="confirmDelete($event)"
-  (viewClicked)="openView($event)"
-  [withCustomFilters]="true"
   (createBtnClicked)="navigateCreatePage()"
   (updateBtnClicked)="openUpdateRecordDialog($event)"
   (deleteBtnClicked)="confirmDelete($event)"
   (viewClicked)="openView($event)"
+  [withCustomFilters]="true"
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
@@ -48,9 +46,9 @@
   styleClass="m-0 min-h-full border-none temporarily-hide-header"
 >
   @if (showView()) {
-    <app-view-payment-method
+    <app-view-shape-category
       [(isShowDialog)]="showView"
-      [paymentMethod]="recordView()"
+      [shapeCategory]="recordView()"
     />
   }
 </p-dialog>

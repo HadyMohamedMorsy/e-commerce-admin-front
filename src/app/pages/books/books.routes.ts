@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { RoleGuard } from '@shared';
 
-export const PaymentMethodsRoutes: Routes = [
+export const BooksRoutes: Routes = [
   {
-    path: 'payment-methods',
-    loadComponent: () => import('./payment-methods/payment-methods.component'),
-    title: 'payment methods',
+    path: 'books',
+    loadComponent: () => import('./books/books.component'),
+    title: 'books',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -59,12 +59,10 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'new-payment-method',
+    path: 'new-book',
     loadComponent: () =>
-      import(
-        './create-update-payment-method/create-update-payment-method.component'
-      ),
-    title: 'new payment method',
+      import('./create-update-book/create-update-book.component'),
+    title: 'new book',
     canActivate: [RoleGuard],
     data: {
       roles: {
@@ -82,12 +80,10 @@ export const PaymentMethodsRoutes: Routes = [
     },
   },
   {
-    path: 'update-payment-method',
+    path: 'update-book',
     loadComponent: () =>
-      import(
-        './create-update-payment-method/create-update-payment-method.component'
-      ),
-    title: 'Update payment method',
+      import('./create-update-book/create-update-book.component'),
+    title: 'Update book',
     canActivate: [RoleGuard],
     data: {
       roles: {

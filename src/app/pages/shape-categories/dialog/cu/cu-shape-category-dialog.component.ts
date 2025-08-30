@@ -1,43 +1,43 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
-import { PaymentMethodFieldsService } from '@pages/payment-methods/services/payment-method-fields.service';
-import { PaymentMethodModel } from '@pages/payment-methods/services/services-type';
+import { ShapeCategoryModel } from '@pages/shape-categories/services/services-type';
+import { ShapeCategoryFieldsService } from '@pages/shape-categories/services/shape-category-fields.service';
 import { BaseCreateUpdateComponent } from '@shared';
-import { of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 
 @Component({
-  selector: 'app-cu-payment-method-dialog',
+  selector: 'app-cu-shape-category-dialog',
   imports: [FormDialogComponent],
-  providers: [PaymentMethodFieldsService],
+  providers: [ShapeCategoryFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CuPaymentMethodDialogComponent extends BaseCreateUpdateComponent<PaymentMethodModel> {
+export class CuShapeCategoryDialogComponent extends BaseCreateUpdateComponent<ShapeCategoryModel> {
   #globalList = inject(GlobalListService);
-  fieldsService = inject(PaymentMethodFieldsService);
-  #list$ = of([]);
+  fieldsService = inject(ShapeCategoryFieldsService);
+  #list$ = this.#globalList.getGlobalList('shapeCategory');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';
     const dialogTitle = isCreateMode
-      ? _('Create New Payment Method')
-      : _('Update Payment Method');
+      ? _('Create New Shape Category')
+      : _('Update Shape Category');
     const submitButtonLabel = isCreateMode ? _('create') : _('update');
+
     this.dialogMeta = {
       ...this.dialogMeta,
       dialogData$: this.#list$,
       endpoints: {
-        store: 'payment-methods/store',
-        update: 'payment-methods/update',
-        dialogTitle,
-        submitButtonLabel,
+        store: 'shape-categories/store',
+        update: 'shape-categories/update',
       },
+      dialogTitle,
+      submitButtonLabel,
     };
 
-    this.model = new PaymentMethodModel(this.editData);
+    this.model = new ShapeCategoryModel(this.editData);
     this.fields = this.fieldsService.configureFields(this.editData);
   }
 }
