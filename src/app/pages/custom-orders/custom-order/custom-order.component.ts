@@ -50,30 +50,18 @@ export default class CustomOrdersComponent extends BaseIndexComponent<CustomOrde
           title: this.#translate(_('Total Price')),
           name: `totalPrice`,
           searchable: false,
-          orderable: true,
+          orderable: false,
         },
         {
           title: this.#translate(_('Status')),
           name: 'status',
           searchable: true,
-          orderable: true,
+          orderable: false,
         },
         {
           title: this.#translate(_('Customer')),
           name: 'createdBy',
           searchable: true,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('Payment Method')),
-          name: 'paymentMethod',
-          searchable: true,
-          orderable: false,
-        },
-        {
-          title: this.#translate(_('Books Count')),
-          name: 'books',
-          searchable: false,
           orderable: false,
         },
         {

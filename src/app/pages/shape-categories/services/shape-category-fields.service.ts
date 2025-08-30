@@ -19,6 +19,15 @@ export class ShapeCategoryFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
+          key: 'name',
+          type: 'input-field',
+          className: 'col-12',
+          props: {
+            required: true,
+            label: _('name'),
+          },
+        },
+        {
           key: 'type',
           type: 'select-field',
           className: 'md:col-6 col-12',
@@ -26,20 +35,18 @@ export class ShapeCategoryFieldsService {
             required: true,
             label: _('type'),
             options: this.pageList$.pipe(
-              map(({ shapeCategoryType }) => shapeCategoryType),
+              map(({ facialFeatureType }) => facialFeatureType),
             ),
           },
         },
-      ]),
-      this.fieldBuilder.fieldBuilder([
         {
-          key: 'name',
-          type: 'text-field',
+          key: 'shapeType',
+          type: 'select-field',
           className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('name'),
-            placeholder: _('Enter category name'),
+            label: _('shpeType'),
+            options: this.pageList$.pipe(map(({ shapeType }) => shapeType)),
           },
         },
       ]),

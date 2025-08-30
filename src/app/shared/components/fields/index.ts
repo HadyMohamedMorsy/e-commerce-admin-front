@@ -22,6 +22,7 @@ export * from './repeat.component';
 export * from './select/select.component';
 export * from './separator.component';
 export * from './svg-textarea.component';
+export * from './svg-validation-textarea.component';
 export * from './switch.component';
 export * from './textarea.component';
 export * from './tree.component';

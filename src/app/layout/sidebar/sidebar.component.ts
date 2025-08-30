@@ -98,6 +98,19 @@ export default class SidebarComponent {
           ]),
         },
         {
+          name: 'Custom Orders',
+          routerlink: 'custom-orders',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
           name: 'Coupons',
           routerlink: 'coupons',
           visible: this.#checkVisibility([
@@ -139,6 +152,19 @@ export default class SidebarComponent {
         {
           name: 'Shapes',
           routerlink: 'shapes',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
+          name: 'Shape Categories',
+          routerlink: 'shape-categories',
           visible: this.#checkVisibility([
             'CEO',
             'TECH_SUPPORT',

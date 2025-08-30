@@ -17,7 +17,7 @@ import { FormDialogComponent } from 'src/app/shared/components/base-create-updat
 export class CuShapeCategoryDialogComponent extends BaseCreateUpdateComponent<ShapeCategoryModel> {
   #globalList = inject(GlobalListService);
   fieldsService = inject(ShapeCategoryFieldsService);
-  #list$ = this.#globalList.getGlobalList('shapeCategory');
+  #list$ = this.#globalList.getGlobalList('shapeCategoryType');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';

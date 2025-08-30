@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { BaseCreateUpdateComponent } from '@shared';
-import { of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { BookFieldsService } from '../../services/book-fields.service';
 import { BookModel } from '../../services/services-type';

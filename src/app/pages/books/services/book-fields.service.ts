@@ -27,7 +27,7 @@ export class BookFieldsService {
         },
         {
           key: 'price',
-          type: 'number-field',
+          type: 'input-field',
           className: 'md:col-6 col-12',
           props: {
             required: true,
@@ -37,27 +37,24 @@ export class BookFieldsService {
           },
         },
         {
-          key: 'description',
-          type: 'textarea-field',
-          className: 'col-12',
+          key: 'type',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
           props: {
             required: true,
-            label: _('Description'),
-            rows: 4,
+            label: _('Type'),
+            options: ['cover', 'page'],
           },
         },
         {
           key: 'svg',
-          type: 'file-field',
-          className: 'col-12',
+          type: 'svg-validation-textarea-field',
+          className: 'md:col-12 col-12',
           props: {
-            required: true,
-            isUploading: this.isSingleUploading,
-            chooseLabel: _('SVG File'),
-            fileLabel: _('SVG File'),
-            mode: !editData ? 'create' : 'update',
-            accept: '.svg',
-            description: _('Allowed format is SVG only'),
+            label: _('SVG Code'),
+            rows: 10,
+            description:
+              'Enter SVG code here. The preview will show how the SVG will be rendered. The component will validate SVG layers and elements against available shape categories.',
           },
         },
       ]),

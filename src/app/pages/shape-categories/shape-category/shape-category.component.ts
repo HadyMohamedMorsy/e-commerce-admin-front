@@ -37,6 +37,7 @@ export default class ShapeCategoriesComponent extends BaseIndexComponent<ShapeCa
         delete: 'shape-categories/delete',
       },
       navigateCreatePage: 'new-shape-category',
+      displayFilterButton: false,
       displayViewButton: true,
       indexTitle: this.#translate(_('Shape Categories')),
       indexIcon: 'pi pi-tags',
@@ -53,13 +54,13 @@ export default class ShapeCategoriesComponent extends BaseIndexComponent<ShapeCa
           title: this.#translate(_('Type')),
           name: `type`,
           searchable: true,
-          orderable: true,
+          orderable: false,
         },
         {
           title: this.#translate(_('Name')),
           name: `name`,
           searchable: true,
-          orderable: true,
+          orderable: false,
         },
         {
           title: this.#translate(_('Created At')),

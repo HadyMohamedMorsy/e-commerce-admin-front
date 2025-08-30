@@ -55,6 +55,12 @@ export default class BooksComponent extends BaseIndexComponent<Book> {
           orderable: false,
         },
         {
+          title: this.#translate(_('Type')),
+          name: `type`,
+          searchable: false,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('Price')),
           name: 'price',
           searchable: false,

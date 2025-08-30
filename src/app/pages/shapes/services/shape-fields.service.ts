@@ -30,6 +30,16 @@ export class ShapeFieldsService {
             ),
           },
         },
+        {
+          key: 'shapeType',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('shpeType'),
+            options: this.pageList$.pipe(map(({ shapeType }) => shapeType)),
+          },
+        },
       ]),
       this.fieldBuilder.fieldBuilder([
         {

@@ -26,6 +26,7 @@ import {
   SelectComponent,
   SeparatorComponent,
   SvgTextareaComponent,
+  SvgValidationTextareaComponent,
   SwitchComponent,
   TextareaComponent,
   TreeComponent,
@@ -165,6 +166,10 @@ export function customFormlyConfig(translate: TranslateService) {
       { name: 'input-field', component: InputComponent },
       { name: 'textarea-field', component: TextareaComponent },
       { name: 'svg-textarea-field', component: SvgTextareaComponent },
+      {
+        name: 'svg-validation-textarea-field',
+        component: SvgValidationTextareaComponent,
+      },
       { name: 'tree-field', component: TreeComponent },
       { name: 'button-field', component: ButtonFieldComponent },
       { name: 'switch-field', component: SwitchComponent },

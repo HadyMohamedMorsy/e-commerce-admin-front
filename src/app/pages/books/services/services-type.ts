@@ -1,14 +1,14 @@
 export class BookModel {
   id?: number | null;
   title: string | null;
-  description: string | null;
+  type : 'cover' | 'page' ;
   price: number | null;
   svg: string | null;
 
   constructor(data?: BookModel) {
     this.id = data?.id || null;
     this.title = data?.title || null;
-    this.description = data?.description || null;
+    this.type = data?.type || 'page';
     this.price = data?.price || null;
     this.svg = data?.svg || null;
   }
@@ -17,7 +17,7 @@ export class BookModel {
 export interface Book {
   id: number;
   title: string;
-  description: string;
+  type: 'cover' | 'page';
   price: number;
   svg: string;
   createdAt: string;

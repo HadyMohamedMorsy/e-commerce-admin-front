@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormComponent } from '@shared';
+import { map } from 'rxjs';
 import { FormPageComponent } from 'src/app/shared/components/form-page/form-page.component';
 import { SpinnerComponent } from '../../../shared/components/spinner.component';
 import { BookFieldsService } from '../services/book-fields.service';
