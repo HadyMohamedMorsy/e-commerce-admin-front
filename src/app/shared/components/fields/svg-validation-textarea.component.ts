@@ -262,6 +262,7 @@ export class SvgValidationTextareaComponent
         takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe((data: ShapeCategory[]) => {
+        console.log(data);
         this.#shapeCategories.set(data);
         // Re-validate if we already have SVG content
         if (this.formControl.value) {
@@ -288,6 +289,7 @@ export class SvgValidationTextareaComponent
     }> = [];
     let hasInvalidElements = false;
     let hasWarnings = false;
+    let cleanedSvg = svgCode;
 
     try {
       // Use browser's DOMParser or create a temporary div for parsing
@@ -319,6 +321,36 @@ export class SvgValidationTextareaComponent
         hasInvalidElements = true;
       } else {
         details.push({ type: 'valid', message: 'Layer_2 found' });
+
+        // Level 1: Check if Layer_2 exists in ShapeCategory data
+        const layer2Category = this.#shapeCategories().find(
+          (cat) => cat.type === 'Layer_2',
+        );
+
+        if (!layer2Category) {
+          details.push({
+            type: 'invalid',
+            message:
+              'Layer_2 not found in ShapeCategory data - removing all nested content',
+          });
+          hasInvalidElements = true;
+
+          // Remove all nested groups inside Layer_2
+          const nestedGroups = Array.from(layer2.querySelectorAll('g[id]'));
+          nestedGroups.forEach((nestedGroup) => {
+            const nestedGroupId = nestedGroup.getAttribute('id');
+            details.push({
+              type: 'invalid',
+              message: `Removed nested group: ${nestedGroupId} (Layer_2 not in ShapeCategory)`,
+            });
+            nestedGroup.remove();
+          });
+        } else {
+          details.push({
+            type: 'valid',
+            message: 'Layer_2 exists in ShapeCategory data',
+          });
+        }
       }
 
       if (!layer4) {
@@ -326,37 +358,86 @@ export class SvgValidationTextareaComponent
         hasInvalidElements = true;
       } else {
         details.push({ type: 'valid', message: 'Layer_4 found' });
+
+        // Level 2: Check if Layer_4 exists in ShapeCategory data
+        const layer4Category = this.#shapeCategories().find(
+          (cat) => cat.type === 'Layer_4',
+        );
+
+        if (!layer4Category) {
+          details.push({
+            type: 'invalid',
+            message:
+              'Layer_4 not found in ShapeCategory data - removing all nested content',
+          });
+          hasInvalidElements = true;
+
+          // Remove all nested groups inside Layer_4
+          const nestedGroups = Array.from(layer4.querySelectorAll('g[id]'));
+          nestedGroups.forEach((nestedGroup) => {
+            const nestedGroupId = nestedGroup.getAttribute('id');
+            details.push({
+              type: 'invalid',
+              message: `Removed nested group: ${nestedGroupId} (Layer_4 not in ShapeCategory)`,
+            });
+            nestedGroup.remove();
+          });
+        } else {
+          details.push({
+            type: 'valid',
+            message: 'Layer_4 exists in ShapeCategory data',
+          });
+        }
       }
 
       // Validate Layer_2 contents if it exists
       if (layer2) {
-        const layer2Groups = layer2.querySelectorAll('g[id]');
         const validShapeTypes = this.#shapeCategories()
           .filter((cat) => cat.type === 'Layer_2')
           .map((cat) => cat.shapeType);
 
-        layer2Groups.forEach((group) => {
+        // Only process groups that are actual shape types (not layer names like Layer_224)
+        const shapeTypeGroups = Array.from(
+          layer2.querySelectorAll('g[id]'),
+        ).filter((group) => {
           const groupId = group.getAttribute('id');
-          if (groupId && validShapeTypes.includes(groupId)) {
-            details.push({
-              type: 'valid',
-              message: `Valid shape type: ${groupId}`,
-            });
+          // Skip groups that start with "Layer_" as they are not shape types
+          return (
+            groupId &&
+            !groupId.startsWith('Layer_') &&
+            validShapeTypes.includes(groupId)
+          );
+        });
 
-            // Validate items within this group
-            const validItems =
-              this.#shapeCategories().find((cat) => cat.shapeType === groupId)
-                ?.items || [];
+        // Process valid shape type groups
+        shapeTypeGroups.forEach((group) => {
+          const groupId = group.getAttribute('id');
+          details.push({
+            type: 'valid',
+            message: `Valid shape type: ${groupId}`,
+          });
 
+          // Get the specific ShapeCategory for this group
+          const groupCategory = this.#shapeCategories().find(
+            (cat) => cat.shapeType === groupId,
+          );
+
+          if (groupCategory && groupCategory.items) {
+            // Level 4: Validate items within this group
+            const validItems = groupCategory.items;
             const groupElements = group.querySelectorAll('*[id]');
+
             groupElements.forEach((element) => {
               const elementId = element.getAttribute('id');
               if (elementId && !validItems.includes(elementId)) {
                 details.push({
-                  type: 'warning',
-                  message: `Unknown item in ${groupId}: ${elementId}`,
+                  type: 'invalid',
+                  message: `Removed invalid item: ${elementId} (not in ${groupId} items)`,
                 });
-                hasWarnings = true;
+                hasInvalidElements = true;
+
+                // Remove invalid item
+                element.remove();
               } else if (elementId) {
                 details.push({
                   type: 'valid',
@@ -364,14 +445,32 @@ export class SvgValidationTextareaComponent
                 });
               }
             });
-          } else if (groupId) {
-            details.push({
-              type: 'invalid',
-              message: `Invalid shape type: ${groupId}`,
-            });
-            hasInvalidElements = true;
           }
         });
+
+        // Check for invalid shape type groups (groups with IDs that are not valid shape types and don't start with "Layer_")
+        const allGroups = Array.from(layer2.querySelectorAll('g[id]'));
+        const invalidGroups = allGroups.filter((group) => {
+          const groupId = group.getAttribute('id');
+          return (
+            groupId &&
+            !groupId.startsWith('Layer_') &&
+            !validShapeTypes.includes(groupId)
+          );
+        });
+
+        // Remove invalid groups immediately during validation
+        invalidGroups.forEach((group) => {
+          const groupId = group.getAttribute('id');
+          details.push({
+            type: 'invalid',
+            message: `Removed invalid group and all nested content: ${groupId}`,
+          });
+          hasInvalidElements = true;
+          group.remove();
+        });
+
+        cleanedSvg = new XMLSerializer().serializeToString(svgElement);
       }
 
       // Set validation status
@@ -384,6 +483,14 @@ export class SvgValidationTextareaComponent
       }
 
       this.validationDetails.set(details);
+
+      if (cleanedSvg !== svgCode) {
+        this.formControl.setValue(cleanedSvg);
+        this.validateAndRenderSvg(cleanedSvg);
+        this.detectFillAttributes(cleanedSvg);
+      } else {
+        console.log('No changes detected, field not updated');
+      }
     } catch (error) {
       details.push({ type: 'invalid', message: `Validation error: ${error}` });
       this.validationStatus.set('invalid');
