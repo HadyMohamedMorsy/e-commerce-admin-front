@@ -262,9 +262,7 @@ export class SvgValidationTextareaComponent
         takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe((data: ShapeCategory[]) => {
-        console.log(data);
         this.#shapeCategories.set(data);
-        // Re-validate if we already have SVG content
         if (this.formControl.value) {
           this.validateSvgAgainstApi(this.formControl.value);
         }
