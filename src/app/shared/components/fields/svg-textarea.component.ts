@@ -15,13 +15,13 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { FloatLabel } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
 import { TooltipModule } from 'primeng/tooltip';
-import { SvgWrapperComponent } from '../svg-wrapper.component';
 
 interface FillAttribute {
   id: string;
   originalValue: string;
   currentValue: string;
   element: string;
+  selector: string;
 }
 
 @Component({
@@ -65,7 +65,14 @@ interface FillAttribute {
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             @for (fillAttr of fillAttributes(); track fillAttr.id) {
               <div
-                class="flex items-center space-x-2 p-2 bg-white rounded border"
+                class="flex items-center space-x-2 p-2 rounded border cursor-pointer transition-all duration-200"
+                [ngClass]="{
+                  'bg-blue-100 border-blue-300':
+                    selectedFillAttribute()?.id === fillAttr.id,
+                  'bg-white border-gray-200 hover:bg-gray-50':
+                    selectedFillAttribute()?.id !== fillAttr.id
+                }"
+                (click)="selectFillAttribute(fillAttr)"
               >
                 <div class="flex-shrink-0">
                   <p-colorPicker
@@ -87,7 +94,7 @@ interface FillAttribute {
                   type="button"
                   icon="fas fa-undo"
                   class="p-button-text p-button-sm"
-                  (click)="resetColor(fillAttr)"
+                  (click)="resetColor(fillAttr); $event.stopPropagation()"
                   pTooltip="Reset to original color"
                 ></button>
               </div>
@@ -118,13 +125,11 @@ interface FillAttribute {
       @if (svgContent() && !svgError()) {
         <div class="mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
           <h4 class="text-sm font-medium text-gray-700 mb-2">SVG Preview:</h4>
-          <app-svg-wrapper
+          <div
             class="svg-preview-container border border-gray-300 rounded p-4 bg-white min-h-[200px] flex items-center justify-center"
-            viewBox="0 0 30 30"
-            width="100%"
-            height="200"
-            [groupContent]="svgContent()"
-          ></app-svg-wrapper>
+            [innerHTML]="sanitizeFullSvg(formControl.value)"
+            style="width: 100%; height: 200px; overflow: visible;"
+          ></div>
         </div>
       }
 
@@ -147,13 +152,19 @@ interface FillAttribute {
   styles: [
     `
       .svg-preview-container {
-        overflow: auto;
+        overflow: visible;
         max-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .svg-preview-container svg {
         max-width: 100%;
         max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
       }
     `,
   ],
@@ -167,7 +178,6 @@ interface FillAttribute {
     ColorPickerModule,
     ButtonModule,
     TooltipModule,
-    SvgWrapperComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -175,6 +185,7 @@ export class SvgTextareaComponent extends FieldType<FieldTypeConfig> {
   svgContent = signal<SafeHtml>('');
   svgError = signal<string>('');
   fillAttributes = signal<FillAttribute[]>([]);
+  selectedFillAttribute = signal<FillAttribute | null>(null);
   #destroyRef = inject(DestroyRef);
   #sanitizer = inject(DomSanitizer);
 
@@ -200,15 +211,34 @@ export class SvgTextareaComponent extends FieldType<FieldTypeConfig> {
       elementsWithFill.forEach((element, index) => {
         const fillValue = element.getAttribute('fill');
         if (fillValue && fillValue !== 'none') {
+          // Create a unique selector for this element
+          const tagName = element.tagName.toLowerCase();
+          const className = element.getAttribute('class');
+          const id = element.getAttribute('id');
+
+          let selector = tagName;
+          if (id) {
+            selector = `#${id}`;
+          } else if (className) {
+            selector = `${tagName}.${className.split(' ')[0]}`;
+          } else {
+            // Create a selector based on position
+            const parent = element.parentElement;
+            const siblings = parent
+              ? Array.from(parent.children).filter(
+                  (child) => child.tagName === element.tagName,
+                )
+              : [];
+            const position = siblings.indexOf(element);
+            selector = `${tagName}:nth-of-type(${position + 1})`;
+          }
+
           fillElements.push({
             id: `fill-${index}`,
             originalValue: fillValue,
             currentValue: fillValue,
-            element:
-              element.tagName.toLowerCase() +
-              (element.getAttribute('class')
-                ? '.' + element.getAttribute('class')
-                : ''),
+            element: tagName + (className ? '.' + className.split(' ')[0] : ''),
+            selector: selector,
           });
         }
       });
@@ -223,6 +253,10 @@ export class SvgTextareaComponent extends FieldType<FieldTypeConfig> {
   onColorChange(fillAttr: FillAttribute) {
     // Update the SVG code with the new color
     this.updateSvgWithNewColor(fillAttr);
+  }
+
+  selectFillAttribute(fillAttr: FillAttribute) {
+    this.selectedFillAttribute.set(fillAttr);
   }
 
   resetColor(fillAttr: FillAttribute) {
@@ -367,6 +401,75 @@ export class SvgTextareaComponent extends FieldType<FieldTypeConfig> {
     // If no group found, return the content between <svg> tags
     const svgMatch = svgString.match(/<svg[^>]*>([\s\S]*)<\/svg>/i);
     return svgMatch ? svgMatch[1].trim() : '';
+  }
+
+  sanitizeFullSvg(svgString: string): SafeHtml {
+    if (!svgString || svgString.trim() === '') {
+      return this.#sanitizer.bypassSecurityTrustHtml('');
+    }
+
+    try {
+      // Parse the SVG to ensure it's valid
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgString, 'image/svg+xml');
+
+      if (doc.querySelector('parsererror')) {
+        return this.#sanitizer.bypassSecurityTrustHtml('');
+      }
+
+      // Get the SVG element and ensure it has proper sizing
+      const svgElement = doc.querySelector('svg');
+      if (svgElement) {
+        // Set proper viewBox and sizing for preview
+        if (!svgElement.getAttribute('viewBox')) {
+          svgElement.setAttribute('viewBox', '0 0 100 100');
+        }
+
+        // Ensure the SVG scales properly within the container
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
+        svgElement.setAttribute(
+          'style',
+          'max-width: 100%; max-height: 100%; object-fit: contain;',
+        );
+      }
+
+      // Highlight the selected element if any
+      const selectedFill = this.selectedFillAttribute();
+      if (selectedFill) {
+        try {
+          const elementsWithFill = doc.querySelectorAll('[fill]');
+          let elementIndex = 0;
+
+          elementsWithFill.forEach((element) => {
+            const fillValue = element.getAttribute('fill');
+            if (fillValue && fillValue !== 'none') {
+              if (elementIndex === parseInt(selectedFill.id.split('-')[1])) {
+                // Add highlight styling to the selected element
+                const currentStyle = element.getAttribute('style') || '';
+                const highlightStyle =
+                  'stroke: #3b82f6; stroke-width: 2; stroke-dasharray: 5,5; filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.5));';
+                element.setAttribute(
+                  'style',
+                  currentStyle + '; ' + highlightStyle,
+                );
+              }
+              elementIndex++;
+            }
+          });
+        } catch (error) {
+          console.error('Error highlighting selected element:', error);
+        }
+      }
+
+      const serializer = new XMLSerializer();
+      const processedSvg = serializer.serializeToString(doc);
+
+      return this.#sanitizer.bypassSecurityTrustHtml(processedSvg);
+    } catch (error) {
+      console.error('Error processing SVG for preview:', error);
+      return this.#sanitizer.bypassSecurityTrustHtml('');
+    }
   }
 
   ngOnInit() {

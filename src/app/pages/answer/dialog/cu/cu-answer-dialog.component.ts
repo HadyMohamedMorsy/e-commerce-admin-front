@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { GlobalListService } from '@gService/global-list.service';
+import { _ } from '@ngx-translate/core';
 import { BaseCreateUpdateComponent } from '@shared';
-import { of } from 'rxjs';
 import { FormDialogComponent } from 'src/app/shared/components/base-create-update/form-dialog/form-dialog.component';
 import { AnswerFieldsService } from '../../services/answer-fields.service';
 import { AnswerModel } from '../../services/services-type';
 
 @Component({
-  selector: 'app-cu-answer-dialog',
+  selector: 'app-cu-ans-dialog',
   imports: [FormDialogComponent],
   providers: [AnswerFieldsService],
   templateUrl:
     '../../../../shared/components/base-create-update/base-create-update.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CuAnswerDialogComponent extends BaseCreateUpdateComponent<AnswerModel> {
-  private answerFieldsService = inject(AnswerFieldsService);
-
+export default class CuAnDialogComponent extends BaseCreateUpdateComponent<AnswerModel> {
+  #answerFieldsService = inject(AnswerFieldsService);
+  #globalList = inject(GlobalListService);
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';
     const dialogTitle = isCreateMode
@@ -26,16 +26,20 @@ export default class CuAnswerDialogComponent extends BaseCreateUpdateComponent<A
 
     this.dialogMeta = {
       ...this.dialogMeta,
-      dialogData$: of(1),
+      dialogData$: this.#globalList.getGlobalList('answer'),
       endpoints: {
-        store: 'answer/store',
-        update: 'answer/update',
+        store: 'answers/store',
+        update: 'answers/update',
       },
       dialogTitle,
       submitButtonLabel,
     };
 
-    this.model = new AnswerModel(this.editData);
-    this.fields = this.answerFieldsService.configureFields(this.editData);
+    this.model = {
+      ...this.editData,
+      questionId: this.editData.quiz.id,
+      bookId: this.editData.book.id,
+    };
+    this.fields = this.#answerFieldsService.configureFields(this.editData);
   }
 }

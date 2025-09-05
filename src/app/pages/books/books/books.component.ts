@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  TemplateRef,
+  viewChild,
+} from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BaseIndexComponent, TableWrapperComponent } from '@shared';
@@ -27,6 +34,9 @@ import { Book } from '../services/services-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class BooksComponent extends BaseIndexComponent<Book> {
+  svg = viewChild.required<TemplateRef<any>>('svg');
+  private sanitizer = inject(DomSanitizer);
+
   ngOnInit() {
     this.dialogComponent = CuBookDialogComponent;
     this.indexMeta = {
@@ -37,6 +47,7 @@ export default class BooksComponent extends BaseIndexComponent<Book> {
       },
       navigateCreatePage: 'new-book',
       displayViewButton: true,
+      displayFilterButton: false,
       indexTitle: this.#translate(_('Books')),
       indexIcon: 'pi pi-book',
       createBtnLabel: this.#translate(_('Create Book')),
@@ -53,6 +64,13 @@ export default class BooksComponent extends BaseIndexComponent<Book> {
           name: `title`,
           searchable: true,
           orderable: false,
+        },
+        {
+          title: this.#translate(_('SVG')),
+          name: `svg`,
+          searchable: false,
+          orderable: false,
+          render: this.svg(),
         },
         {
           title: this.#translate(_('Type')),
@@ -79,5 +97,13 @@ export default class BooksComponent extends BaseIndexComponent<Book> {
 
   #translate(text: string) {
     return this.translate.instant(text);
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    if (!html) return '';
+    if (html.includes('<svg') || html.includes('</svg>')) {
+      return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+    return this.sanitizer.sanitize(1, html) || '';
   }
 }

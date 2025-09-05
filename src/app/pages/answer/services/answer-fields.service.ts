@@ -1,16 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
+import { GlobalListService } from '@gService/global-list.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { of } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnswerFieldsService {
   translate = inject(TranslateService);
+  #globalList = inject(GlobalListService);
   fieldBuilder = inject(FieldBuilderService);
-  pageList$ = of([]);
+  pageList$ = this.#globalList.getGlobalList('answer');
   isSingleUploading = signal(false);
 
   configureFields(editData: any) {
@@ -33,8 +35,7 @@ export class AnswerFieldsService {
           props: {
             required: true,
             label: _('Question'),
-            placeholder: _('Select Question'),
-            options: [], // This will be populated with quiz questions
+            options: this.pageList$.pipe(map(({ quiez }) => quiez)),
           },
         },
         {
@@ -44,8 +45,7 @@ export class AnswerFieldsService {
           props: {
             required: true,
             label: _('Book'),
-            placeholder: _('Select Book'),
-            options: [], // This will be populated with books
+            options: this.pageList$.pipe(map(({ books }) => books)),
           },
         },
       ]),

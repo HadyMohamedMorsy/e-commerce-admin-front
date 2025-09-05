@@ -1,3 +1,4 @@
+import { Quiz } from './../../../quiz/services/services-type';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobalListService } from '@gService/global-list.service';
 import { _ } from '@ngx-translate/core';
@@ -17,7 +18,7 @@ import { ShapeModel } from '../../services/services-type';
 export class CuShapeDialogComponent extends BaseCreateUpdateComponent<ShapeModel> {
   #globalList = inject(GlobalListService);
   fieldsService = inject(ShapeFieldsService);
-  #list$ = this.#globalList.getGlobalList('shape');
+  #list$ = this.#globalList.getGlobalList('quiz');
 
   ngOnInit() {
     const isCreateMode = !this.editData || this.editData.method === 'create';

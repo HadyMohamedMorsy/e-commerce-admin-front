@@ -35,6 +35,7 @@ export default class QuizComponent extends BaseIndexComponent<Quiz> {
       },
       navigateCreatePage: 'new-quiz',
       displayViewButton: true,
+      displayFilterButton: false,
       indexTitle: this.#translate(_('Quiz')),
       indexIcon: 'pi pi-question-circle',
       createBtnLabel: this.#translate(_('Create Quiz')),
@@ -43,6 +44,12 @@ export default class QuizComponent extends BaseIndexComponent<Quiz> {
         {
           title: this.#translate(_('#ID')),
           name: `id`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('Question Type')),
+          name: `questionType`,
           searchable: false,
           orderable: false,
         },

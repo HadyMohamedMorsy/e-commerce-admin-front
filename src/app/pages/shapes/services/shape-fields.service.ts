@@ -19,6 +19,29 @@ export class ShapeFieldsService {
     return [
       this.fieldBuilder.fieldBuilder([
         {
+          key: 'name',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('name'),
+            options: this.pageList$.pipe(
+              map(({ shapeCategoryType }) => shapeCategoryType),
+            ),
+          },
+        },
+        {
+          key: 'colorCode',
+          type: 'input-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('color code'),
+          },
+        },
+      ]),
+      this.fieldBuilder.fieldBuilder([
+        {
           key: 'type',
           type: 'select-field',
           className: 'md:col-6 col-12',
@@ -30,6 +53,7 @@ export class ShapeFieldsService {
             ),
           },
         },
+
         {
           key: 'shapeType',
           type: 'select-field',

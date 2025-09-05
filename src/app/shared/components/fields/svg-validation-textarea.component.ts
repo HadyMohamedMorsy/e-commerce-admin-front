@@ -262,7 +262,19 @@ export class SvgValidationTextareaComponent
         takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe((data: ShapeCategory[]) => {
+        console.log('data', data);
         this.#shapeCategories.set(data);
+
+        // Debug: Log the shape categories for validation
+        console.log(
+          'Shape categories loaded:',
+          data.map((cat) => ({
+            type: cat.type,
+            shapeType: cat.shapeType,
+            itemsCount: cat.items?.length || 0,
+            sampleItems: cat.items?.slice(0, 3) || [],
+          })),
+        );
         if (this.formControl.value) {
           this.validateSvgAgainstApi(this.formControl.value);
         }
@@ -407,7 +419,6 @@ export class SvgValidationTextareaComponent
           );
         });
 
-        // Process valid shape type groups
         shapeTypeGroups.forEach((group) => {
           const groupId = group.getAttribute('id');
           details.push({
@@ -423,7 +434,10 @@ export class SvgValidationTextareaComponent
           if (groupCategory && groupCategory.items) {
             // Level 4: Validate items within this group
             const validItems = groupCategory.items;
-            const groupElements = group.querySelectorAll('*[id]');
+            // Only check direct children with IDs, not all nested elements
+            const groupElements = Array.from(group.children).filter(
+              (child) => child.tagName === 'g' && child.hasAttribute('id'),
+            );
 
             groupElements.forEach((element) => {
               const elementId = element.getAttribute('id');
@@ -446,9 +460,11 @@ export class SvgValidationTextareaComponent
           }
         });
 
-        // Check for invalid shape type groups (groups with IDs that are not valid shape types and don't start with "Layer_")
-        const allGroups = Array.from(layer2.querySelectorAll('g[id]'));
-        const invalidGroups = allGroups.filter((group) => {
+        // Check for invalid shape type groups (only direct children of Layer_2, not nested items)
+        const directChildren = Array.from(layer2.children).filter(
+          (child) => child.tagName === 'g' && child.hasAttribute('id'),
+        );
+        const invalidGroups = directChildren.filter((group) => {
           const groupId = group.getAttribute('id');
           return (
             groupId &&

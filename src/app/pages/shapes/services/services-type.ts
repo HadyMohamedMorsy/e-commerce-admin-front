@@ -1,37 +1,28 @@
 export interface Shape {
   id?: number;
-  type: FacialFeatureType;
+  type: string;
   image: string;
+  shapeType: string;
+  colorCode: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export enum FacialFeatureType {
-  BEARD = 'beard',
-  MUSTACHE = 'mustache',
-  GOATEE = 'goatee',
-  SKIN_FACIAL_HAIR = 'skin_facial_hair',
-  EYE_BROWS = 'eye_brows',
-  NOSE = 'nose',
-  HATES = 'hates',
-  BODY_TYPE = 'body_type',
-  SHOES = 'shoes',
-  EYES = 'eyes',
-  MOUTH = 'mouth',
-  CHIN = 'chin',
-  NECK = 'neck',
-  BOTTOOMS = 'bottooms',
-  TOPES = 'topes',
 }
 
 export class ShapeModel {
   id?: number | null;
   type: string | null;
   image: string | null;
+  shapeType: string | null;
+  name: string | null;
+  colorCode: string | null;
 
   constructor(data?: ShapeModel) {
     this.id = data?.id || null;
     this.type = data?.type || null;
     this.image = data?.image || null;
+    this.shapeType = data?.shapeType || null;
+    this.name = data?.name || null;
+    this.colorCode = data?.colorCode || null;
   }
 }

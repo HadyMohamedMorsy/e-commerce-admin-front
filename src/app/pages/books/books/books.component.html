@@ -1,4 +1,4 @@
-\<app-table-wrapper
+<app-table-wrapper
   [headerTitle]="indexMeta.indexTitle"
   [titleIcon]="indexMeta.indexIcon"
   [headerBtnLabel]="indexMeta.createBtnLabel"
@@ -33,6 +33,19 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
+  <ng-template #svg let-book>
+    <div
+      [innerHTML]="sanitizeHtml(book.svg)"
+      class="flex items-center justify-center"
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 35px;
+        width: 35px;
+      "
+    ></div>
+  </ng-template>
 </app-table-wrapper>
 
 <p-dialog

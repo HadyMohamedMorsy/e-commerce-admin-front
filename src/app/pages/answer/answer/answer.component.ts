@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
-import CuAnswerDialogComponent from '../dialog/cu/cu-answer-dialog.component';
+import CuAnDialogComponent from '../dialog/cu/cu-answer-dialog.component';
 import ViewAnswerComponent from '../dialog/view/view-answer.component';
 import { Answer } from '../services/services-type';
 
@@ -28,12 +28,12 @@ import { Answer } from '../services/services-type';
 })
 export default class AnswerComponent extends BaseIndexComponent<Answer> {
   ngOnInit() {
-    this.dialogComponent = CuAnswerDialogComponent;
+    this.dialogComponent = CuAnDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
       endpoints: {
-        index: 'answer/index',
-        delete: 'answer/delete',
+        index: 'answers/index',
+        delete: 'answers/delete',
       },
       navigateCreatePage: 'new-answer',
       displayViewButton: true,

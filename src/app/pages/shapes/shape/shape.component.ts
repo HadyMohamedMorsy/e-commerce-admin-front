@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   TemplateRef,
   viewChild,
 } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { environment } from '@env';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +35,9 @@ import { Shape } from '../services/services-type';
 })
 export default class ShapesComponent extends BaseIndexComponent<Shape> {
   image = viewChild.required<TemplateRef<any>>('image');
+  colorCode = viewChild.required<TemplateRef<any>>('colorCode');
   domainUrl = environment.Domain_URL;
+  private sanitizer = inject(DomSanitizer);
 
   ngOnInit() {
     this.dialogComponent = CuShapeDialogComponent;
@@ -44,6 +48,7 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
         delete: 'shapes/delete',
       },
       navigateCreatePage: 'new-shape',
+      displayFilterButton: false,
       displayViewButton: true,
       indexTitle: this.#translate(_('Shapes')),
       indexIcon: 'pi pi-shapes',
@@ -53,6 +58,32 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
         {
           title: this.#translate(_('#ID')),
           name: `id`,
+          searchable: false,
+          orderable: false,
+        },
+
+        {
+          title: this.#translate(_('Name')),
+          name: `name`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('Color Code')),
+          name: `colorCode`,
+          searchable: false,
+          orderable: false,
+          render: this.colorCode(),
+        },
+        {
+          title: this.#translate(_('Type')),
+          name: `type`,
+          searchable: false,
+          orderable: false,
+        },
+        {
+          title: this.#translate(_('Shape Type')),
+          name: `shapeType`,
           searchable: false,
           orderable: false,
         },
@@ -77,5 +108,13 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
 
   #translate(text: string) {
     return this.translate.instant(text);
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    if (!html) return '';
+    if (html.includes('<svg') || html.includes('</svg>')) {
+      return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+    return this.sanitizer.sanitize(1, html) || '';
   }
 }

@@ -33,6 +33,6 @@ export default class CreateUpdateAnswerComponent extends FormPageComponent {
 
     this.formTitle.set(isUpdate ? 'Update Answer' : 'Create New Answer');
     this.submitLabel.set(isUpdate ? 'Update' : 'Create');
-    this.endpoint.set(isUpdate ? 'answer/update' : 'answer/store');
+    this.endpoint.set(isUpdate ? 'answers/update' : 'answers/store');
   }
 }

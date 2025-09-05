@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   model,
 } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { DateFormatterPipe, ViewDialogComponent } from '@shared';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +22,10 @@ export class ViewShapeComponent {
   isShowDialog = model(false);
   shape = input.required<Shape>();
   #dateFormatter = new DateFormatterPipe();
-  list = computed<{ label: string; value: any; hasToolTip?: boolean }[]>(() => {
+  private sanitizer = inject(DomSanitizer);
+  list = computed<
+    { label: string; value: any; hasToolTip?: boolean; type?: string }[]
+  >(() => {
     return [
       {
         label: '#ID',
@@ -28,12 +33,25 @@ export class ViewShapeComponent {
       },
       {
         label: 'Name',
+        value: this.shape()?.name || this.shape()?.type,
+      },
+      {
+        label: 'Type',
         value: this.shape()?.type,
       },
       {
-        label: 'Image',
+        label: 'Shape Type',
+        value: this.shape()?.shapeType,
+      },
+      {
+        label: 'Color Code',
+        value: this.shape()?.colorCode,
+        type: 'color',
+      },
+      {
+        label: 'SVG Image',
         value: this.shape()?.image,
-        type: 'image',
+        type: 'svg',
       },
       {
         label: 'Created At',
@@ -44,4 +62,12 @@ export class ViewShapeComponent {
       },
     ];
   });
+
+  sanitizeHtml(html: string): SafeHtml {
+    if (!html) return '';
+    if (html.includes('<svg') || html.includes('</svg>')) {
+      return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+    return this.sanitizer.sanitize(1, html) || '';
+  }
 }

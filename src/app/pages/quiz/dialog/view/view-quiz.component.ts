@@ -32,6 +32,11 @@ export default class ViewQuizComponent {
       type: 'text',
     },
     {
+      label: this.#translate(_('Question Type')),
+      value: this.quiz()?.questionType || '',
+      type: 'text',
+    },
+    {
       label: this.#translate(_('Question')),
       value: this.quiz()?.question || '',
       type: 'text',

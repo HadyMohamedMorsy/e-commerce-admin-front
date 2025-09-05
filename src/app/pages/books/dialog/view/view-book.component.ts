@@ -7,6 +7,7 @@ import {
   model,
   signal,
 } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Book } from '@pages/books/services/services-type';
@@ -23,6 +24,7 @@ export default class ViewBookComponent {
   translate = inject(TranslateService);
   isShowDialog = model(false);
   book = input<Book>({} as Book);
+  private sanitizer = inject(DomSanitizer);
 
   title = signal(this.#translate(_('Book Details')));
   data = computed(() => [
@@ -44,7 +46,7 @@ export default class ViewBookComponent {
     {
       label: this.#translate(_('SVG')),
       value: this.book()?.svg || '',
-      type: 'image',
+      type: 'svg',
     },
     {
       label: this.#translate(_('Created At')),
@@ -55,5 +57,13 @@ export default class ViewBookComponent {
 
   #translate(text: string) {
     return this.translate.instant(text);
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    if (!html) return '';
+    if (html.includes('<svg') || html.includes('</svg>')) {
+      return this.sanitizer.bypassSecurityTrustHtml(html);
+    }
+    return this.sanitizer.sanitize(1, html) || '';
   }
 }

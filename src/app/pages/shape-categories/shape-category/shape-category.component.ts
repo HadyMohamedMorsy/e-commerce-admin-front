@@ -57,6 +57,12 @@ export default class ShapeCategoriesComponent extends BaseIndexComponent<ShapeCa
           orderable: false,
         },
         {
+          title: this.#translate(_('Shpe Type')),
+          name: `shapeType`,
+          searchable: false,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('Name')),
           name: `name`,
           searchable: true,
