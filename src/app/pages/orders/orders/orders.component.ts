@@ -73,7 +73,7 @@ export default class OrdersComponent extends BaseIndexComponent<Order> {
         },
         {
           title: this.#translate(_('Created At')),
-          name: 'created_at',
+          name: 'createdAt',
           searchable: false,
           orderable: false,
         },
