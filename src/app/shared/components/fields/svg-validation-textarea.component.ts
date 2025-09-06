@@ -262,7 +262,6 @@ export class SvgValidationTextareaComponent
         takeUntilDestroyed(this.#destroyRef),
       )
       .subscribe((data: ShapeCategory[]) => {
-        console.log('data', data);
         this.#shapeCategories.set(data);
 
         // Debug: Log the shape categories for validation

@@ -38,7 +38,7 @@ export default class CuAnDialogComponent extends BaseCreateUpdateComponent<Answe
     this.model = {
       ...this.editData,
       questionId: this.editData.quiz.id,
-      bookId: this.editData.book.id,
+      bookIds: this.editData.books.map((book: any) => book.id),
     };
     this.fields = this.#answerFieldsService.configureFields(this.editData);
   }

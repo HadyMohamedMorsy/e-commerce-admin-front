@@ -37,16 +37,6 @@ export default class ViewAnswerComponent {
       type: 'text',
     },
     {
-      label: this.#translate(_('Question ID')),
-      value: this.answer()?.questionId || '',
-      type: 'text',
-    },
-    {
-      label: this.#translate(_('Book ID')),
-      value: this.answer()?.bookId || '',
-      type: 'text',
-    },
-    {
       label: this.#translate(_('Created At')),
       value: this.answer()?.createdAt || '',
       type: 'text',

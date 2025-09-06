@@ -39,11 +39,12 @@ export class AnswerFieldsService {
           },
         },
         {
-          key: 'bookId',
+          key: 'bookIds',
           type: 'select-field',
           className: 'md:col-6 col-12',
           props: {
             required: true,
+            multiple: true,
             label: _('Book'),
             options: this.pageList$.pipe(map(({ books }) => books)),
           },
