@@ -29,11 +29,13 @@ export class ShapeCategoryModel {
   type: 'Layer_4' | 'Layer_2' | null;
   name: string | null;
   shapeType: ShapeType | null;
+  part: string | null;
 
   constructor(data?: ShapeCategoryModel) {
     this.id = data?.id || null;
     this.type = data?.type || 'Layer_4';
     this.name = data?.name || null;
     this.shapeType = data?.shapeType || null;
+    this.part = data?.part || null;
   }
 }

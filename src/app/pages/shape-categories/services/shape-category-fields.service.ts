@@ -49,6 +49,16 @@ export class ShapeCategoryFieldsService {
             options: this.pageList$.pipe(map(({ shapeType }) => shapeType)),
           },
         },
+        {
+          key: 'part',
+          type: 'select-field',
+          className: 'md:col-6 col-12',
+          props: {
+            required: true,
+            label: _('part'),
+            options: this.pageList$.pipe(map(({ shapePartType }) => shapePartType)),
+          },
+        },
       ]),
     ];
   }

@@ -31,45 +31,23 @@
   [withAdditionalContent]="true"
   (onLoadData)="loadRecords($event)"
 >
-  <ng-template #status let-customOrder>
-    <p-dropdown
-      [options]="statusOptions"
-      [ngModel]="customOrder.status"
-      (onChange)="
-        changeStatus(
-          customOrder,
-          'custom-orders/change-order-status',
-          'status',
-          $event.value
-        )
-      "
-      optionLabel="label"
-      optionValue="value"
-      [showClear]="false"
-      appendTo="body"
-      placeholder="Select Status"
-      styleClass="w-full"
-      [style]="{ 'min-width': '120px' }"
-    ></p-dropdown>
-  </ng-template>
+  <p-dialog
+    [(visible)]="showView"
+    appendTo="body"
+    position="topright"
+    [showHeader]="false"
+    [draggable]="false"
+    [modal]="true"
+    [resizable]="false"
+    [focusOnShow]="true"
+    [closeOnEscape]="false"
+    styleClass="m-0 min-h-full border-none temporarily-hide-header"
+  >
+    @if (showView()) {
+      <app-view-paper-type
+        [(isShowDialog)]="showView"
+        [paperType]="recordView()"
+      />
+    }
+  </p-dialog>
 </app-table-wrapper>
-
-<p-dialog
-  [(visible)]="showView"
-  appendTo="body"
-  position="topright"
-  [showHeader]="false"
-  [draggable]="false"
-  [modal]="true"
-  [resizable]="false"
-  [focusOnShow]="true"
-  [closeOnEscape]="false"
-  styleClass="m-0 min-h-full border-none temporarily-hide-header"
->
-  @if (showView()) {
-    <app-view-custom-order
-      [(isShowDialog)]="showView"
-      [customOrder]="recordView()"
-    />
-  }
-</p-dialog>

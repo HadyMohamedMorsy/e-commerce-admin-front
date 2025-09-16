@@ -2,11 +2,6 @@ export interface CustomOrder {
   id?: number;
   totalPrice: number;
   status: OrderStatus;
-  createdBy: {
-    id: number;
-    firstName: string;
-    lastName: string;
-  };
   paymentMethod: {
     id: number;
     name: string;
@@ -20,8 +15,14 @@ export interface CustomOrder {
     price: number;
     svg: string;
   }[];
+
+  createdBy: {
+    id: number;
+    firstName: string;
+    lastName: string;
+  };
   createdAt: string;
-  updatedAt: string;
+  images: string[];
 }
 
 export enum OrderStatus {

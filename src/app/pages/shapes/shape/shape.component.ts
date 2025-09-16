@@ -88,6 +88,12 @@ export default class ShapesComponent extends BaseIndexComponent<Shape> {
           orderable: false,
         },
         {
+          title: this.#translate(_('Part')),
+          name: `part`,
+          searchable: false,
+          orderable: false,
+        },
+        {
           title: this.#translate(_('Image')),
           name: `image`,
           searchable: false,

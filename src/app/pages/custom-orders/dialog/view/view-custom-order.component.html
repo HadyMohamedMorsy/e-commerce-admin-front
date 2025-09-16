@@ -3,3 +3,45 @@
   title="Custom Order Details"
   [data]="list()"
 />
+
+<!-- Images Section -->
+@if (customOrder().images && customOrder().images.length > 0) {
+  <div class="mt-4">
+    <div class="flex justify-content-between align-items-center mb-3">
+      <h4 class="text-xl font-semibold text-700 m-0">Book Creation Images</h4>
+      <button
+        pButton
+        icon="pi pi-download"
+        label="Download PDF"
+        class="p-button-sm p-button-outlined"
+        (click)="downloadImagesAsPDF()"
+      ></button>
+    </div>
+    <div class="grid">
+      @for (image of customOrder().images; track image; let i = $index) {
+        <div class="col-12 lg:col-3 mb-4">
+          <div
+            class="relative border-1 border-300 border-round-lg overflow-hidden shadow-2"
+          >
+            <img
+              [src]="getImageUrl(image)"
+              alt="Book Creation Image {{ i + 1 }}"
+              class="w-full h-25rem object-cover cursor-pointer"
+              (click)="previewImage(image)"
+            />
+            <div
+              class="absolute top-0 left-0 w-full h-full flex align-items-center justify-content-center bg-black-alpha-40 opacity-0 hover:opacity-100 transition-all transition-duration-300"
+            >
+              <i class="pi pi-search text-white text-3xl"></i>
+            </div>
+            <div
+              class="absolute top-2 right-2 bg-primary text-white text-xs border-round px-2 py-1 font-semibold"
+            >
+              {{ i + 1 }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

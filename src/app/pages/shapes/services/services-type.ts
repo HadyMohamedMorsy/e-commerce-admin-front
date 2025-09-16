@@ -5,6 +5,7 @@ export interface Shape {
   shapeType: string;
   colorCode: string;
   name: string;
+  part: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,6 +17,7 @@ export class ShapeModel {
   shapeType: string | null;
   name: string | null;
   colorCode: string | null;
+  part: string | null;
 
   constructor(data?: ShapeModel) {
     this.id = data?.id || null;
@@ -24,5 +26,6 @@ export class ShapeModel {
     this.shapeType = data?.shapeType || null;
     this.name = data?.name || null;
     this.colorCode = data?.colorCode || null;
+    this.part = data?.part || null;
   }
 }

@@ -214,6 +214,19 @@ export default class SidebarComponent {
             'SYSTEM_ADMIN',
           ]),
         },
+        {
+          name: 'Paper Types',
+          routerlink: 'paper-types',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
       ],
     },
   ]);

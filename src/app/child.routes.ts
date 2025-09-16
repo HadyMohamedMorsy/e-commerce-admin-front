@@ -14,6 +14,7 @@ import { FaqRoutes } from '@pages/faq/faq.routes';
 import { generalSettingsRoutes } from '@pages/general-settings/general-settings.routes';
 import { locationRoutes } from '@pages/locations/location.routes';
 import { OrdersRoutes } from '@pages/orders/orders.routes';
+import { PaperTypesRoutes } from '@pages/paper-types/paper-types.routes';
 import { PaymentMethodsRoutes } from '@pages/payment-methods/payment-methods.routes';
 import { ProductsRoutes } from '@pages/products/product.routes';
 import { QuizRoutes } from '@pages/quiz/quiz.routes';
@@ -50,6 +51,7 @@ export default [
   ...CartsRoutes,
   ...CategoriesRoutes,
   ...OrdersRoutes,
+  ...PaperTypesRoutes,
   ...shipmentRoutes,
   ...reviewRoutes,
 ] as Route[];
