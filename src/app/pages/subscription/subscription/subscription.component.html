@@ -1,0 +1,42 @@
+<app-table-wrapper
+  [headerTitle]="indexMeta.indexTitle"
+  [titleIcon]="indexMeta.indexIcon"
+  [headerBtnLabel]="indexMeta.createBtnLabel"
+  [columns]="indexMeta.columns"
+  [dataSource]="records()"
+  [loading]="isLoading()"
+  [displayCreateButton]="indexMeta.displayCreateButton"
+  [displayUpdateButton]="indexMeta.displayUpdateButton"
+  [displayDeleteButton]="indexMeta.displayDeleteButton"
+  [displayViewButton]="indexMeta.displayViewButton"
+  [totalRecords]="totalRecords()"
+  [recordsFiltered]="recordsFiltered()"
+  paginatorPosition="both"
+  [indexRole]="roles().index"
+  [updateBtnRole]="roles().update"
+  [createBtnRole]="roles().create"
+  [showViewBtnRole]="roles().show"
+  [deleteBtnRole]="roles().delete"
+  [displayFilterBtn]="indexMeta.displayFilterButton"
+  [(displayFilters)]="displayFilters"
+  [stateKey]="indexMeta.indexTableKey"
+  [globalFilterValue]="globalFilterValue()"
+  [reorderableColumns]="indexMeta.reorderableColumns ?? false"
+  [reorderableRows]="indexMeta.reorderableRows ?? false"
+  (createBtnClicked)="navigateCreatePage()"
+  (updateBtnClicked)="openUpdateRecordDialog($event)"
+  (deleteBtnClicked)="confirmDelete($event)"
+  (viewClicked)="openView($event)"
+  (onLoadData)="loadRecords($event)"
+>
+  <ng-template #email let-subscription>
+    <span class="text-blue-600 font-medium">{{ subscription.email }}</span>
+  </ng-template>
+
+  <ng-template #status let-subscription>
+    <p-tag 
+      [value]="subscription.isActive ? 'Active' : 'Inactive'" 
+      [severity]="subscription.isActive ? 'success' : 'danger'"
+    ></p-tag>
+  </ng-template>
+</app-table-wrapper>

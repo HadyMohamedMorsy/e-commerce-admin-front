@@ -22,6 +22,7 @@ import { reviewRoutes } from '@pages/reviews/review.routes';
 import { shapeCategoriesRoutes } from '@pages/shape-categories/shape-categories.routes';
 import { shapesRoutes } from '@pages/shapes/shapes.routes';
 import { shipmentRoutes } from '@pages/shipments/shipment.routes';
+import { SubscriptionRoutes } from '@pages/subscription/subscription.routes';
 
 import { CustomersRoutes } from '@pages/users/customer.routes';
 import { userRoutes } from '@pages/users/user.routes';
@@ -54,4 +55,5 @@ export default [
   ...PaperTypesRoutes,
   ...shipmentRoutes,
   ...reviewRoutes,
+  ...SubscriptionRoutes,
 ] as Route[];

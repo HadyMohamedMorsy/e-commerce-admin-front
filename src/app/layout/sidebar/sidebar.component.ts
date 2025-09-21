@@ -72,6 +72,19 @@ export default class SidebarComponent {
           ]),
         },
         {
+          name: 'Subscription',
+          routerlink: 'subscription',
+          visible: this.#checkVisibility([
+            'CEO',
+            'TECH_SUPPORT',
+            'STORE_MANAGER',
+            'SUPER_ADMIN',
+            'INVENTORY_MANAGER',
+            'CONTENT_MANAGER',
+            'SYSTEM_ADMIN',
+          ]),
+        },
+        {
           name: 'Blogs',
           routerlink: 'blogs',
           visible: this.#checkVisibility([
