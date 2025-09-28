@@ -16,7 +16,7 @@ export class CategoryModel {
   description: string | null;
   categoryId: number | null;
   image: string | null;
-  categoryType: 'product' | 'blog' | 'all';
+  categoryType: 'product' | 'blog' | null;
   icon: string | null;
   slug: string | null;
   constructor(data?: CategoryModel) {
@@ -25,7 +25,7 @@ export class CategoryModel {
     this.description = data?.description || null;
     this.categoryId = data?.categoryId || null;
     this.image = data?.image || null;
-    this.categoryType = data?.categoryType || 'all';
+    this.categoryType = data?.categoryType || null;
     this.icon = data?.icon || null;
     this.slug = data?.slug || null;
   }

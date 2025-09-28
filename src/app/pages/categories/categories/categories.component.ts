@@ -47,12 +47,13 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
   name = viewChild.required<TemplateRef<any>>('name');
   domainUrl = environment.Domain_URL;
   categoryId = input.required({ transform: numberAttribute });
+  categoryType = input.required();
 
   ngOnInit() {
     this.dialogComponent = CuCategoryDialogComponent;
     this.indexMeta = {
       ...this.indexMeta,
-      provideFields: ['description', 'icon'],
+      provideFields: ['description'],
       endpoints: {
         index: !this.categoryId() ? 'category/index' : 'sub-category/index',
         delete: !this.categoryId() ? 'category/delete' : 'sub-category/delete',
@@ -117,7 +118,7 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
         search: { value: null, regex: false },
         parentId: categoryId,
       }));
-      const data = { parentId: categoryId, method: 'create' };
+      const data = { parentId: categoryId, method: 'create' , categoryType: this.categoryType()};
       this.dialogConfig = { ...this.dialogConfig, data };
     }),
   );
@@ -130,8 +131,9 @@ export default class CategoriesComponent extends BaseIndexComponent<Category> {
   }
 
   override navigateCreatePage() {
+    console.log(this.categoryType() , this.categoryId());
     const data = this.categoryId()
-      ? { categoryId: this.categoryId(), method: 'create' }
+      ? { categoryId: this.categoryId(), method: 'create' , categoryType: this.categoryType() }
       : undefined;
     super.navigateCreatePage(undefined, data);
   }

@@ -69,9 +69,15 @@
   </ng-template>
 
   <ng-template #name let-category>
-    <a class="text-blue-400" [routerLink]="'/categories/' + category.id">
+    @if(!this.categoryId()){ 
+    <a class="text-blue-400" [routerLink]="'/categories/' + category.id + '/' + category.categoryType">
       {{ category.name }}</a
     >
+    } @else {
+    <span>
+      {{ category.name }}</span
+    >
+    }
   </ng-template>
 </app-table-wrapper>
 

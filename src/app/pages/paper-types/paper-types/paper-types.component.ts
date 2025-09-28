@@ -23,7 +23,6 @@ import { PaperType } from '../services/services-type';
     TableWrapperComponent,
     ButtonModule,
     TooltipModule,
-    RouterLink,
     TranslateModule,
     ViewPaperTypeComponent,
     MenuModule,

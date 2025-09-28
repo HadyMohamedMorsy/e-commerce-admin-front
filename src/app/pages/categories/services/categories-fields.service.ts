@@ -3,7 +3,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { GlobalListService } from '@gService/global-list.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FieldBuilderService } from '@shared';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,21 @@ export class CategoryFieldsService {
             required: true,
             label: _('Category Name'),
           },
+          hooks: {
+            onInit: (field) => {
+              return field.formControl?.valueChanges.pipe(
+                tap((value) => {
+                  field.form?.get('slug')?.setValue(value?.toLowerCase().replace(/ /g, '-'));
+                }),
+              );
+            },
+          },
         },
         {
           key: 'categoryType',
           type: 'select-field',
           className: 'md:col-4 col-12',
+          hide: editData.showCategoryType,
           props: {
             isFloatedLabel: true,
             label: _('select post type'),
@@ -47,13 +57,15 @@ export class CategoryFieldsService {
             required: true,
             label: _('Slug'),
           },
-        },
-        {
-          key: 'icon',
-          type: 'input-field',
-          className: 'md:col-4 col-12',
-          props: {
-            label: _('Icon'),
+          hooks: {
+            onInit: (field) => {
+              return field.formControl?.valueChanges.pipe(
+                tap((value) => {
+                  field.formControl?.setValue(value?.toLowerCase().replace(/ /g, '-'), { emitEvent: false });
+                  
+                }),
+              );
+            },
           },
         },
         {
@@ -73,8 +85,10 @@ export class CategoryFieldsService {
           key: 'image',
           type: 'file-field',
           props: {
-            label: _('Category Image'),
+            label: _('icon Image'),
             isUploading: this.isUploading,
+            accept: '.svg',
+            description: _('Allowed format is svg'),
             mode: editData ? 'update' : 'store',
           },
         },

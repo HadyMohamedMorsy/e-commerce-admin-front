@@ -59,7 +59,7 @@ export const CategoriesRoutes: Routes = [
     },
   },
   {
-    path: 'categories/:categoryId',
+    path: 'categories/:categoryId/:categoryType',
     loadComponent: () => import('./categories/categories.component'),
     title: 'sub categories',
     canActivate: [RoleGuard],

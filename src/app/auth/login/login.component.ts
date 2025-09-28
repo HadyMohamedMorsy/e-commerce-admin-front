@@ -23,7 +23,6 @@ import { finalize } from 'rxjs';
     TranslateModule,
     FormlyModule,
     ButtonModule,
-    RouterLink,
     FooterComponent,
     MessageModule,
     ReactiveFormsModule,

@@ -22,7 +22,7 @@ export default class CreateUpdateCategoryComponent extends FormPageComponent {
     this.#queryData = JSON.parse(this.filtersQuery() || '{}');
     const isCreate = this.filtersQuery() && this.#queryData.method !== 'create';
     isCreate ? this.setupForm(true) : this.setupForm(false);
-    this.fields.set(this.fieldsService.configureFields(this.filtersQuery()));
+    this.fields.set(this.fieldsService.configureFields({showCategoryType:!! this.#queryData.categoryId, ...this.#queryData}));
     this.navigateAfterSubmit.set('categories');
   }
 
@@ -31,6 +31,7 @@ export default class CreateUpdateCategoryComponent extends FormPageComponent {
       ? new CategoryModel(this.filterDataForUpdate(new CategoryModel()))
       : new CategoryModel({
           categoryId: this.#queryData.categoryId,
+          categoryType: this.#queryData.categoryType,
         } as CategoryModel);
 
     const storeEndpoint = this.#queryData.categoryId
